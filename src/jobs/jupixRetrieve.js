@@ -3,6 +3,8 @@
  * Replaces: app/Console/Commands/JupixRetrieve.php
  * Runs every 3 hours via cron
  */
+const https   = require('https');
+const http    = require('http');
 const sax     = require('sax');
 const Property = require('../models/Property');
 const Resource = require('../models/Resource');
