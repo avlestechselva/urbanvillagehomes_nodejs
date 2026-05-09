@@ -188,6 +188,10 @@ async function run() {
     try {
         const properties = await fetchAndParseXML(url);
         console.log(`[Jupix] Fetched ${properties.length} properties`);
+        if (properties[0]) {
+            console.log('[Jupix] Sample property keys:', Object.keys(properties[0]));
+            console.log('[Jupix] Sample images:', JSON.stringify(properties[0].images?.slice(0,1)));
+        }
 
         for (const propData of properties) {
             try {
