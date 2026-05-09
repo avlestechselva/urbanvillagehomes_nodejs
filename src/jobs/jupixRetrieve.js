@@ -132,10 +132,10 @@ function fetchAndParseXML(url) {
             else if (name === 'floorplans')   { inFloorplans = true; }
             else if (name === 'epcGraphs')    { inEpcGraphs = true; }
             else if (name === 'brochures')    { inBrochures = true; }
-            else if (name === 'image'     && inImages)     { currentMedia = {}; }
-            else if (name === 'floorplan' && inFloorplans) { currentMedia = {}; }
-            else if (name === 'epcGraph'  && inEpcGraphs)  { currentMedia = {}; }
-            else if (name === 'brochure'  && inBrochures)  { currentMedia = {}; }
+            else if (name === 'image'     && inImages)     { currentMedia = { modified: node.attributes.modified }; }
+            else if (name === 'floorplan' && inFloorplans) { currentMedia = { modified: node.attributes.modified }; }
+            else if (name === 'epcGraph'  && inEpcGraphs)  { currentMedia = { modified: node.attributes.modified }; }
+            else if (name === 'brochure'  && inBrochures)  { currentMedia = { modified: node.attributes.modified }; }
 
             currentTag = name;
         });
@@ -154,6 +154,8 @@ function fetchAndParseXML(url) {
             else if (name === 'epcGraphs')    { inEpcGraphs = false; }
             else if (name === 'brochures')    { inBrochures = false; }
             else if ((name === 'image' || name === 'floorplan' || name === 'epcGraph' || name === 'brochure') && currentMedia) {
+                // URL is the text content of the tag itself
+                if (currentText.trim()) currentMedia[name] = currentText.trim();
                 if (name === 'image')     currentProperty.images.push(currentMedia);
                 if (name === 'floorplan') currentProperty.floorplans.push(currentMedia);
                 if (name === 'epcGraph')  currentProperty.epcGraphs.push(currentMedia);
