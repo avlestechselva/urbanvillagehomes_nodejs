@@ -45,22 +45,24 @@ async function processMediaType(propertyID, items, type, urlKey, subDir, now) {
         // Upload to Cloudinary
         try {
             const folder = `urbanvillagehomes/properties/${propertyID}/${subDir}`;
+            console.log(`[Jupix] Uploading ${type} for ${propertyID}: ${fileUrl}`);
             const cloudinaryUrl = await uploadToCloudinary(fileUrl, folder);
             const publicId = `${folder}/${fileUrl.split('/').pop().split('?')[0].split('.')[0]}`;
+            console.log(`[Jupix] Uploaded to Cloudinary: ${cloudinaryUrl}`);
 
             await Resource.create({
                 propertyID,
-                modified:          item.modified,
-                url:               fileUrl,
+                modified:           item.modified,
+                url:                fileUrl,
                 type,
-                path:              cloudinaryUrl,
+                path:               cloudinaryUrl,
                 cloudinaryPublicId: publicId,
-                sort_order:        k + 1,
-                createdAt:         now,
-                updatedAt:         now,
+                sort_order:         k + 1,
+                createdAt:          now,
+                updatedAt:          now,
             });
         } catch (err) {
-            console.error(`[Jupix] Error uploading ${type} for ${propertyID}: ${err.message}`);
+            console.error(`[Jupix] Error uploading ${type} for ${propertyID}: ${err.message}`, err);
         }
     }
 }
