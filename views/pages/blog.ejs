@@ -1,0 +1,50 @@
+<%- include('../includes/header') %>
+<link rel="stylesheet" href="/css/new_aboutus.css">
+<link rel="stylesheet" href="/css/page_header.css">
+<link rel="stylesheet" href="/css/newhome.css">
+
+<section class="page-header">
+    <div class="container">
+        <h1>Blog</h1>
+    </div>
+</section>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-lg-8">
+            <% posts.forEach(function(post) { %>
+            <div class="blog-card mb-4">
+                <% if (post.image) { %><img src="<%= post.image %>" class="img-fluid mb-3" alt="<%= post.title %>"><% } %>
+                <h2><a href="/blog/view/<%= post.slug %>"><%= post.title %></a></h2>
+                <p class="text-muted"><%= post.createdAt ? new Date(post.createdAt).toDateString() : '' %></p>
+                <p><%= post.excerpt || '' %></p>
+                <a href="/blog/view/<%= post.slug %>" class="btn btn-primary">Read More</a>
+            </div>
+            <% }); %>
+
+            <!-- Pagination -->
+            <% if (pagination && pagination.lastPage > 1) { %>
+            <nav>
+                <ul class="pagination">
+                    <% for(var i = 1; i <= pagination.lastPage; i++) { %>
+                    <li class="page-item <%= pagination.page == i ? 'active' : '' %>">
+                        <a class="page-link" href="?page=<%= i %>"><%= i %></a>
+                    </li>
+                    <% } %>
+                </ul>
+            </nav>
+            <% } %>
+        </div>
+        <div class="col-lg-4">
+            <h4>Categories</h4>
+            <ul class="list-unstyled">
+                <% if (typeof categories !== 'undefined') { categories.forEach(function(cat) { %>
+                <li><a href="/blog/<%= cat.slug %>"><%= cat.name %></a></li>
+                <% }); } %>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/companies') %>
+<%- include('../includes/footer') %>

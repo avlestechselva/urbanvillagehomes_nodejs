@@ -1,0 +1,48 @@
+<%- include('../includes/header') %>
+
+<div aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/"><i class="fa fa-home"></i> Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page"><%= page_title %></li>
+    </ol>
+</div>
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="section_title_container">
+                <h1 class="main-title"><%= page_title %></h1>
+                <div class="header_title_border"></div>
+                <br><br>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-5">
+        <div class="col-md-9">
+            <% if (!magazines || !magazines.length) { %>
+            <h5>No Results Found</h5>
+            <% } else { %>
+            <div class="row">
+                <% magazines.forEach(function(mag) { %>
+                <div class="col-sm-12 col-md-4 mb-4">
+                    <a href="<%= mag.link %>" target="_blank" style="text-decoration:none;">
+                        <div class="card" style="background:#a82266!important;">
+                            <div class="card-body">
+                                <h4 class="card-title" style="color:#fff!important;">
+                                    <%= mag.issue ? new Date(mag.issue).toLocaleString('en-GB', { month: 'long' }) : '' %>
+                                </h4>
+                                <p class="card-subtitle mb-2" style="color:#fff!important;">
+                                    Issue | <%= mag.issue ? new Date(mag.issue).toLocaleString('en-GB', { month: 'short', year: 'numeric' }) : '' %>
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <% }); %>
+            </div>
+            <% } %>
+        </div>
+    </div>
+</div>
+
+<%- include('../includes/footer') %>

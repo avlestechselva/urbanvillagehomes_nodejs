@@ -1,0 +1,1046 @@
+
+body {
+    margin: 0;
+    font-family: Outfit;
+    background-color: #fff;
+}
+
+h1, h2, h3{
+    font-family: "DM Serif Display", serif;
+}
+h2, h3{
+    font-size: 35px !important;
+    font-weight: 400 !important;
+}
+
+.container {
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.dm-serif-display-regular {
+    font-family: "DM Serif Display", serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  .dm-serif-display-regular-italic {
+    font-family: "DM Serif Display", serif;
+    font-weight: 400;
+    font-style: italic;
+  }
+  
+
+  
+  .outfit-light {
+    font-family: "Outfit", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+  }
+
+.about-us {
+    text-align: center;
+    font:  64px/111px DM Serif Display;
+font-weight: normal;
+letter-spacing: 1.54px;
+color: #992785;
+opacity: 1;
+}
+
+.industry-experience {
+    text-align: center;
+    font: normal normal 300 37px Outfit;
+    letter-spacing: 0.89px;
+    color: #000000;
+    opacity: .7;
+}
+
+.no-wrap {
+    white-space: nowrap;
+}
+
+.our-story {
+    background: #190D2F 0% 0% no-repeat padding-box;
+    opacity: 1;
+    padding: 60px;
+}
+
+.our-story .body-component{
+    margin: 20px;
+}
+
+.our-story h2 {
+    text-align: center;
+    font: normal normal normal 35px DM Serif Display;
+    letter-spacing: 0.84px;
+    color: #AFB700;
+    opacity: 1;
+}
+
+/* .our-story h2::before {
+    content: '';
+    width: 50px;
+    height: 4px;
+    background-color: #b1b846;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: -10px;
+} */
+.our-story p b{
+    font-weight: bolder !important;
+}
+.our-story p {
+    /* text-align: center;
+    letter-spacing: 0px;
+    color: #FFFFFF;
+    opacity: 1; */
+    text-align: center;
+font: 18px Outfit;
+letter-spacing: 0px;
+color: #FFFFFF;
+}
+
+.our-story strong {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 1.2em;
+}
+
+.profile-card {
+    display: flex;
+    align-items: center;
+
+}
+
+/* .profile-card:nth-child(even) {
+    flex-direction: row-reverse;
+} */
+
+.profile-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 8px;
+    object-fit: cover;
+    margin-right: 20px;
+}
+
+.profile-card:nth-child(even) .profile-image {
+    margin-right: 0;
+    margin-left: 20px;
+}
+
+.profile-info {
+    width: 100%;
+    height: 255px !important;
+    height: auto;
+    background: #C6BEC433 0% 0% no-repeat padding-box;
+    border: 1px solid #E00069;
+    border-radius: 21px;
+    opacity: 1;
+}
+.border-change{
+    border: 1px solid #992785 !important;
+    padding: 66.56px 59.33px 67.56px 75.33px;
+}
+
+.profile-info h3 {
+    width: auto;
+    height: 47px;
+    /* UI Properties */
+    text-align: left;
+    font: normal normal normal 32px/47px DM Serif Display;
+    letter-spacing: 0.84px;
+    color: #E00069;
+    opacity: 1;
+    margin: 40px;
+}
+.profile-info .color-change{
+    color: #992785 !important;
+}
+
+.profile-info p {
+
+    /* height: 143px; */
+    /* UI Properties */
+    text-align: left;
+    font: normal normal 300 19px Outfit;
+    letter-spacing: 0px;
+    color: #000000;
+    opacity: 1;
+    margin: 40px;
+}
+
+.about-us{
+    padding-top: 60px;
+}
+.reviews-section {
+    /* max-width: 1200px; */
+    margin: 0 auto;
+    padding: 100px 20px !important;
+    text-align: center;
+}
+
+.reviews-section h2 {
+    /* width: 1031px; */
+    height: 47px;
+    /* UI Properties */
+    text-align: center;
+    /* font: normal normal normal 35px/47px DM Serif Display; */
+    letter-spacing: 0.84px;
+    color: #992785;
+    opacity: 1;
+}
+.reviews-container .ruk-icon-arrow-right-thin-1-01 {
+    font-size: 50px;
+    font-weight: 600;
+    content: "\e62b";
+    position: absolute;
+    bottom: -35%;
+    left: 48%;
+    color: #afb700;
+}
+.ruk-icon-arrow-right-thin-1-01 {
+    font-size: 50px;
+    content: "\e62b";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    color: #992785;
+    font-weight: 600 !important;
+}
+.card-carousel .owl-item{
+    width: 385px  !important;
+    height: 370px !important;
+    margin: 0px !important;
+}
+.card-carousel .ruk-icon-arrow-right-thin-1-01 {
+    font-size: 50px;
+    content: "\e62b";
+    position: absolute;
+    bottom: -12%;
+    left: 48%;
+    color: #992785;
+    font-weight: 600 !important;
+}
+.Why-sell-section{
+    margin-top: 4%;
+}
+.reviews-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.review-summary,
+.review-card {
+    flex: 1;
+    min-width: 250px;
+    background-color: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.review-summary {
+    background: linear-gradient(135deg, #d42d76, #834191);
+    /* Gradient background */
+    color: #fff;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.review-summary .review-rating {
+    flex: 1;
+}
+
+.review-summary .rating-title {
+    font-size: 1.5em;
+    margin: 0 0 10px;
+}
+
+.review-summary .stars {
+    font-size: 1.2em;
+    margin: 10px 0;
+}
+
+.review-summary .rating-info {
+    margin: 10px 0;
+}
+
+.review-summary .review-logo img {
+    max-width: 100px;
+}
+
+.review-card {
+    background-color: #fff;
+    color: #333;
+    text-align: left;
+}
+
+.review-card p {
+    margin: 0 0 10px;
+}
+
+.review-card strong {
+    color: #834191;
+    /* Dark pinkish color */
+}
+
+.review-card .stars {
+    color: #d42d76;
+    /* Pinkish color */
+}
+
+.property-market-section {
+    /* max-width: 1200px; */
+    margin: 0 auto;
+    padding: 80px 0px 50px 0px !important;
+    text-align: center;
+}
+.landlord-property-market{
+    padding: 0px !important;
+}
+.property-market-section h2 {
+    font-size: 2em;
+    color: #992785 !important;
+    /* Dark pinkish color */
+    margin-bottom: 20px;
+}
+
+.property-market-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.property-card {
+    flex: 1;
+    min-width: 250px;
+    background-color: #fff;
+    /* border: 1px solid #e5e5e5; */
+    border-radius: 8px;
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+    overflow: hidden;
+    text-align: left;
+}
+
+.property-card img {
+    width: 100%;
+    height: auto;
+}
+
+.property-card-content {
+    padding: 20px;
+}
+
+.property-card .category {
+    font-size: 0.9em;
+    color: #834191;
+    /* Dark pinkish color */
+    margin-bottom: 10px;
+    display: block;
+}
+
+.property-card .read-time {
+    color: #E00069 !important;
+    /* Pinkish color */
+}
+
+.property-card h3 {
+    font-size: 18px !important;
+    color: #000;
+    margin: 10px 0;
+}
+
+.property-card .author {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.property-card .author img {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.property-card .author span {
+    font-size: 1em;
+    color: #333;
+}
+
+.property-card .read-more:hover {
+    text-decoration: underline;
+}
+
+/* Profiles Section */
+.profiles-section {
+    display: flex;
+    justify-content: space-between;
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.profile-card img {
+    width: 317px;
+    height: 259px;
+    /* height: 315px; */
+    /* UI Properties */
+    background: transparent 0% 0% no-repeat padding-box;
+    opacity: 1;
+}
+
+.profile-content {
+    padding: 20px;
+}
+
+.profile-card h2 {
+    font-size: 1.5em;
+    color: #d42d76;
+}
+
+.profile-card p {
+    font-size: 1em;
+    color: #333;
+}
+
+/* Reviews Section */
+.reviews-section {
+    /* max-width: 1200px; */
+    margin: 0 auto;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.reviews-section h2 {
+    font-size: 35px;
+    color: #992785;
+    margin-bottom: 20px;
+}
+
+.reviews-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.review-card {
+    flex: 1;
+    min-width: 250px;
+    background-color: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    padding: 35px 20px;
+    text-align: left;
+}
+
+.review-card.main-review {
+    background: transparent linear-gradient(90deg, #E00069 24%, #992785 100%) 0% 0% no-repeat padding-box;;
+    color: #fff;
+}
+
+.review-content {
+    text-align: center;
+}
+
+/* .review-card h3,
+.review-card h4 {
+    font-size: 1.5em;
+} */
+.review-card h3{
+    text-align: center;
+font: 30px Outfit;
+font-weight: 500;
+letter-spacing: 0px;
+color: #FFFFFF;
+opacity: 1;
+}
+.review-card p {
+    font-size: 1em;
+}
+
+.review-card .stars {
+    color: #ffd700;
+}
+.average-reviews span{
+    text-align: center;
+font: 32px Outfit;
+font-weight: 300 !important;
+letter-spacing: 0px;
+color: #FFFFFF;
+opacity: .8;
+}
+
+/* Property Market Section */
+.property-market-section {
+    /* max-width: 1200px; */
+    margin: 0 auto;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.property-market-section h2 {
+    font-size: 2em;
+    color: #834191;
+    margin-bottom: 20px;
+}
+
+.property-market-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.property-card {
+    flex: 1;
+    min-width: 250px;
+    background-color: #fff;
+    /* border: 1px solid #e5e5e5; */
+    border-radius: 8px;
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+    overflow: hidden;
+    text-align: left;
+}
+
+.property-card img {
+    width: 100%;
+    height: auto;
+}
+
+.property-card-content {
+    padding: 20px;
+}
+
+.property-card .category {
+    font-size: 0.9em;
+    color: #000;
+    opacity: 0.7;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.property-card .read-time {
+    color: #d42d76;
+}
+
+.property-card h3 {
+    font-size: 1.5em;
+    color: #000;
+    margin: 10px 0;
+}
+
+.property-card .author {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.property-card .author img {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.property-card .author span {
+    font-size: 1em;
+    color: #000;
+    opacity: 0.7;
+}
+
+.property-card .read-more {
+    margin-left: auto;
+    font-size: 0.9em;
+    color: #e770a7;
+    text-decoration: none;
+}
+
+.property-card .read-more:hover {
+    text-decoration: underline;
+}
+
+/* new-changes */
+.top-header-area .phone-number{
+    background-color: transparent !important;
+}
+.der-ar.main-heaea .classy-navbar {
+    height: 58px !important;
+    padding: .5em 60px;
+}
+.is-sticky .main-header-area{
+    height: 118px !important;
+} 
+.BOOK-VALUATION{
+    background: #AFB700 0% 0% no-repeat padding-box !important;
+border-radius: 28px;
+opacity: 1;
+width: 240px;
+height: 20px !important;
+padding:18px 21px !important;
+text-align: center;
+font: normal normal bold 21px/58px Outfit !important;
+letter-spacing: 0px;
+color: #FFFFFF;
+opacity: 1;
+display: flex !important;
+align-items: center !important;
+justify-content: center !important;
+}
+
+.BOOK-VALUATION:hover{
+    background-color: #afb700c7 !important;
+    color: #fff !important;
+}
+.classynav ul li a {
+    padding: 0 12px;
+    display: block;
+    height: 48px;
+    font-size: 16px !important;
+    line-height: 47px;
+}
+.dark.classy-nav-container a:focus{
+    color: #000 !important;
+}
+.dark.classy-nav-container a:hover{
+    color: #fff !important;
+}
+.dark.classy-nav-container .cn-dropdown-item a:focus{
+    color: #000 !important;
+}
+.dark .classynav ul li .dropdown-3 {
+    width: 175px !important;
+    margin-top: 10px;
+}
+.dark .classynav ul li .dropdown {
+    width: 424px;
+    margin-top: 10px;
+}
+
+
+.profile-info{
+    padding: 53px 39px;
+}
+.profile-info h3{
+    margin: 0px;
+}
+.profile-info p{
+    margin: 0px;
+}
+.container-group{
+    padding: 80px 0px;
+}
+.group-photo{
+    height: 650px;
+}
+.reviews-container p{
+    text-align: left;
+font: normal normal 200 17px Outfit;
+font-weight: 200;
+letter-spacing: 0px;
+color: #000000;
+opacity: 0.67;
+}
+.review-card .Excellent-stars {
+    gap: 5px;
+    color: #a4bc1e !important;
+    font-size: 23px;
+}
+.review-card .stars {
+    color: #d42d76 !important;
+}
+.review-card h4{
+text-align: left;
+font-size: 19px;
+font-weight: 500;
+letter-spacing: 0px;
+color: #000000;
+opacity: 1;
+}
+/* .review-card:hover{
+    border: 1px solid #E00069;
+} */
+.our-story img {
+    position: absolute;
+    top: -37px;
+    left: 47%;
+    /* width: 62px; */
+    height: 80px;
+}
+.valuation .book-now{
+    display: inline-flex;
+    top: 6699px;
+left: 867px;
+width: 193px !important;
+height: 37px !important;
+text-align: center;
+font: normal normal 600 19px Outfit;
+background: #AFB700;
+color: #fff !important;
+border-radius: 28px;
+opacity: .8;
+}
+.valuation .book-now:hover{
+    background-color: #afb700c7;
+}
+
+.valuation{
+    background-image: url(../images/about-us/devider_imagers.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+}
+/* .our-community{
+    margin-top: 5% !important;
+} */
+.com-iframe {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    padding: 3px;
+    height: 591px;
+}
+.valuation::before{
+    content: "";
+    background: rgba(0, 0, 0, 50%);
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.valuation p {
+    text-align: center;
+    letter-spacing: 0px;
+    color: #FFFFFF;
+    opacity: 1;
+    padding: 0 30%;
+}
+.ruk-icon-percentage-star--76:before {
+    content: "\e917";
+    background: #fff;
+    color: #9a2386;
+    border-radius: 10px;
+    font-size: 28px;
+}
+.ruk-icon-percentage-star--77:before {
+    content: "\e918";
+    font-size: 28px;
+}
+/* owl-carousel */
+/* .owl-nav {
+    display: none;
+} */
+
+.custom-nav {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.custom-prev, .custom-next {
+    /* background-color: #333;
+    color: #fff; */
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+.ruk-icon-arrow-left-thin-1-01 {
+    font-size: 50px;
+    content: "\e62b";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    color: #992785;
+    font-weight: 600 !important;
+}
+
+/* .custom-prev:hover, .custom-next:hover {
+    background-color: #555;
+} */
+.custom-prev{
+    position: absolute;
+    left: -124px;
+    top: -58px;
+}
+.custom-prev img{
+    height: 54px;
+}
+.custom-next img{
+    height: 54px;
+}
+.green-chevron img{
+    height: 54px;
+}
+.custom-next{
+    position: absolute;
+    right: -124px;
+    top: -54px;
+}
+.footer_about .social ul li {
+    width: 50px !important;
+    height: 50px !important;
+    background-color: #fff !important;
+}
+.footer_about .instagram-icon .fa-instagram:before {
+    content: "\f16d";
+    color: #E00069;
+    font-size: 34px;
+}
+/* .twitter-icon .fa-twitter:before {
+    content: "\f099";
+    color: #9a2386;
+} */
+ .footer_about .facebook-icon .fa-facebook:before {
+    content: "\f09a";
+    color: #E00069;
+    font-size: 34px;
+}
+.social ul li i {
+    display: block;
+    font-size: 13px !important;
+    padding-top: 8px !important;
+}
+.footer_about .social ul li{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 2px;
+}
+.footer_about .social ul li a{
+    line-height: 1;
+}
+.footer_nav ul li a{
+    font-size: 14px !important;
+    opacity: .7 !important;
+}
+.review-star img{
+    height: 30px;
+}
+.landlord-property-market {
+    margin-bottom: 5% !important;
+}
+@media screen and (max-width: 768px) {
+    h2, h3{
+        font-size: 24px !important;
+    }
+    .classynav ul li a {
+font-size: 12px !important;
+    }
+    .BOOK-VALUATION{
+        width: 180px;
+        height: 30px !important;
+        line-height: 30px !important;
+        margin-top: 10px !important;
+        margin-left: 13px !important;
+    }
+    .our-story {
+padding: 60px 20px !important;
+    }
+    .top-header-area .phone-number {
+        line-height: 1;
+        background-color: #a5036a !important;
+        height: 45px;
+        margin-bottom: 0;
+    }
+    .about-us{
+        font-size: 36px;
+    }
+    .industry-experience {
+font-size: 24px;
+    }
+    #myVideo{
+        height: 230px !important;
+    }
+    .our-story p{
+        font-size: 14px;
+    }
+    .reviews-section h2{
+        font-size: 24px;
+    }
+    .reviews-section {
+
+    padding: 50px 20px !important;
+    
+}
+.valuation p{
+    padding: 0%;
+}
+.property-market-section{
+    padding: 50px 20px !important;
+}
+.property-market-section h2{
+    font-size: 24px;
+    margin-bottom: 0px;
+}
+.property-card h3{
+    font-size: 18px;
+}
+.profile-info h3, .color-change{
+    font-size: 24px !important;
+    margin-bottom: 0px !important;
+}
+    .profile-info{
+        padding: 28px 25px;
+    }
+    .profile-card{
+        flex-direction: column;
+        gap: 20px;
+    }
+    .profile-card img {
+        width: 100%;
+        height: auto;
+        margin-right: 0px;
+    }
+    .profile-card:nth-child(even) .profile-image {
+        margin-right: 0;
+        margin-left: 0;
+    }
+    .profile-info{
+        width: 100%;
+    }
+    .profile-info, .profile-info p{
+        height: auto !important;
+    }
+    .group-photo{
+        height: auto;
+    }
+    .reviews-section h2{
+        height: auto;
+        margin-bottom: 12px;
+    }
+    .our-story img {
+        position: absolute;
+        top: -28px;
+        left: 43%;
+        height: 54px;
+    }
+    .our-story h2 {
+        font-size: 24px;
+    };
+.valuation .book-now {
+    display: inline-flex;
+    top: 6699px;
+    left: 867px;
+    width: 170px !important;
+    height: 28px !important;
+    text-align: center;
+    font: normal normal 600 15px Outfit;
+    background: #AFB700;
+    color: #fff !important;
+    border-radius: 28px;
+    opacity: .8;
+}
+    .valuation p {
+        padding: 0 4%;
+    }
+    .profile-card p{
+        font-size: 14px;
+    }
+    .our-story .body-component {
+        margin: -8px;
+    }
+    .valuation{
+        background-attachment: local;
+    }
+    .container-group{
+        padding: 20px;
+    }
+    .custom-prev{
+        position: absolute;
+        left: -64px;
+        top: -58px;
+    }
+    .custom-next{
+        position: absolute;
+        left: -64px;
+        top: -58px;
+    }
+    .footer_logo img{
+        height: 50px;
+    }
+    .social {
+        margin-left: 0% !important;
+    }
+    .social ul li{
+        margin-top: 0px !important;
+    }
+    .reviews-container .ruk-icon-arrow-right-thin-1-01 {
+        font-size: 33px;
+        content: "\e62b";
+        position: absolute;
+        bottom: -5%;
+        left: 41%
+    
+    }
+    .card-carousel .ruk-icon-arrow-right-thin-1-01 {
+        left: 42%;
+    }
+    .card-carousel .owl-item {
+        width: 369.5px !important;
+        height: 370px !important;
+        margin: 0px !important;
+    }
+    .our-community {
+        margin-top: 0% !important;
+    }
+    .footer_links ul li a{
+        font-size: 14px !important;
+    }
+    
+.foot_title_new {
+    font-size: 24px !important;
+}
+    .footer_links ul {
+        margin-top: 20px !important;
+    }
+    .footer_bar_content {
+        height: auto !important;
+    }
+    .footer_col{
+        margin-bottom: 0px !important;
+    }
+    .footer_content {
+        padding-top: 35px !important;
+        padding-bottom: 35px !important;
+    }
+    .review-card h3{
+        font-size: 24px;
+    }
+    .review-card .Excellent-stars {
+        font-size: 17px !important;
+        gap: 3px;
+    }
+    .average-reviews span {
+font-size: 22px !important;
+    }
+    .ruk-icon-percentage-star--76:before{
+        font-size: 18px;
+    }
+    .ruk-icon-percentage-star--77:before {
+        font-size: 18px;
+    }
+    .footer_nav ul li a{
+        font-size: 14px;
+    }
+    .footer_info {
+        margin-top: 12px;
+    }
+    .Why-sell-section {
+        margin-top: 2%;
+    }
+        
+}

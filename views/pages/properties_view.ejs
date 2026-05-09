@@ -1,0 +1,256 @@
+<%- include('../includes/header') %>
+<link rel="stylesheet" href="/css/new_aboutus.css">
+<link rel="stylesheet" href="/css/page_header.css">
+<link rel="stylesheet" href="/css/newhome.css">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --primary-color: #992785; --secondary-color: #E00069; --accent-color: #AFB700;
+    --primary-gradient: linear-gradient(135deg,var(--primary-color) 0%,var(--secondary-color) 100%);
+    --accent-gradient: linear-gradient(135deg,var(--accent-color) 0%,#C4D442 100%);
+    --glass-bg: rgba(255,255,255,.95); --glass-border: rgba(153,39,133,.2);
+    --shadow-sm: 0 2px 8px rgba(0,0,0,.1); --shadow-md: 0 8px 32px rgba(0,0,0,.1);
+    --shadow-hover: 0 12px 40px rgba(0,0,0,.15); --border-radius: 12px; --border-radius-sm: 8px;
+}
+.listing { background:var(--glass-bg); border:1px solid rgba(255,255,255,.2); border-radius:var(--border-radius); overflow:hidden; transition:all .3s; box-shadow:var(--shadow-sm); position:relative; }
+.listing:hover { transform:translateY(-8px); box-shadow:var(--shadow-hover); border-color:rgba(153,39,133,.3); }
+.listing_image { position:relative; overflow:hidden; height:250px; }
+.listing_image img { width:100%; height:100%; object-fit:cover; transition:transform .6s; }
+.listing:hover .listing_image img { transform:scale(1.08); }
+.listing_price { position:absolute; top:16px; left:50%; transform:translateX(-50%); background:var(--primary-gradient); color:#fff; padding:8px 16px; border-radius:20px; font-weight:600; font-size:14px; z-index:10; white-space:nowrap; }
+.favorite-btn { position:absolute; top:16px; right:16px; width:40px; height:40px; background:rgba(255,255,255,.9); border:none; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:10; font-size:18px; transition:all .2s; }
+.favorite-btn:hover { background:var(--secondary-color); color:#fff; }
+.favorite-btn.active { background:var(--secondary-color); color:#fff; }
+.listing_content { background:var(--glass-bg); }
+.listing_location { padding:24px 20px 20px!important; }
+.sold-cards { background:rgba(255,255,255,.9); border-radius:var(--border-radius-sm); padding:20px; border:1px solid rgba(153,39,133,.1); }
+.sold-cards p { font-size:16px; font-weight:500; color:#374151; margin-bottom:16px; }
+.sold-cards b { color:var(--primary-color); font-size:20px; font-weight:700; display:block; margin-bottom:8px; }
+.property-features-container { display:flex; justify-content:space-between; align-items:center; margin-top:12px; }
+.property-type { font-size:14px; color:#64748b; font-weight:500; }
+.property-features { display:flex; gap:12px; align-items:center; }
+.feature-item { display:flex; align-items:center; gap:4px; font-size:14px; color:#64748b; padding:4px 8px; background:rgba(153,39,133,.1); border-radius:12px; }
+.view-details-btn { position:absolute; bottom:20px; left:20px; right:20px; background:var(--primary-gradient); color:#fff; padding:12px 20px; border-radius:var(--border-radius-sm); text-align:center; text-decoration:none; font-weight:600; font-size:14px; opacity:0; transform:translateY(20px); transition:all .3s; z-index:10; }
+.listing:hover .view-details-btn { opacity:1; transform:translateY(0); }
+.view-details-btn:hover { color:#fff; text-decoration:none; }
+.results-info { font-weight:500; color:#64748b; font-size:16px; margin-bottom:24px; padding:12px 0; border-bottom:1px solid rgba(153,39,133,.1); }
+.no-results { text-align:center; padding:60px 20px; background:rgba(255,255,255,.9); border-radius:var(--border-radius); border:1px solid rgba(153,39,133,.1); margin:40px 0; }
+.no-results p { color:#64748b; font-size:18px; margin-bottom:16px; }
+.no-results a { color:var(--primary-color); text-decoration:none; font-weight:600; }
+/* search bar */
+.search-bar .navbar { background:rgba(198,190,196,.1); border:1px solid var(--glass-border); border-radius:var(--border-radius); box-shadow:var(--shadow-md); }
+.search-bar .all-properties { text-decoration:none; min-width:200px; height:48px; background:var(--primary-gradient); border-radius:24px; display:flex; align-items:center; justify-content:center; transition:all .3s; }
+.search-bar .all-properties a { text-decoration:none; font-size:16px; font-weight:600; color:#fff; }
+.search-bar .all-properties:hover { transform:translateY(-2px); box-shadow:var(--shadow-hover); }
+.search-bar form { gap:16px; margin:25px; padding:5px 0; }
+.search-bar .enter-location { margin-top:-40px; width:100%; }
+.search-bar .enter-location label { text-align:left; font:normal normal 600 20px/1.4 'Outfit',sans-serif; color:var(--primary-color); margin-bottom:8px; display:block; }
+.search-bar .form-control { background:var(--glass-bg); border:2px solid var(--glass-border); border-radius:var(--border-radius-sm); height:56px; font-size:16px; padding:12px 16px; }
+.search-bar .form-control:focus { border-color:var(--primary-color); box-shadow:0 0 0 3px rgba(153,39,133,.1); }
+.search-bar button[type=submit] { min-width:200px; height:56px; background:var(--accent-gradient); border:none; border-radius:var(--border-radius-sm); font-size:18px; font-weight:600; color:#fff; }
+.search-bar .form-group { min-width:140px; height:56px; background:var(--glass-bg); border:2px solid var(--glass-border); border-radius:var(--border-radius-sm); display:flex; justify-content:center; align-items:center; margin-bottom:0; }
+.search-bar .form-group select { width:100%; border:0; background:transparent; padding:12px; font-size:16px; }
+@media(max-width:768px) { .listing:hover { transform:translateY(-4px); } .listing_image { height:220px; } }
+</style>
+
+<div aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/"><i class="fa fa-home"></i> Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page"><%= typeof urlType !== 'undefined' ? urlType.charAt(0).toUpperCase() + urlType.slice(1) : 'Properties' %></li>
+    </ol>
+</div>
+
+<div class="page-title-div">Let us help you find your dream property</div>
+<div class="page-subtitle-div">Discover why others choose to partner with us</div>
+
+<div class="container search-bar mt-3 mt-lg-5">
+    <nav class="navbar navbar-light p-0">
+        <div class="container-fluid p-0">
+            <div class="Properties-for-sale d-flex flex-column flex-md-row justify-content-center align-items-center w-100">
+                <div class="all-properties d-flex justify-content-center align-items-center mb-2 mb-md-0">
+                    <a href="/property/buyers">Properties for sale</a>
+                </div>
+                <div class="all-properties d-flex justify-content-center align-items-center mb-2 mb-md-0">
+                    <a href="/property/tenants">Properties for rent</a>
+                </div>
+                <div class="all-properties d-flex justify-content-center align-items-center">
+                    <a href="javascript:void(0)" onclick="document.getElementById('valuation_modal').style.display='flex'">Book a valuation</a>
+                </div>
+            </div>
+
+            <!-- Valuation Modal -->
+            <div id="valuation_modal" onclick="if(event.target===this)this.style.display='none'"
+                 style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.6);z-index:99999;justify-content:center;align-items:center;">
+                <div style="background:#fff;width:760px;max-width:95vw;height:85vh;border-radius:12px;overflow:hidden;position:relative;">
+                    <button onclick="document.getElementById('valuation_modal').style.display='none'"
+                            style="position:absolute;top:10px;right:12px;width:32px;height:32px;background:#f1f1f1;border:none;border-radius:50%;font-size:18px;cursor:pointer;z-index:10;">
+                        &times;
+                    </button>
+                    <iframe src="https://form.fillout.com/t/aQEigFYmCzus" style="width:100%;height:100%;border:none;" title="Book a Valuation"></iframe>
+                </div>
+            </div>
+
+            <form class="w-100 d-flex flex-column pt-4" id="searchForm" method="GET" action="">
+                <div class="enter-location">
+                    <label for="searchInput" class="form-label">Enter a location</label>
+                    <input id="searchInput" class="form-control me-2 mb-3" type="search"
+                           placeholder="Search for street, postcode or area" name="search"
+                           value="<%= typeof query !== 'undefined' && query.search ? query.search : '' %>">
+                </div>
+                <div class="d-flex flex-column flex-md-row" style="gap:10px;">
+                    <div class="d-flex mb-2 mb-md-0" style="gap:10px;">
+                        <div class="form-group d-flex align-items-center justify-content-evenly mb-0" style="padding:0 16px;">
+                            <input type="checkbox" id="html" name="rent" value="1"
+                                   <%= typeof query !== 'undefined' && query.rent == 1 ? 'checked' : '' %>>
+                            <label for="html" class="d-flex align-items-center mb-0 ms-2">Rent</label>
+                        </div>
+                        <div class="form-group d-flex align-items-center justify-content-evenly" style="padding:0 16px;">
+                            <input type="checkbox" id="buy" name="buy" value="1"
+                                   <%= typeof query !== 'undefined' && query.buy == 1 ? 'checked' : '' %>>
+                            <label for="buy" class="d-flex align-items-center mb-0 ms-2">Buy</label>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-column flex-md-row" style="gap:10px;">
+                        <div class="form-group d-flex align-items-center p-2 mb-2 mb-md-0 w-100">
+                            <select class="mb-0 h-100 border-0 p-0 w-100" name="min_amount">
+                                <option value="" <%= typeof query !== 'undefined' && !query.min_amount ? 'selected' : '' %>>No Min</option>
+                                <option value="100000" <%= typeof query !== 'undefined' && query.min_amount == '100000' ? 'selected' : '' %>>£100,000</option>
+                                <option value="250000" <%= typeof query !== 'undefined' && query.min_amount == '250000' ? 'selected' : '' %>>£250,000</option>
+                                <option value="500000" <%= typeof query !== 'undefined' && query.min_amount == '500000' ? 'selected' : '' %>>£500,000</option>
+                                <option value="750000" <%= typeof query !== 'undefined' && query.min_amount == '750000' ? 'selected' : '' %>>£750,000</option>
+                                <option value="1000000" <%= typeof query !== 'undefined' && query.min_amount == '1000000' ? 'selected' : '' %>>£1,000,000</option>
+                                <option value="2500000" <%= typeof query !== 'undefined' && query.min_amount == '2500000' ? 'selected' : '' %>>£2,500,000</option>
+                            </select>
+                        </div>
+                        <div class="form-group d-flex align-items-center p-2 mb-2 mb-md-0 w-100">
+                            <select class="mb-0 h-100 border-0 p-0 w-100" name="max_amount">
+                                <option value="" <%= typeof query !== 'undefined' && !query.max_amount ? 'selected' : '' %>>No Max</option>
+                                <option value="250000" <%= typeof query !== 'undefined' && query.max_amount == '250000' ? 'selected' : '' %>>£250,000</option>
+                                <option value="500000" <%= typeof query !== 'undefined' && query.max_amount == '500000' ? 'selected' : '' %>>£500,000</option>
+                                <option value="750000" <%= typeof query !== 'undefined' && query.max_amount == '750000' ? 'selected' : '' %>>£750,000</option>
+                                <option value="1000000" <%= typeof query !== 'undefined' && query.max_amount == '1000000' ? 'selected' : '' %>>£1,000,000</option>
+                                <option value="2500000" <%= typeof query !== 'undefined' && query.max_amount == '2500000' ? 'selected' : '' %>>£2,500,000</option>
+                                <option value="10000000" <%= typeof query !== 'undefined' && query.max_amount == '10000000' ? 'selected' : '' %>>£10,000,000</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-column flex-md-row" style="gap:10px;">
+                        <div class="form-group d-flex align-items-center p-2 mb-2 mb-md-0 w-100">
+                            <select class="mb-0 h-100 border-0 p-0 w-100" name="availability">
+                                <option value="">Availability</option>
+                                <option value="Let" <%= typeof query !== 'undefined' && query.availability == 'Let' ? 'selected' : '' %>>Let</option>
+                                <option value="To Let" <%= typeof query !== 'undefined' && query.availability == 'To Let' ? 'selected' : '' %>>To Let</option>
+                                <option value="Let Agreed" <%= typeof query !== 'undefined' && query.availability == 'Let Agreed' ? 'selected' : '' %>>Let Agreed</option>
+                                <option value="For Sale" <%= typeof query !== 'undefined' && query.availability == 'For Sale' ? 'selected' : '' %>>For Sale</option>
+                                <option value="Sold STC" <%= typeof query !== 'undefined' && query.availability == 'Sold STC' ? 'selected' : '' %>>Sold STC</option>
+                                <option value="Sold" <%= typeof query !== 'undefined' && query.availability == 'Sold' ? 'selected' : '' %>>Sold</option>
+                            </select>
+                        </div>
+                        <button class="btn text-white d-flex align-items-center justify-content-center mb-2 mb-md-0" type="submit" style="min-width:160px;height:56px;background:linear-gradient(135deg,#AFB700,#C4D442);border:none;border-radius:8px;font-size:16px;font-weight:600;">
+                            &#128269; Search
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </nav>
+</div>
+
+<div class="featured">
+    <div class="container">
+        <% if (properties && properties.length) { %>
+        <div class="row">
+            <div class="col-12 mb-3">
+                <div class="results-info">
+                    Showing <%= properties.length %> records
+                    <% if (pagination) { %> out of <%= pagination.total %><% } %>
+                </div>
+            </div>
+        </div>
+        <div class="row featured_row move_up_top-2">
+            <% properties.forEach(function(property) { %>
+            <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                <div class="listing h-100" data-property-id="<%= property.propertyID %>">
+                    <div class="listing_image">
+                        <a href="/property/<%= property.propertyID %>/<%= property.slug %>">
+                            <img src="<%= property.image %>" alt="Urban Village Home - <%= property.displayAddress %>"
+                                 loading="lazy" onerror="this.src='/images/placeholder.svg'">
+                        </a>
+                        <div class="listing_price"><%= property.availability %></div>
+                        <button class="favorite-btn" onclick="toggleFavorite(this,'<%= property.propertyID %>')" aria-label="Favourite">&#9825;</button>
+                    </div>
+                    <div class="listing_content">
+                        <div class="prop_location listing_location">
+                            <div class="sold-cards">
+                                <p>
+                                    <b>£ <% if (property.rent && property.rent > 0) { %><%= Number(property.rent).toLocaleString() %>/<%= property.rentFrequency || 'pcm' %><% } else { %><%= Number(property.price || 0).toLocaleString() %><% } %></b>
+                                    <%= property.displayAddress ? property.displayAddress.substring(0, 25) + (property.displayAddress.length > 25 ? '...' : '') : '' %>
+                                </p>
+                                <div class="property-features-container">
+                                    <div class="property-type"><%= property.propertyStyle || '' %></div>
+                                    <div class="property-features">
+                                        <% if (property.propertyBedrooms) { %>
+                                        <div class="feature-item"><%= property.propertyBedrooms %> <i class="fa fa-bed"></i></div>
+                                        <% } %>
+                                        <% if (property.propertyBathrooms) { %>
+                                        <div class="feature-item"><%= property.propertyBathrooms %> <i class="fa fa-bath"></i></div>
+                                        <% } %>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="/property/<%= property.propertyID %>/<%= property.slug %>" class="view-details-btn">View Details</a>
+                </div>
+            </div>
+            <% }); %>
+        </div>
+
+        <% if (pagination && pagination.lastPage > 1) { %>
+        <div class="d-flex justify-content-center mt-4">
+            <ul class="pagination">
+                <% for (var i = 1; i <= pagination.lastPage; i++) { %>
+                <li class="page-item <%= pagination.page == i ? 'active' : '' %>">
+                    <a class="page-link" href="?page=<%= i %><%
+                        if (typeof query !== 'undefined') {
+                            Object.keys(query).forEach(function(k) { if (k !== 'page') { %>&<%= k %>=<%= query[k] %><% } });
+                        }
+                    %>"><%= i %></a>
+                </li>
+                <% } %>
+            </ul>
+        </div>
+        <% } %>
+
+        <% } else { %>
+        <div class="no-results">
+            <p>There are no properties listed for your search criteria</p>
+            <h4>Please click <a href="/property/<%= typeof urlType !== 'undefined' ? urlType : 'all' %>">here</a> to see all our properties or refine your search.</h4>
+        </div>
+        <% } %>
+    </div>
+</div>
+
+<script>
+function toggleFavorite(btn, propertyId) {
+    btn.classList.toggle('active');
+    btn.innerHTML = btn.classList.contains('active') ? '&#9829;' : '&#9825;';
+    let favs = JSON.parse(localStorage.getItem('propertyFavorites') || '[]');
+    if (btn.classList.contains('active')) { if (!favs.includes(propertyId)) favs.push(propertyId); }
+    else { favs = favs.filter(id => id !== propertyId); }
+    localStorage.setItem('propertyFavorites', JSON.stringify(favs));
+}
+document.addEventListener('DOMContentLoaded', function() {
+    const favs = JSON.parse(localStorage.getItem('propertyFavorites') || '[]');
+    document.querySelectorAll('.favorite-btn').forEach(btn => {
+        const id = btn.closest('.listing').dataset.propertyId;
+        if (favs.includes(id)) { btn.classList.add('active'); btn.innerHTML = '&#9829;'; }
+    });
+    document.getElementById('searchInput') && document.getElementById('searchForm').addEventListener('submit', function() {
+        document.getElementById('searchInput').value = document.getElementById('searchInput').value.replace(/\s+/g, '+');
+    });
+});
+</script>
+
+<%- include('../includes/footer') %>

@@ -1,0 +1,104 @@
+<%- include('../includes/header') %>
+<style type="text/css">label { float:left; }</style>
+
+<div aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/"><i class="fa fa-home"></i> Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Valuation Request</li>
+    </ol>
+</div>
+
+<div class="contact">
+    <div class="container">
+        <div class="row move_up_top-2">
+            <div class="col-12">
+                <div class="section_title_container">
+                    <br><br>
+                    <h1 class="main-title">Valuation Request</h1>
+                    <p class="empty-pr">&nbsp;</p>
+                    <div class="header_title_border"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row contact_row">
+            <div class="col-lg-12 contact_col">
+                <div class="contact_form_container">
+                    <form action="/send-valuation-request" method="POST" class="contact_form text-center" id="contact_form">
+                        <div class="row">
+                            <div class="col-lg-6 contact_col">
+                                <div class="contact_form_container">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <label>Name</label>
+                                            <input type="text" class="contact_input" name="name" placeholder="Full Name" required>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <label>Email</label>
+                                            <input type="email" class="contact_input" name="email" placeholder="Your e-mail" required>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <label>Phone</label>
+                                            <input type="text" class="contact_input" name="phone" placeholder="Phone number" required>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <label>Address</label>
+                                            <input type="text" class="contact_input" name="address" placeholder="Address">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 contact_col">
+                                <div class="contact_form_container">
+                                    <% if (typeof success !== 'undefined' && success && success.length) { %>
+                                    <div class="alert alert-success">
+                                        <p><i class="fa fa-check-circle"></i> <strong>Success!</strong> <%= success[0] %></p>
+                                    </div>
+                                    <% } %>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <label>Requested Preferred Times</label>
+                                            <input type="text" class="contact_input" name="preferr_date" placeholder="Preferred date/time">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <label>Message</label>
+                                            <textarea class="contact_textarea contact_input" name="body_text" placeholder="Message"></textarea>
+                                            <div style="float:left!important;">
+                                                <div class="col-lg-12">
+                                                    <label class="chk-container">By submitting this form you agree to the terms of our <a href="/privacy-policy">Privacy Policy</a>
+                                                        <input type="checkbox" id="checkme" name="privacy" value="terms">
+                                                        <span class="checkmark"></span>
+                                                    </label>
+                                                    <label class="chk-container">I would like to receive new events, invites and newsletters by email, from Urban Village Homes.
+                                                        <input type="checkbox" name="marketing" value="marketing">
+                                                        <span class="checkmark"></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="contact_form_container pull-right">
+                                                <button disabled id="sendNewSms" class="btn btn-primary contact_button-2">Submit</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById('checkme').addEventListener('change', function() {
+    document.getElementById('sendNewSms').disabled = !this.checked;
+});
+</script>
+
+<%- include('../includes/footer') %>

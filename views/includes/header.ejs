@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Urban Village Homes | <%= typeof page_title !== 'undefined' ? page_title : '' %></title>
+    <meta charset="utf-8">
+    <meta name="keywords"    content="<%= typeof meta_keywords    !== 'undefined' ? meta_keywords    : 'Urban Village Homes Estate Agents and Letting Agents in Camberwell, Brixton, SE5' %>">
+    <meta name="description" content="<%= typeof meta_description !== 'undefined' ? meta_description : 'Urban Village Homes Estate Agents and Letting Agents in Camberwell, Brixton, SE5' %>">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="canonical" href="https://www.urbanvillagehomes.com" />
+    <link href="/favicon.png" rel="icon" type="image/png" />
+    <link rel="stylesheet" type="text/css" href="/plugins/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/plugins/OwlCarousel2-2.3.4/owl.carousel.css">
+    <link rel="stylesheet" type="text/css" href="/plugins/OwlCarousel2-2.3.4/owl.theme.default.css">
+    <link rel="stylesheet" type="text/css" href="/css/main_styles.css?t=3">
+    <link rel="stylesheet" href="/css/extra/style.css">
+    <link rel="stylesheet" href="/css/jquery.cookiebar.css">
+    <link rel="stylesheet" type="text/css" href="/css/customs.css?t=5">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300&display=swap" rel="stylesheet">
+    <% if (typeof css_files !== 'undefined') { css_files.forEach(function(f) { %>
+        <link rel="stylesheet" type="text/css" href="/css/<%= f %>.css">
+    <% }); } %>
+    <link rel="stylesheet" type="text/css" href="/css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+</head>
+<body>
+<style>#stickyHeader-sticky-wrapper{ z-index:10 !important; }</style>
+<div class="main-header-area" id="stickyHeader">
+    <div class="classy-nav-container breakpoint-off">
+        <nav class="classy-navbar justify-content-between mt-3" id="southNav">
+            <a class="nav-brand" href="/"><img src="/images/logo.jpg" alt="Logo" style="width:200px;height:auto;"></a>
+            <div class="classy-navbar-toggler">
+                <span class="navbarToggler"><span></span><span></span><span></span></span>
+            </div>
+            <div class="classy-menu">
+                <div class="classycloseIcon"><div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div></div>
+                <div class="classynav">
+                    <ul>
+                        <li><a href="#" class="text-black">SALES <svg xmlns="http://www.w3.org/2000/svg" fill="black" viewBox="0 0 320 512" style="width:35px;height:20px"><path d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z"/></svg></a>
+                            <ul class="dropdown dropdown-3">
+                                <li><a href="/property/buyers">Buyers</a></li>
+                                <li><a href="/sellers">Sellers</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#" class="text-black">LETTINGS <svg xmlns="http://www.w3.org/2000/svg" fill="black" viewBox="0 0 320 512" style="width:35px;height:20px"><path d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z"/></svg></a>
+                            <ul class="dropdown dropdown-3">
+                                <li><a href="/property/tenants">Tenants</a></li>
+                                <li><a href="/landlords">Landlords</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="/new-aboutus">About Us</a></li>
+                        <li><a href="/blog" class="text-black">BLOG</a></li>
+                        <li><a href="/contact" class="text-black">CONTACT</a></li>
+                        <li><a href="/book-a-valuation" class="BOOK-VALUATION text-white ml-4">Book a valuation</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>

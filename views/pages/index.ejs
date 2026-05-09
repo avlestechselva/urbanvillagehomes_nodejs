@@ -1,0 +1,1145 @@
+<%- include('../includes/header') %>
+<link rel="stylesheet" href="/css/new_aboutus.css">
+<link rel="stylesheet" href="/css/page_header.css">
+<link rel="stylesheet" href="/css/newhome.css">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
+
+<style>
+    :root {
+        --primary-color: #992785;
+        --secondary-color: #E00069;
+        --accent-color: #AFB700;
+        --success-color: #C4D442;
+        --primary-gradient: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+        --accent-gradient: linear-gradient(135deg, var(--accent-color) 0%, var(--success-color) 100%);
+        --glass-bg: rgba(255, 255, 255, 0.95);
+        --glass-border: rgba(153, 39, 133, 0.2);
+        --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
+        --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.1);
+        --shadow-hover: 0 12px 40px rgba(0, 0, 0, 0.15);
+        --border-radius: 12px;
+        --border-radius-sm: 8px;
+        --transition-smooth: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        --transition-fast: all 0.2s ease;
+    }
+
+    .form-group select {
+        font-size: 18px;
+        color: #64748b;
+        background: var(--glass-bg);
+        backdrop-filter: blur(10px);
+        border: 2px solid transparent;
+        border-radius: var(--border-radius-sm);
+        transition: var(--transition-fast);
+        padding: 12px;
+    }
+
+    .form-group select:focus,
+    .form-group select:focus-visible {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(153, 39, 133, 0.1);
+        transform: translateY(-2px);
+    }
+
+    .search-bar .navbar {
+        background: rgba(198, 190, 196, 0.1);
+        backdrop-filter: blur(20px);
+        border: 1px solid var(--glass-border);
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow-md);
+        transition: var(--transition-fast);
+    }
+
+    .search-bar .navbar:hover {
+        box-shadow: var(--shadow-hover);
+    }
+
+    .search-bar .Properties-for-sale {
+        margin-top: -25px;
+        gap: 20px;
+    }
+
+    .search-bar .all-properties {
+        text-decoration: none;
+        min-width: 200px;
+        height: 48px;
+        background: var(--primary-gradient);
+        border-radius: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: var(--transition-smooth);
+        box-shadow: var(--shadow-sm);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .search-bar .all-properties::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+        transition: left 0.5s ease;
+    }
+
+    .search-bar .all-properties:hover::before { left: 100%; }
+
+    .search-bar .all-properties:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-hover);
+    }
+
+    .search-bar .all-properties a {
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: 600;
+        color: #FFFFFF;
+        position: relative;
+        z-index: 2;
+    }
+
+    .search-bar form {
+        gap: 16px;
+        margin: 25px;
+        padding: 5px 0;
+    }
+
+    .search-bar .enter-location {
+        margin-top: -40px;
+        width: 100%;
+    }
+
+    .search-bar .enter-location label {
+        text-align: left;
+        font: normal normal 600 20px/1.4 'Outfit', sans-serif;
+        color: var(--primary-color);
+        margin-bottom: 8px;
+        display: block;
+    }
+
+    .search-bar .form-control {
+        background: var(--glass-bg);
+        backdrop-filter: blur(10px);
+        border: 2px solid var(--glass-border);
+        border-radius: var(--border-radius-sm);
+        height: 56px;
+        font-size: 16px;
+        padding: 12px 16px;
+        transition: var(--transition-fast);
+    }
+
+    .search-bar .form-control:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(153, 39, 133, 0.1);
+        transform: translateY(-2px);
+        background: #ffffff;
+    }
+
+    .search-bar .form-control::placeholder {
+        font: normal normal normal 16px 'Outfit', sans-serif;
+        color: #9ca3af;
+    }
+
+    .search-bar button {
+        min-width: 200px;
+        height: 56px;
+        background: var(--accent-gradient);
+        border: none;
+        border-radius: var(--border-radius-sm);
+        gap: 12px;
+        font-size: 18px;
+        font-weight: 600;
+        color: white;
+        transition: var(--transition-smooth);
+        box-shadow: var(--shadow-sm);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .search-bar button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+        transition: left 0.5s ease;
+    }
+
+    .search-bar button:hover::before { left: 100%; }
+    .search-bar button:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); }
+    .search-bar button:active { transform: translateY(-1px); }
+
+    .search-bar .form-group {
+        min-width: 140px;
+        height: 56px;
+        background: var(--glass-bg);
+        backdrop-filter: blur(10px);
+        border: 2px solid var(--glass-border);
+        border-radius: var(--border-radius-sm);
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 0;
+        transition: var(--transition-fast);
+        position: relative;
+    }
+
+    .search-bar .form-group:hover {
+        border-color: var(--primary-color);
+        transform: translateY(-1px);
+    }
+
+    .form-group label {
+        font-size: 16px;
+        color: #64748b;
+        font-weight: 500;
+        cursor: pointer;
+    }
+
+    #html, #buy { display: none; }
+
+    #html + label,
+    #buy + label {
+        position: relative;
+        cursor: pointer;
+        user-select: none;
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        transition: var(--transition-fast);
+    }
+
+    #html + label::before,
+    #buy + label::before {
+        content: '';
+        position: absolute;
+        left: -35px;
+        width: 24px;
+        height: 24px;
+        border: 2px solid var(--primary-color);
+        border-radius: 6px;
+        background: rgba(255, 255, 255, 0.95);
+        transition: var(--transition-fast);
+    }
+
+    #html:checked + label::before,
+    #buy:checked + label::before {
+        background: var(--primary-gradient);
+        border-color: var(--primary-color);
+        transform: scale(1.1);
+    }
+
+    #html:checked + label::after,
+    #buy:checked + label::after {
+        content: '✓';
+        position: absolute;
+        left: -31px;
+        top: 1px;
+        color: white;
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .book-now {
+        background: var(--accent-gradient);
+        padding: 12px 24px;
+        border-radius: 30px;
+        font-size: 16px;
+        font-weight: 600;
+        text-align: center;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: var(--transition-smooth);
+        box-shadow: var(--shadow-sm);
+        border: none;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .book-now::before {
+        content: '';
+        position: absolute;
+        top: 0; left: -100%;
+        width: 100%; height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+        transition: left 0.5s ease;
+    }
+
+    .book-now:hover::before { left: 100%; }
+    .book-now:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+
+    .d-flex.justify-content-center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .work-with-us-section {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: white;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin: 20px 0;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .work-with-us-content ul {
+        list-style: none;
+        padding-left: 0;
+        margin: 0;
+    }
+
+    .work-with-us-content ul li {
+        font-weight: normal;
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .work-with-us-content ul img {
+        margin-right: 10px;
+        width: 24px;
+        height: auto;
+    }
+
+    .work-with-us-content {
+        height: 350px;
+        flex: 0 0 95%;
+        padding-right: 20px;
+        box-sizing: border-box;
+    }
+
+    .work-with-us-image {
+        flex: 0 0 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .work-with-us-image img {
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+    }
+
+    .profile-card img {
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+        object-fit: cover;
+    }
+
+    .quote-text {
+        text-align: center;
+        font: normal normal normal 35px/47px DM Serif Display;
+        letter-spacing: 0.84px;
+        color: #992785;
+        opacity: 1;
+    }
+
+    .pagination {
+        background: #adc867;
+        margin: auto;
+        padding: 20px;
+        border-radius: 0;
+    }
+
+    .listing {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: var(--border-radius);
+        overflow: hidden;
+        transition: var(--transition-smooth);
+        box-shadow: var(--shadow-sm);
+        position: relative;
+        transform-style: preserve-3d;
+    }
+
+    .listing::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: linear-gradient(135deg, rgba(153, 39, 133, 0.05) 0%, rgba(224, 0, 105, 0.05) 100%);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    .listing:hover::before { opacity: 1; }
+
+    .listing:hover {
+        transform: translateY(-12px) rotateX(2deg);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(153, 39, 133, 0.15);
+        border-color: rgba(153, 39, 133, 0.3);
+    }
+
+    .listing_image {
+        position: relative;
+        overflow: hidden;
+        height: 250px;
+    }
+
+    .listing_image_container {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .listing_image_container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        filter: brightness(1) contrast(1.05);
+    }
+
+    .listing:hover .listing_image_container img {
+        transform: scale(1.08);
+        filter: brightness(1.1) contrast(1.1);
+    }
+
+    .listing_price {
+        position: absolute;
+        top: 16px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--primary-gradient);
+        color: white;
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-weight: 600;
+        font-size: 14px;
+        z-index: 10;
+        box-shadow: 0 4px 12px rgba(153, 39, 133, 0.3);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        transition: var(--transition-fast);
+        height: 40px;
+        white-space: nowrap;
+    }
+
+    .listing:hover .listing_price {
+        transform: translateX(-50%) translateY(-2px) scale(1.05);
+        box-shadow: 0 6px 20px rgba(153, 39, 133, 0.4);
+    }
+
+    .listing_content {
+        position: relative;
+        z-index: 2;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+    }
+
+    .listing_location {
+        padding: 24px 20px 20px 20px !important;
+        background: transparent;
+        margin-top: 0 !important;
+    }
+
+    .sold-cards {
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(10px);
+        border-radius: var(--border-radius-sm);
+        padding: 20px;
+        margin: 0;
+        transition: var(--transition-fast);
+        border: 1px solid rgba(153, 39, 133, 0.1);
+    }
+
+    .sold-cards p {
+        font-family: 'Outfit', sans-serif;
+        font-size: 16px;
+        line-height: 1.6;
+        font-weight: 500;
+        color: #374151;
+        margin-bottom: 16px;
+    }
+
+    .sold-cards b {
+        color: var(--primary-color);
+        font-size: 20px;
+        font-weight: 700;
+        display: block;
+        margin-bottom: 8px;
+    }
+
+    .property-features-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 12px;
+    }
+
+    .property-type {
+        font-size: 14px;
+        color: #64748b;
+        font-weight: 500;
+    }
+
+    .property-features {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+    }
+
+    .feature-item {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 14px;
+        color: #64748b;
+        font-weight: 500;
+        padding: 4px 8px;
+        background: rgba(153, 39, 133, 0.1);
+        border-radius: 12px;
+        transition: var(--transition-fast);
+    }
+
+    .feature-item:hover {
+        background: rgba(153, 39, 133, 0.15);
+        transform: translateY(-1px);
+    }
+
+    .favorite-btn {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        width: 40px;
+        height: 40px;
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: var(--transition-fast);
+        z-index: 10;
+        font-size: 18px;
+        color: #64748b;
+    }
+
+    .favorite-btn:hover {
+        background: var(--secondary-color);
+        color: white;
+        transform: scale(1.1);
+        box-shadow: 0 4px 12px rgba(224, 0, 105, 0.3);
+    }
+
+    .favorite-btn.active {
+        background: var(--secondary-color);
+        color: white;
+    }
+
+    .view-details-btn {
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        right: 20px;
+        background: var(--primary-gradient);
+        color: white;
+        padding: 12px 20px;
+        border-radius: var(--border-radius-sm);
+        text-align: center;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 14px;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: var(--transition-smooth);
+        z-index: 10;
+        box-shadow: 0 4px 12px rgba(153, 39, 133, 0.3);
+    }
+
+    .listing:hover .view-details-btn {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .view-details-btn:hover {
+        background: linear-gradient(135deg, #7a1f5f 0%, #b8005a 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(153, 39, 133, 0.4);
+        color: white;
+        text-decoration: none;
+    }
+
+    .property-status {
+        position: absolute;
+        top: 16px;
+        left: 16px;
+        padding: 6px 12px;
+        border-radius: 16px;
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        z-index: 10;
+        backdrop-filter: blur(10px);
+    }
+
+    .property-status.for-sale { background: rgba(34, 197, 94, 0.9); color: white; border: 1px solid rgba(34, 197, 94, 0.3); }
+    .property-status.to-let { background: rgba(59, 130, 246, 0.9); color: white; border: 1px solid rgba(59, 130, 246, 0.3); }
+    .property-status.sold, .property-status.let { background: rgba(156, 163, 175, 0.9); color: white; border: 1px solid rgba(156, 163, 175, 0.3); }
+
+    .results-info {
+        font-weight: 500;
+        color: #64748b;
+        font-size: 16px;
+        margin-bottom: 24px;
+        padding: 12px 0;
+        border-bottom: 1px solid rgba(153, 39, 133, 0.1);
+        width: 100%;
+    }
+
+    .no-results {
+        text-align: center;
+        padding: 60px 20px;
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: var(--border-radius);
+        border: 1px solid rgba(153, 39, 133, 0.1);
+        margin: 40px 0;
+    }
+
+    .no-results p { color: #64748b; font-size: 18px; margin-bottom: 16px; }
+    .no-results h4 { color: #374151; font-size: 20px; }
+    .no-results a { color: var(--primary-color); text-decoration: none; font-weight: 600; }
+
+    .featured_row {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        margin-right: -15px !important;
+        margin-left: -15px !important;
+    }
+
+    .featured_row > [class*="col-"] {
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+    }
+
+    .listing {
+        width: 100% !important;
+        max-width: none !important;
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fadeInUp 0.6s ease forwards;
+    }
+
+    .listing:nth-child(1) { animation-delay: 0.1s; }
+    .listing:nth-child(2) { animation-delay: 0.2s; }
+    .listing:nth-child(3) { animation-delay: 0.3s; }
+    .listing:nth-child(4) { animation-delay: 0.4s; }
+    .listing:nth-child(5) { animation-delay: 0.5s; }
+    .listing:nth-child(6) { animation-delay: 0.6s; }
+
+    @keyframes fadeInUp {
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media screen and (max-width: 768px) {
+        .search-bar .form-group { width: 100%; min-width: auto; }
+        .search-bar .all-properties { width: 100%; min-width: auto; margin-bottom: 8px; }
+        .search-bar button { width: 100%; min-width: auto; }
+        .search-bar .Properties-for-sale { flex-direction: column; gap: 12px; }
+        .listing:hover { transform: translateY(-6px); }
+        .listing_image { height: 220px; }
+    }
+
+    #selling_banner { display: none; }
+    @media screen and (min-width: 768px) { #selling_banner { display: block; } }
+</style>
+
+<script>
+function toggleFavorite(button, propertyId) {
+    button.classList.toggle('active');
+    button.innerHTML = button.classList.contains('active') ? '❤️' : '♡';
+    button.style.transform = 'scale(1.3)';
+    setTimeout(() => { button.style.transform = 'scale(1)'; }, 200);
+    const isFavorited = button.classList.contains('active');
+    saveFavorite(propertyId, isFavorited);
+    showFeedbackMessage(isFavorited ? 'Added to favorites' : 'Removed from favorites');
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const rentCheckbox = document.getElementById('html');
+    const buyCheckbox = document.getElementById('buy');
+    const availabilitySelect = document.querySelector('select[name="availability"]');
+
+    if (availabilitySelect) {
+        const originalOptions = Array.from(availabilitySelect.options).map(opt => ({
+            value: opt.value, text: opt.text, selected: opt.selected
+        }));
+
+        function filterOptions() {
+            availabilitySelect.style.opacity = '0.5';
+            setTimeout(() => {
+                availabilitySelect.innerHTML = '';
+                originalOptions.forEach(opt => availabilitySelect.add(new Option(opt.text, opt.value, opt.selected, opt.selected)));
+                if (rentCheckbox && rentCheckbox.checked && buyCheckbox && !buyCheckbox.checked) {
+                    for (let i = availabilitySelect.options.length - 1; i >= 0; i--) {
+                        const v = availabilitySelect.options[i].value;
+                        if (v !== '' && v !== 'Let' && v !== 'To Let' && v !== 'Let Agreed') availabilitySelect.remove(i);
+                    }
+                } else if (buyCheckbox && buyCheckbox.checked && rentCheckbox && !rentCheckbox.checked) {
+                    for (let i = availabilitySelect.options.length - 1; i >= 0; i--) {
+                        const v = availabilitySelect.options[i].value;
+                        if (v !== '' && v !== 'For Sale' && v !== 'Sold' && v !== 'Sold STC') availabilitySelect.remove(i);
+                    }
+                }
+                availabilitySelect.style.opacity = '1';
+            }, 150);
+        }
+
+        if (rentCheckbox && buyCheckbox) {
+            [rentCheckbox, buyCheckbox].forEach(cb => cb.addEventListener('change', filterOptions));
+        }
+        filterOptions();
+    }
+
+    const searchForm = document.getElementById('searchForm');
+    if (searchForm) {
+        searchForm.addEventListener('submit', function() {
+            const btn = this.querySelector('button[type="submit"]');
+            btn.disabled = true;
+            btn.innerHTML = '🔄 Searching...';
+            setTimeout(() => { btn.disabled = false; btn.innerHTML = '<svg width="24px" height="24px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="#ffffff" d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg> Search'; }, 2000);
+        });
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }, index * 100);
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    document.querySelectorAll('.listing').forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(30px)';
+        card.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+        observer.observe(card);
+        card.addEventListener('mouseenter', function() {
+            this.style.zIndex = '10';
+            const img = this.querySelector('.listing_image_container img');
+            if (img) img.style.transform = 'scale(1.08) translateZ(0)';
+        });
+        card.addEventListener('mouseleave', function() {
+            this.style.zIndex = '1';
+            const img = this.querySelector('.listing_image_container img');
+            if (img) img.style.transform = 'scale(1) translateZ(0)';
+        });
+        if (window.innerWidth > 768) {
+            card.addEventListener('mousemove', function(e) {
+                const rect = this.getBoundingClientRect();
+                const rotateX = (e.clientY - rect.top - rect.height / 2) / 30;
+                const rotateY = (rect.width / 2 - (e.clientX - rect.left)) / 30;
+                this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-12px)`;
+            });
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
+            });
+        }
+    });
+
+    loadFavorites();
+});
+
+function showFeedbackMessage(message) {
+    let feedback = document.getElementById('feedbackMessage');
+    if (!feedback) {
+        feedback = document.createElement('div');
+        feedback.id = 'feedbackMessage';
+        feedback.style.cssText = 'position:fixed;top:20px;right:20px;background:linear-gradient(135deg,#992785,#E00069);color:white;padding:12px 20px;border-radius:8px;z-index:10000;transform:translateX(100%);transition:transform 0.3s ease;box-shadow:0 4px 12px rgba(0,0,0,0.2);';
+        document.body.appendChild(feedback);
+    }
+    feedback.textContent = message;
+    feedback.style.transform = 'translateX(0)';
+    setTimeout(() => { feedback.style.transform = 'translateX(100%)'; }, 3000);
+}
+
+function saveFavorite(propertyId, isFavorited) {
+    let favorites = JSON.parse(localStorage.getItem('propertyFavorites') || '[]');
+    if (isFavorited && !favorites.includes(propertyId)) favorites.push(propertyId);
+    else if (!isFavorited) favorites = favorites.filter(id => id !== propertyId);
+    localStorage.setItem('propertyFavorites', JSON.stringify(favorites));
+}
+
+function loadFavorites() {
+    const favorites = JSON.parse(localStorage.getItem('propertyFavorites') || '[]');
+    document.querySelectorAll('.favorite-btn').forEach(btn => {
+        const propertyId = btn.closest('.listing') && btn.closest('.listing').dataset.propertyId;
+        if (propertyId && favorites.includes(propertyId)) {
+            btn.classList.add('active');
+            btn.innerHTML = '❤️';
+        }
+    });
+}
+
+// Video modal
+document.addEventListener('DOMContentLoaded', function() {
+    var modal = document.getElementById("video_model");
+    if (!modal) return;
+    var span = modal.querySelector(".close-btn");
+    if (span) span.onclick = function() { modal.style.display = "none"; };
+    window.addEventListener('click', function(event) {
+        if (event.target == modal) modal.style.display = "none";
+    });
+});
+
+function getFunction() {
+    var modal = document.getElementById("video_model");
+    if (modal) modal.style.display = "block";
+}
+
+function openFillout() {
+    var btn = document.querySelector('#fillout_wrapper button');
+    if (btn) btn.click();
+}
+</script>
+
+<!-- Video Modal -->
+<div id="video_model" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <span class="close-btn">&times;</span>
+            <h5>Urban Village Video</h5>
+        </div>
+        <div class="modal-body">
+            <iframe title="Urban Village Reviews" style="width: 100% !important;"
+                src="https://player.vimeo.com/video/361889922" height="374" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <div class="modal-footer">
+            <img src="/images/logo.jpg" alt="logo" class="img-responsive" />
+        </div>
+    </div>
+</div>
+
+<div class="page-title-div mb-3"> Buy, sell, let or rent – we're here at every step </div>
+<div class="page-subtitle-div"> Your dedicated Independent Estate Agents in SE5 </div>
+
+<!-- Search Bar -->
+<div class="container search-bar mt-3 mt-lg-5">
+    <nav class="navbar navbar-light p-0">
+        <div class="container-fluid p-0">
+            <div class="Properties-for-sale d-flex flex-column flex-md-row justify-content-center align-items-center w-100">
+                <div class="all-properties d-flex justify-content-center align-items-center mb-2 mb-md-0">
+                    <a href="/property/buyers">Properties for sale</a>
+                </div>
+                <div class="all-properties d-flex justify-content-center align-items-center mb-2 mb-md-0">
+                    <a href="/property/tenants">Properties for rent</a>
+                </div>
+                <div class="all-properties d-flex justify-content-center align-items-center">
+                    <a href="javascript:void(0)" onclick="openFillout()">Book a valuation</a>
+                </div>
+
+                <div style="position:absolute; opacity:0; pointer-events:none; z-index:-1;">
+                    <div id="fillout_wrapper"
+                         data-fillout-id="aQEigFYmCzus"
+                         data-fillout-embed-type="popup"
+                         data-fillout-dynamic-resize
+                         data-fillout-inherit-parameters
+                         data-fillout-popup-size="large">
+                    </div>
+                </div>
+                <script src="https://server.fillout.com/embed/v1/"></script>
+            </div>
+
+            <form class="w-100 d-flex flex-column pt-4" id="searchForm" method="GET" action="/">
+                <div class="enter-location">
+                    <label for="exampleInput" class="form-label">Enter a location</label>
+                    <input class="form-control me-2 mb-3" type="search"
+                        placeholder="Search for street, postcode or area" aria-label="Search" name="search"
+                        value="<%= typeof query !== 'undefined' && query.search ? query.search : '' %>">
+                </div>
+                <div class="d-flex flex-column flex-md-row" style="gap: 10px;">
+                    <div class="d-flex mb-2 mb-md-0" style="gap: 10px;">
+                        <div class="form-group d-flex align-items-center justify-content-evenly mb-0">
+                            <input type="checkbox" id="html" name="rent" value="1"
+                                <%= typeof query !== 'undefined' && query.rent == 1 ? 'checked' : '' %> />
+                            <label for="html" class="d-flex align-items-center mb-0">Rent</label>
+                        </div>
+                        <div class="form-group d-flex align-items-center justify-content-evenly">
+                            <input type="checkbox" id="buy" name="buy" value="1"
+                                <%= typeof query !== 'undefined' && query.buy == 1 ? 'checked' : '' %> />
+                            <label for="buy" class="d-flex align-items-center mb-0">Buy</label>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-column flex-md-row" style="gap: 10px;">
+                        <div class="form-group d-flex align-items-center justify-content-evenly p-2 mb-2 mb-md-0 w-100">
+                            <select class="my-select mb-0 h-100 border-0 p-0 w-100" name="min_amount">
+                                <option value="" <%= (typeof query === 'undefined' || !query.min_amount) ? 'selected' : '' %>>No Min</option>
+                                <option value="100000" <%= (typeof query !== 'undefined' && query.min_amount == '100000') ? 'selected' : '' %>>£100,000</option>
+                                <option value="250000" <%= (typeof query !== 'undefined' && query.min_amount == '250000') ? 'selected' : '' %>>£250,000</option>
+                                <option value="500000" <%= (typeof query !== 'undefined' && query.min_amount == '500000') ? 'selected' : '' %>>£500,000</option>
+                                <option value="750000" <%= (typeof query !== 'undefined' && query.min_amount == '750000') ? 'selected' : '' %>>£750,000</option>
+                                <option value="1000000" <%= (typeof query !== 'undefined' && query.min_amount == '1000000') ? 'selected' : '' %>>£1,000,000</option>
+                                <option value="2500000" <%= (typeof query !== 'undefined' && query.min_amount == '2500000') ? 'selected' : '' %>>£2,500,000</option>
+                                <option value="5000000" <%= (typeof query !== 'undefined' && query.min_amount == '5000000') ? 'selected' : '' %>>£5,000,000</option>
+                            </select>
+                        </div>
+                        <div class="form-group d-flex align-items-center justify-content-evenly p-2 mb-2 mb-md-0 w-100">
+                            <select class="my-select mb-0 h-100 border-0 p-0 w-100" name="max_amount">
+                                <option value="" <%= (typeof query === 'undefined' || !query.max_amount) ? 'selected' : '' %>>No Max</option>
+                                <option value="250000" <%= (typeof query !== 'undefined' && query.max_amount == '250000') ? 'selected' : '' %>>£250,000</option>
+                                <option value="500000" <%= (typeof query !== 'undefined' && query.max_amount == '500000') ? 'selected' : '' %>>£500,000</option>
+                                <option value="750000" <%= (typeof query !== 'undefined' && query.max_amount == '750000') ? 'selected' : '' %>>£750,000</option>
+                                <option value="1000000" <%= (typeof query !== 'undefined' && query.max_amount == '1000000') ? 'selected' : '' %>>£1,000,000</option>
+                                <option value="2500000" <%= (typeof query !== 'undefined' && query.max_amount == '2500000') ? 'selected' : '' %>>£2,500,000</option>
+                                <option value="5000000" <%= (typeof query !== 'undefined' && query.max_amount == '5000000') ? 'selected' : '' %>>£5,000,000</option>
+                                <option value="10000000" <%= (typeof query !== 'undefined' && query.max_amount == '10000000') ? 'selected' : '' %>>£10,000,000</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-column flex-md-row" style="gap: 10px;">
+                        <div class="form-group d-flex align-items-center justify-content-evenly p-2 mb-2 mb-md-0 w-100">
+                            <select class="my-select mb-0 h-100 border-0 p-0 w-100" name="availability">
+                                <option value="" <%= (typeof query === 'undefined' || !query.availability) ? 'selected' : '' %>>Availability</option>
+                                <option value="Let" <%= (typeof query !== 'undefined' && query.availability == 'Let') ? 'selected' : '' %>>Let</option>
+                                <option value="To Let" <%= (typeof query !== 'undefined' && query.availability == 'To Let') ? 'selected' : '' %>>To Let</option>
+                                <option value="Let Agreed" <%= (typeof query !== 'undefined' && query.availability == 'Let Agreed') ? 'selected' : '' %>>Let Agreed</option>
+                                <option value="For Sale" <%= (typeof query !== 'undefined' && query.availability == 'For Sale') ? 'selected' : '' %>>For Sale</option>
+                                <option value="Sold STC" <%= (typeof query !== 'undefined' && query.availability == 'Sold STC') ? 'selected' : '' %>>Sold STC</option>
+                                <option value="Sold" <%= (typeof query !== 'undefined' && query.availability == 'Sold') ? 'selected' : '' %>>Sold</option>
+                            </select>
+                        </div>
+                        <button class="btn text-white d-flex align-items-center justify-content-center mb-2 mb-md-0 w-100" type="submit">
+                            <svg width="24px" height="24px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="margin-right:8px;">
+                                <path fill="#ffffff" d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/>
+                            </svg> Search
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </nav>
+</div>
+
+<!-- Properties -->
+<div class="featured" style="padding-top: 0px !important;">
+    <div class="container">
+        <% if (properties && properties.length) { %>
+            <div class="row">
+                <div class="col-12 mb-3">
+                    <div class="results-info">
+                        Showing <%= properties.length %> records out of <%= pagination ? pagination.total : properties.length %>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row featured_row move_up">
+                <% properties.forEach(function(property) { %>
+                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 mb-4">
+                    <div class="listing h-100" data-property-id="<%= property.propertyID %>">
+                        <div class="listing_image">
+                            <div class="listing_image_container">
+                                <a href="/property/<%= property.propertyID %>/<%= property.propertyID %>">
+                                    <img src="<%= property.image %>"
+                                        alt="Urban Village Home - <%= property.displayAddress %>"
+                                        class="img-fluid"
+                                        loading="lazy"
+                                        onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjI1MCIgdmlld0JveD0iMCAwIDQwMCAyNTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSIyNTAiIGZpbGw9IiNGM0Y0RjYiLz48L3N2Zz4=';">
+                                </a>
+                            </div>
+
+                            <!-- Status badge -->
+                            <% if (property.availability) { %>
+                            <div class="property-status <%= property.availability.toLowerCase().replace(/ /g, '-') %>">
+                                <%= property.availability %>
+                            </div>
+                            <% } %>
+
+                            <!-- Price badge -->
+                            <div class="listing_price">
+                                £<% if (property.rent && property.rent > 0) { %><%= Number(property.rent).toLocaleString() %>/<%= property.rentFrequency || 'pcm' %><% } else { %><%= Number(property.price || 0).toLocaleString() %><% } %>
+                            </div>
+
+                            <!-- Favorite button -->
+                            <button class="favorite-btn" onclick="toggleFavorite(this, '<%= property.propertyID %>')" aria-label="Add to favorites">&#9825;</button>
+                        </div>
+
+                        <div class="listing_content">
+                            <div class="prop_location listing_location">
+                                <div class="sold-cards">
+                                    <div class="property-address">
+                                        📍 <%= ((property.addressStreet || '') + ', ' + (property.addressPostcode || '')).substring(0, 35) %><%= ((property.addressStreet || '') + ', ' + (property.addressPostcode || '')).length > 35 ? '...' : '' %>
+                                    </div>
+                                    <div class="property-features-container">
+                                        <div class="property-type"><%= property.displayPropertyType || '' %></div>
+                                        <div class="property-features">
+                                            <% if (property.propertyBedrooms) { %>
+                                            <div class="feature-item">
+                                                <%= property.propertyBedrooms %>
+                                                <svg fill="currentColor" height="16px" width="16px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 315.00 315.00">
+                                                    <path d="m292.617,146.484h-3.105v-51.322c0-17.997-14.642-32.639-32.638-32.639h-198.748c-17.996,0-32.638,14.642-32.638,32.639v51.322h-3.106c-12.341,0-22.382,10.041-22.382,22.383v33.162c0,12.342 10.041,22.383 22.383,22.383h27.672v21.064c0,3.866 3.134,7 7,7s7-3.134 7-7v-21.064h186.891v21.064c0,3.866 3.134,7 7,7 3.866,0 7-3.134 7-7v-21.064h27.672c12.342,0 22.383-10.041 22.383-22.383v-33.162c-0.001-12.342-10.042-22.383-22.384-22.383zm-253.129-51.322c0-10.277 8.36-18.639 18.638-18.639h198.748c10.277,0 18.638,8.361 18.638,18.639v51.322h-8.974v-14.057c0-8.964-7.292-16.256-16.255-16.256h-71.754c-8.965,0-16.258,7.292-16.258,16.256v14.057h-9.543v-14.057c0-8.964-7.293-16.256-16.258-16.256h-71.753c-8.963,0-16.255,7.292-16.255,16.256v14.057h-8.974v-51.322zm136.783,51.322v-14.057c0-1.223 1.034-2.256 2.258-2.256h71.754c1.223,0 2.255,1.033 2.255,2.256v14.057h-76.267zm-113.809,0v-14.057c0-1.223 1.032-2.256 2.255-2.256h71.754c1.224,0 2.258,1.033 2.258,2.256v14.057h-76.267zm238.538,55.545c0,4.622-3.761,8.383-8.383,8.383h-270.234c-4.622,0-8.383-3.761-8.383-8.383v-33.162c0-4.622 3.761-8.383 8.383-8.383h270.234c4.622,0 8.383,3.761 8.383,8.383v33.162z"/>
+                                                </svg>
+                                            </div>
+                                            <% } %>
+                                            <% if (property.propertyBathrooms) { %>
+                                            <div class="feature-item">
+                                                <%= property.propertyBathrooms %>
+                                                <svg height="16px" width="16px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor">
+                                                    <path d="M484.615,197.061v24.064c0,0.61,0,1.208-0.012,1.817c-0.966,92.403-76.184,167.011-168.806,167.011h-205.42c-45.839,0-82.994-37.155-82.994-82.994V197.061L484.615,197.061z"/>
+                                                    <path d="M484.394,157.766H27.606c-10.481,0-18.979,8.497-18.979,18.979v1.337c0,10.481,8.497,18.979,18.979,18.979h456.788c10.482,0,18.979-8.497,18.979-18.979v-1.337C503.373,166.263,494.876,157.766,484.394,157.766z"/>
+                                                </svg>
+                                            </div>
+                                            <% } %>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <a href="/property/<%= property.propertyID %>/<%= property.propertyID %>" class="view-details-btn">View Details</a>
+                    </div>
+                </div>
+                <% }); %>
+            </div>
+
+            <!-- Pagination -->
+            <% if (pagination && pagination.lastPage > 1) { %>
+            <div class="row">
+                <div class="col-12">
+                    <div class="d-flex justify-content-center mt-4">
+                        <nav>
+                            <ul class="pagination justify-content-center">
+                                <% if (pagination.page > 1) { %>
+                                <li class="page-item">
+                                    <a class="page-link" href="?page=<%= pagination.page - 1 %>&<%= typeof queryString !== 'undefined' ? queryString : '' %>">&laquo;</a>
+                                </li>
+                                <% } %>
+                                <% for (var i = 1; i <= pagination.lastPage; i++) { %>
+                                <li class="page-item <%= pagination.page == i ? 'active' : '' %>">
+                                    <a class="page-link" href="?page=<%= i %>&<%= typeof queryString !== 'undefined' ? queryString : '' %>"><%= i %></a>
+                                </li>
+                                <% } %>
+                                <% if (pagination.page < pagination.lastPage) { %>
+                                <li class="page-item">
+                                    <a class="page-link" href="?page=<%= pagination.page + 1 %>&<%= typeof queryString !== 'undefined' ? queryString : '' %>">&raquo;</a>
+                                </li>
+                                <% } %>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <% } %>
+        <% } else { %>
+            <div class="row">
+                <div class="col-12">
+                    <div class="no-results">
+                        <p>There are no properties listed for your search criteria</p>
+                        <h4>Please click <a href="/">here</a> to see all our properties for sale or refine your search criteria.</h4>
+                    </div>
+                </div>
+            </div>
+        <% } %>
+    </div>
+</div>
+
+<!-- Why work with us -->
+<section class="Why-work-with-us">
+    <div class="container">
+        <div class="profile-card row">
+            <div class="col-12 col-md-6 work-with-us-section">
+                <div class="work-with-us-content">
+                    <h2>Why work with us?</h2>
+                    <p>We don't just work for you, we work with you. Partner with our team of experts to benefit from:</p>
+                    <ul>
+                        <li><img src="/images/about-us/logo.png" alt="">Unrivalled market knowledge and local expertise</li>
+                        <li><img src="/images/about-us/logo.png" alt="">Free professional photoshoot to showcase your property</li>
+                        <li><img src="/images/about-us/logo.png" alt="">Exceptional, dedicated customer service</li>
+                        <li><img src="/images/about-us/logo.png" alt="">Coverage on all major property websites</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 p-0 px-lg-3">
+                <img src="/images/about-us/MaskGroup44.png" alt="" class="profile-image ms-4">
+            </div>
+        </div>
+    </div>
+</section>
+
+<%- include('../partials/reviews') %>
+
+<!-- We are Urban Village -->
+<section class="our-story position-relative mt-lg-2">
+    <img src="/images/about-us/logo.png" alt="">
+    <div class="container">
+        <h2 class="pt-0">We are Urban Village</h2>
+        <div class="body-component">
+            <p><b>Your local Independent Estate Agents for South London properties.</b></p>
+            <br>
+            <p>
+                We know how challenging the London property market can be, which is why we pride ourselves on our
+                dedication to customer service, fair and open fees, local market knowledge and expertise to help you
+                find exactly what you're looking for.
+                <br><br>
+                Whether you want to sell, let, buy or rent – we're here to support you at every step.
+            </p>
+            <div class="d-flex justify-content-center pt-4 pt-lg-5">
+                <a href="/meet-the-team" class="book-now text-white d-flex justify-content-center align-items-center">MEET THE TEAM</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<br />
+
+<!-- The level of service is brilliant -->
+<div class="reviews-section container-fluid our-community Brilliant">
+    <h2>"The level of service is brilliant."</h2>
+    <div class="reviews-container pt-2 pt-lg-4 row d-flex justify-content-center">
+        <div class="col-6" style="display: contents;">
+            <iframe width="100%" height="591" class="set-phone-height"
+                src="https://player.vimeo.com/video/328369211" frameborder="0"
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen=""></iframe>
+        </div>
+    </div>
+</div>
+
+<!-- Book a free valuation -->
+<section class="our-story position-relative my-2 my-lg-5 valuation position-relative">
+    <img src="/images/about-us/logo.png" alt="">
+    <div class="container">
+        <h2 class="pt-0">Book a free valuation</h2>
+        <div class="body-component text-center mx-0">
+            <p>
+                Do you know what your property is really worth? Whether you're looking to sell or let, or you're just
+                curious, book a free valuation with one of our teams today.
+            </p>
+            <div class="d-flex justify-content-center pt-4 pt-lg-5">
+                <a href="/book-a-valuation" class="book-now text-white d-flex justify-content-center align-items-center">BOOK NOW</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<% if (typeof posts !== 'undefined' && posts && posts.length) { %>
+<%- include('../partials/property-market') %>
+<% } %>
+
+<%- include('../partials/companies') %>
+<%- include('../includes/footer') %>

@@ -1,0 +1,104 @@
+<style>
+    .area-guides-carousel {
+        display: flex;
+        overflow-x: auto;
+        gap: 16px;
+        padding: 20px 0;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+    }
+    .area-guides-carousel::-webkit-scrollbar { height: 6px; }
+    .area-guides-carousel::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px; }
+    .area-guide-item {
+        flex: 0 0 280px;
+        position: relative;
+        border-radius: 9px;
+        overflow: hidden;
+        scroll-snap-align: start;
+        cursor: pointer;
+    }
+    .area-guide-item img {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+        display: block;
+    }
+    .area-guide-item::before {
+        content: "";
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+    .area-guide-label {
+        position: absolute;
+        top: 50%; left: 50%;
+        transform: translate(-50%, -50%);
+        color: #fff;
+        font-size: 22px;
+        font-weight: bold;
+        text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
+        z-index: 2;
+        text-align: center;
+        width: 100%;
+    }
+    .area-guide-item a.link-overlay {
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        z-index: 3;
+    }
+</style>
+
+<div class="container-fluid my-5">
+    <div class="text-center mb-4">
+        <h2 style="color:#992785; font-size:35px;">Area guides</h2>
+        <p style="font-size:19px;">We sell and let homes all across London's cityscape, discover the areas we cover</p>
+    </div>
+    <div class="area-guides-carousel">
+        <div class="area-guide-item">
+            <img src="/images/camberwell.png" alt="Camberwell">
+            <a href="/camberwell" class="link-overlay"></a>
+            <div class="area-guide-label">Camberwell</div>
+        </div>
+        <div class="area-guide-item">
+            <img src="/images/herene-hill.png" alt="Herne Hill">
+            <a href="/herne-hill" class="link-overlay"></a>
+            <div class="area-guide-label">Herne Hill</div>
+        </div>
+        <div class="area-guide-item">
+            <img src="/images/denmark-hill.png" alt="Denmark Hill">
+            <a href="/denmark-hill" class="link-overlay"></a>
+            <div class="area-guide-label">Denmark Hill</div>
+        </div>
+        <div class="area-guide-item">
+            <img src="/images/dulwich-min.png" alt="Dulwich">
+            <a href="/dulwich" class="link-overlay"></a>
+            <div class="area-guide-label">Dulwich</div>
+        </div>
+        <div class="area-guide-item">
+            <img src="/images/brixton-min.png" alt="Brixton">
+            <a href="/brixton" class="link-overlay"></a>
+            <div class="area-guide-label">Brixton</div>
+        </div>
+        <div class="area-guide-item">
+            <img src="/images/peckham.png" alt="Peckham">
+            <a href="/peckham" class="link-overlay"></a>
+            <div class="area-guide-label">Peckham</div>
+        </div>
+        <div class="area-guide-item">
+            <img src="/images/stockwell.png" alt="Stockwell">
+            <a href="/stockwell" class="link-overlay"></a>
+            <div class="area-guide-label">Stockwell</div>
+        </div>
+        <div class="area-guide-item">
+            <img src="/images/waterloo.png" alt="Waterloo">
+            <a href="/waterloo" class="link-overlay"></a>
+            <div class="area-guide-label">Waterloo</div>
+        </div>
+        <div class="area-guide-item">
+            <img src="/images/loughborough.png" alt="Loughborough Junction">
+            <a href="/loughborough-junction" class="link-overlay"></a>
+            <div class="area-guide-label">Loughborough Junction</div>
+        </div>
+    </div>
+</div>

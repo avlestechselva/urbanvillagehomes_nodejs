@@ -1,0 +1,186 @@
+h2, h3{
+    font-size: 35px !important;
+    font-weight: 400 !important;
+}
+.page-title-div{
+
+/* UI Properties */
+text-align: center;
+font: normal normal normal 48px/111px DM Serif Display;
+letter-spacing: 1.54px;
+color: #992785;
+opacity: 1;
+padding: 5px;
+height: 40px;
+line-height: normal;
+margin-top: 5%;
+
+}
+
+.page-subtitle-div{
+
+    text-align: center;
+font: normal normal 300 24px/111px Outfit;
+letter-spacing: 0.89px;
+color: #000000;
+opacity: 1;
+padding: 5px;
+height: 70px;
+    }
+    .consultation-section {
+        display: flex;
+        /* justify-content: space-between;
+        align-items: center; */
+        /* background-color: white; */
+        border-radius: 10px;
+        padding: 38px 30px 42px 30px;
+        /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+        /* border: 1px solid #C6BEC4; */
+        margin: 20px 0;
+    }
+    .consultation-content h2 {
+        color: #AFB700;
+        font-size: 28px !important;
+        margin-bottom: 15px;
+        text-align: start !important;
+    }
+    .consultation-content p {
+        font-size: 16px;
+        line-height: 1.5;
+        color: #ffffff;
+        opacity: .7;
+        margin-bottom: 15px;
+        text-align: start;
+    }
+    .consultation-content ul {
+        list-style-type: none;
+        padding-left: 0;
+        margin-bottom: 20px;
+    }
+    .consultation-button-container {
+        text-align: start;
+        margin-top: 20px;
+    }
+    .consultation-btn {
+        background-color: #AFB700;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 25px;
+    }
+    .consultation-btn:hover {
+        background-color: #afb700c7;
+        color: #fff;
+    }
+    .consultation-content ul {
+        list-style-type: none;
+        padding-left: 0;
+        margin-bottom: 20px;
+    }
+    .consultation-content ul li {
+        font-size: 16px;
+        line-height: 1.5;
+        color: #ffffff;
+        opacity: .7;
+        margin-bottom: 10px;
+        padding-left: 8px;
+        position: relative;
+    }
+    /* .consultation-content ul li::before {
+        content: "🌿";
+        position: absolute;
+        left: -10px;
+        top: 0;
+    }     */
+    .letting-experience .consultation-image img {
+        position: absolute;
+        top: 175px;
+        left: 30%;
+        height: 80px;
+    }
+    .consultation-section .consultation-image{
+        background-color: #fff;
+        width: 100%;
+        height: 100%;
+    }
+    .support-section{
+        margin-top: 6% !important;
+    }
+    .Service-options{
+    background: #190D2F 0% 0% no-repeat padding-box;
+border-radius: 13px;
+opacity: 1;
+padding: 21px 21px 21px 46px;
+}
+.Service-options p{
+    font: normal normal 600 24px/35px Outfit;
+letter-spacing: 0px;
+color: #FFFFFF;
+opacity: 1;
+}
+.Service-options img{
+    height: 54px;
+}
+.reviews-section h2 {
+    font-size: 35px;
+    font-weight: 400 !important;
+    color: #992785;
+    margin-bottom: 20px;
+}
+.valuation .body-component p{
+    padding: 0px !important;
+}
+.consultation-content img{
+    height: 20px;
+    position: unset;
+    margin-top: 5px;
+}
+.Why-work-with-us ul img{
+    width: auto;
+    height: 20px;
+    position: unset;
+    margin-top: 5px;
+}
+    @media screen and (max-width: 768px) {
+        h2, h3{
+            font-size: 24px !important;
+        }
+        .page-title-div {
+font-size: 34px !important;
+margin-top: 0px !important;
+height: auto !important;
+margin-top: 5% !important;
+        }
+        .page-subtitle-div{
+            font-size: 20px !important;height: auto !important;
+        }
+        .consultation-content h2{
+            font-size: 24px !important;
+        }
+        .letting-experience  .consultation-section {
+            padding: 0px !important;
+        }
+        .service-box, .service-two {
+            padding: 30px 24px !important;
+        
+    }
+    .Service-options {
+        padding: 10px 20px 10px 22px;
+    }
+    .Service-options i{
+        font-size: 22px !important;
+    }
+    .Service-options p{
+        font-size: 18px !important;
+    }
+   .Why-sell{
+    padding: 20% 10% 20% 10%!important;
+   }
+   .Service-options img {
+    height: 32px;
+}
+.card-carousel #customNext {
+    left: 42% !important;
+    bottom: -28px !important;
+}
+
+}

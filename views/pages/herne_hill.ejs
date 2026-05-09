@@ -1,0 +1,91 @@
+<%- include('../includes/header') %>
+
+<div aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/"><i class="fa fa-home"></i> Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Herne Hill</li>
+    </ol>
+</div>
+
+<!-- Intro section -->
+<div class="intro">
+    <div class="container">
+        <div class="row row-eq-height move_up_top">
+            <div class="col-lg-6">
+                <div class="section_title_container">
+                    <div class="section_subtitle">Estate &amp; Letting Agents in</div>
+                    <div class="section_title"><h1>Herne Hill</h1></div>
+                    <div class="header_title_border"></div>
+                </div>
+                <div class="intro_content">
+                    <div class="intro_text para-justify">
+                        <p>Whether you&#x2019;re on the hunt for a family home, a first house or a lively hub just outside of central London &#x2013; there&#x2019;s so much happening in Herne Hill.</p>
+                        <p>Nestled amongst the tall redbrick Edwardian properties is a lively village centre with an abundance of friendly pubs and great eateries. Home to an array of independent food shops, artisan delis, fashion boutiques, bookstores and chemists, Herne Hill makes the perfect location for those wanting a blend of city and country village life.</p>
+                        <p>But don&#x2019;t just take our word for it. Browse our Herne Hill properties below.</p>
+                    </div>
+                    <div class="mt-3">
+                        <a href="/properties?location=herne+hill&type=sale" class="btn btn-primary me-2">For Sale</a>
+                        <a href="/properties?location=herne+hill&type=rent" class="btn btn-outline-primary">To Rent</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 intro_col">
+                <div class="intro_image">
+                    <img src="/images/herene-hill.png" alt="Herne Hill" class="img-responsive w-100" style="border-radius:8px;">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Why we love section -->
+<div class="services" style="background:#f8f8f8; padding:40px 0;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section_title_container text-center">
+                    <h2 class="main-title">Why we love Herne Hill</h2>
+                    <div class="header_title_border" style="margin:0 auto;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-lg-12 para-justify">
+                <p>Apart from the large swathe of artisan shops and boutiques, Herne Hill is host to a charming Sunday market, with copious amounts of stalls offering local produce as well as arts and crafts and other trinkets.</p>
+                <p>It is also located just outside of Brockwell Park, offering ample green space and sports facilities for local residents to enjoy at all times of year.</p>
+                <p>With such a strong community vibe and great transport links, it&#x2019;s easy to see why properties in Herne Hill don&#x2019;t stay on the market for long. That&#x2019;s why our team is focused on being fast and efficient &#x2013; finding serious buyers and tenants and helping the best properties get seen by the right people.</p>
+                <div class="mt-3">
+                    <a href="/contact" class="btn btn-primary">Talk to our team</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Free valuation CTA -->
+<div class="intro" style="background:#fff; padding:40px 0;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <h2>Get a free property valuation</h2>
+                <div class="header_title_border"></div>
+                <p class="mt-3">The London property market is hugely competitive, which means getting your pricing right and pitching to the right audience is key. Aim too high with your asking price, and your property can go stale by sitting too long on the portals. Aim too low, and you could talk yourself out of a considerable profit.</p>
+                <p>Pricing your property is a balancing act, which is why getting an accurate, up-to-date, and research-based valuation is critical.</p>
+                <p>Get in touch with our team to book your free valuation today.</p>
+                <a href="/book-a-valuation" class="btn btn-primary mt-2">Book a Free Valuation</a>
+            </div>
+            <div class="col-lg-6 text-center">
+                <img src="/images/about-us/logo.png" alt="Urban Village" class="img-responsive" style="max-width:300px;">
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/area-guides') %>
+
+<% if (typeof posts !== 'undefined' && posts && posts.length) { %>
+<%- include('../partials/property-market') %>
+<% } %>
+
+<%- include('../partials/companies') %>
+<%- include('../includes/footer') %>

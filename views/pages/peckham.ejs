@@ -1,0 +1,85 @@
+<%- include('../includes/header') %>
+
+<div aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/"><i class="fa fa-home"></i> Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Peckham</li>
+    </ol>
+</div>
+
+<div class="intro">
+    <div class="container">
+        <div class="row row-eq-height move_up_top">
+            <div class="col-lg-6">
+                <div class="section_title_container">
+                    <div class="section_subtitle">Estate &amp; Letting Agents in</div>
+                    <div class="section_title"><h1>Peckham</h1></div>
+                    <div class="header_title_border"></div>
+                </div>
+                <div class="intro_content">
+                    <div class="intro_text para-justify">
+                        <p>Less Dell Boy market stall and more trendy hipster hangout, Peckham has transformed in recent years into one of London&#x2019;s coolest areas. Its gorgeous Victorian houses, copious green spaces, vibrant nightlife and village-like atmosphere all make it a hugely desirable place to live &#x2013; for both young and old.</p>
+                        <p>Whether you&#x2019;re on the hunt for a family home, buy-to-let investment or shared rental accommodation, we can help you find your dream Peckham property that meets all your criteria.</p>
+                    </div>
+                    <div class="mt-3">
+                        <a href="/properties?location=peckham&type=sale" class="btn btn-primary me-2">For Sale</a>
+                        <a href="/properties?location=peckham&type=rent" class="btn btn-outline-primary">To Rent</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 intro_col">
+                <div class="intro_image">
+                    <img src="/images/peckham.png" alt="Peckham" class="img-responsive w-100" style="border-radius:8px;">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="services" style="background:#f8f8f8; padding:40px 0;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section_title_container text-center">
+                    <h2 class="main-title">Why we love Peckham</h2>
+                    <div class="header_title_border" style="margin:0 auto;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-lg-12 para-justify">
+                <p>No longer an undiscovered secret, Peckham has quickly become one of the most popular locations for prospective buyers and tenants &#x2013; and it isn&#x2019;t difficult to see why.</p>
+                <p>Peckham Rye&#x2019;s cool credentials and small town vibe offers wonderful housing options, a wide array of independent boutiques and an excellent selection of pubs and popular restaurants ranging from street food to fine dining.</p>
+                <p>Paired with its easy access to transport links into central London and the West End, Peckham offers the best of village and city life, appealing to residents of all ages.</p>
+                <p>Think Peckham could be the place for you? Get in touch with our team to start your search.</p>
+                <div class="mt-3">
+                    <a href="/contact" class="btn btn-primary">Talk to our team</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="intro" style="background:#fff; padding:40px 0;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <h2>Get a free property valuation</h2>
+                <div class="header_title_border"></div>
+                <p class="mt-3">The London property market is hugely competitive, which means getting your pricing right and pitching to the right audience is key.</p>
+                <p>Pricing your property is a balancing act, which is why getting an accurate, up-to-date, and research-based valuation is critical.</p>
+                <p>Get in touch with our team to book your free valuation today.</p>
+                <a href="/book-a-valuation" class="btn btn-primary mt-2">Book Now</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/area-guides') %>
+
+<% if (typeof posts !== 'undefined' && posts && posts.length) { %>
+<%- include('../partials/property-market') %>
+<% } %>
+
+<%- include('../partials/companies') %>
+<%- include('../includes/footer') %>

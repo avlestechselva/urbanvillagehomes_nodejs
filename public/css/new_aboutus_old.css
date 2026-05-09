@@ -1,0 +1,503 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #fff;
+}
+
+.container {
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.dm-serif-display-regular {
+    font-family: "DM Serif Display", serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  .dm-serif-display-regular-italic {
+    font-family: "DM Serif Display", serif;
+    font-weight: 400;
+    font-style: italic;
+  }
+  
+
+  
+  .outfit-light {
+    font-family: "Outfit", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+  }
+
+.about-us {
+    text-align: center;
+    font: normal normal normal 30px/11px DM Serif Display;
+    letter-spacing: 1.54px;
+    color: #992785;
+    opacity: 1;
+}
+
+.industry-experience {
+    text-align: center;
+    font: normal normal 300 37px/111px Outfit;
+    letter-spacing: 0.89px;
+    color: #000000;
+    opacity: 1;
+}
+
+.no-wrap {
+    white-space: nowrap;
+}
+
+.our-story {
+    background: #190D2F 0% 0% no-repeat padding-box;
+    opacity: 1;
+    padding: 20px;
+}
+
+.our-story .body-component{
+    margin: 20px;
+}
+
+.our-story h2 {
+    text-align: center;
+    font: normal normal normal 24px/70px DM Serif Display;
+    letter-spacing: 0.84px;
+    color: #AFB700;
+    opacity: 1;
+}
+
+.our-story h2::before {
+    content: '';
+    width: 50px;
+    height: 4px;
+    background-color: #b1b846;
+    /* Olive green color */
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: -10px;
+}
+
+.our-story p {
+    text-align: center;
+    letter-spacing: 0px;
+    color: #FFFFFF;
+    opacity: 1;
+}
+
+.our-story strong {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 1.2em;
+}
+
+.profile-card {
+    display: flex;
+    align-items: center;
+
+}
+
+.profile-card:nth-child(even) {
+    flex-direction: row-reverse;
+}
+
+.profile-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 8px;
+    object-fit: cover;
+    margin-right: 20px;
+}
+
+.profile-card:nth-child(even) .profile-image {
+    margin-right: 0;
+    margin-left: 20px;
+}
+
+.profile-info {
+    width: 1035px;
+    height: 315px;
+    background: #C6BEC433 0% 0% no-repeat padding-box;
+    border: 1px solid #E00069;
+    border-radius: 21px;
+    opacity: 1;
+}
+
+.profile-info h3 {
+    width: 471px;
+    height: 47px;
+    /* UI Properties */
+    text-align: left;
+    font: normal normal normal 35px/47px DM Serif Display;
+    letter-spacing: 0.84px;
+    color: #E00069;
+    opacity: 1;
+    margin: 40px;
+}
+
+.profile-info p {
+
+    height: 143px;
+    /* UI Properties */
+    text-align: left;
+    font: normal normal 300 19px/29px Outfit;
+    letter-spacing: 0px;
+    color: #000000;
+    opacity: 1;
+    margin: 40px;
+}
+
+
+.reviews-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.reviews-section h2 {
+    width: 1031px;
+    height: 47px;
+    /* UI Properties */
+    text-align: center;
+    font: normal normal normal 35px/47px DM Serif Display;
+    letter-spacing: 0.84px;
+    color: #992785;
+    opacity: 1;
+}
+
+.reviews-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.review-summary,
+.review-card {
+    flex: 1;
+    min-width: 250px;
+    background-color: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.review-summary {
+    background: linear-gradient(135deg, #d42d76, #834191);
+    /* Gradient background */
+    color: #fff;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.review-summary .review-rating {
+    flex: 1;
+}
+
+.review-summary .rating-title {
+    font-size: 1.5em;
+    margin: 0 0 10px;
+}
+
+.review-summary .stars {
+    font-size: 1.2em;
+    margin: 10px 0;
+}
+
+.review-summary .rating-info {
+    margin: 10px 0;
+}
+
+.review-summary .review-logo img {
+    max-width: 100px;
+}
+
+.review-card {
+    background-color: #fff;
+    color: #333;
+    text-align: left;
+}
+
+.review-card p {
+    margin: 0 0 10px;
+}
+
+.review-card strong {
+    color: #834191;
+    /* Dark pinkish color */
+}
+
+.review-card .stars {
+    color: #d42d76;
+    /* Pinkish color */
+}
+
+.property-market-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.property-market-section h2 {
+    font-size: 2em;
+    color: #834191;
+    /* Dark pinkish color */
+    margin-bottom: 20px;
+}
+
+.property-market-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.property-card {
+    flex: 1;
+    min-width: 250px;
+    background-color: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    text-align: left;
+}
+
+.property-card img {
+    width: 100%;
+    height: auto;
+}
+
+.property-card-content {
+    padding: 20px;
+}
+
+.property-card .category {
+    font-size: 0.9em;
+    color: #834191;
+    /* Dark pinkish color */
+    margin-bottom: 10px;
+    display: block;
+}
+
+.property-card .read-time {
+    color: #d42d76;
+    /* Pinkish color */
+}
+
+.property-card h3 {
+    font-size: 1.5em;
+    color: #333;
+    margin: 10px 0;
+}
+
+.property-card .author {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.property-card .author img {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.property-card .author span {
+    font-size: 1em;
+    color: #333;
+}
+
+.property-card .read-more {
+    margin-left: auto;
+    font-size: 0.9em;
+    color: #d42d76;
+    /* Pinkish color */
+    text-decoration: none;
+}
+
+.property-card .read-more:hover {
+    text-decoration: underline;
+}
+
+/* Profiles Section */
+.profiles-section {
+    display: flex;
+    justify-content: space-between;
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.profile-card img {
+    width: 317px;
+    height: 315px;
+    /* UI Properties */
+    background: transparent 0% 0% no-repeat padding-box;
+    opacity: 1;
+}
+
+.profile-content {
+    padding: 20px;
+}
+
+.profile-card h2 {
+    font-size: 1.5em;
+    color: #d42d76;
+}
+
+.profile-card p {
+    font-size: 1em;
+    color: #333;
+}
+
+/* Reviews Section */
+.reviews-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.reviews-section h2 {
+    font-size: 2em;
+    color: #834191;
+    margin-bottom: 20px;
+}
+
+.reviews-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.review-card {
+    flex: 1;
+    min-width: 250px;
+    background-color: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: left;
+}
+
+.review-card.main-review {
+    background: linear-gradient(135deg, #ee0979, #ff6a00);
+    color: #fff;
+}
+
+.review-content {
+    text-align: center;
+}
+
+.review-card h3,
+.review-card h4 {
+    font-size: 1.5em;
+}
+
+.review-card p {
+    font-size: 1em;
+}
+
+.review-card .stars {
+    color: #ffd700;
+}
+
+/* Property Market Section */
+.property-market-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.property-market-section h2 {
+    font-size: 2em;
+    color: #834191;
+    margin-bottom: 20px;
+}
+
+.property-market-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.property-card {
+    flex: 1;
+    min-width: 250px;
+    background-color: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    text-align: left;
+}
+
+.property-card img {
+    width: 100%;
+    height: auto;
+}
+
+.property-card-content {
+    padding: 20px;
+}
+
+.property-card .category {
+    font-size: 0.9em;
+    color: #834191;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.property-card .read-time {
+    color: #d42d76;
+}
+
+.property-card h3 {
+    font-size: 1.5em;
+    color: #333;
+    margin: 10px 0;
+}
+
+.property-card .author {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.property-card .author img {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.property-card .author span {
+    font-size: 1em;
+    color: #333;
+}
+
+.property-card .read-more {
+    margin-left: auto;
+    font-size: 0.9em;
+    color: #d42d76;
+    text-decoration: none;
+}
+
+.property-card .read-more:hover {
+    text-decoration: underline;
+}

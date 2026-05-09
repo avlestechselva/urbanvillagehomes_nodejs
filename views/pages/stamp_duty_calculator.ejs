@@ -1,0 +1,93 @@
+<%- include('../includes/header') %>
+
+<div aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/"><i class="fa fa-home"></i> Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Stamp Duty Calculator</li>
+    </ol>
+</div>
+
+<div class="intro">
+    <div class="container">
+        <div class="row row-eq-height">
+            <div class="col-lg-3"></div>
+            <div class="ceter col-lg-6" style="min-height:690px;background-color:#f2f2f2;">
+                <div class="intro_content">
+                    <div class="container-2" style="border:2px solid black;margin:10px;border-radius:0!important;">
+                        <form>
+                            <h4>Stamp Duty Calculator</h4>
+                            <div class="alert alert-danger" id="error-message" style="display:none;margin-top:10px;">
+                                <ul><li>The given data was invalid, Please check all your inputs.</li></ul>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12" style="text-align:center;">
+                                    <label>Purchase price:</label><br>
+                                    <div class="form-group-2 box-form">
+                                        <span>£</span> <input placeholder="200000" type="text" name="value">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <br>
+                                    <input checked type="radio" name="country" value="england"> SDLT (England or N. Ire)<br>
+                                    <input type="radio" name="country" value="scotland"> LBTT (Scotland)<br>
+                                    <input type="radio" name="country" value="wales"> LTT (Wales)<br>
+                                </div>
+                                <div class="col-md-12">
+                                    <br>
+                                    <input type="radio" name="additional" value="investment"> Investment property<br>
+                                    <input checked type="radio" name="additional" value="primary"> Primary residence<br>
+                                    <input type="radio" name="additional" value="first"> First-time buyer<br>
+                                </div>
+                                <div class="col-md-12" id="mortgage_div" style="text-align:center;">
+                                    <hr>
+                                    <p>Higher Rates: <span id="higher_rates">-</span></p>
+                                    <p>Effective rate: <span id="effective_rate">0.0</span> %</p>
+                                    <h4>Transaction tax payable: £ <span id="tax_payable">00.00</span></h4>
+                                    <hr>
+                                </div>
+                            </div>
+                            <input style="margin-bottom:24px;" type="submit" id="stamp_submit" value="Calculate"><br><br>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3"></div>
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <div class="intro_content">
+                    <br>
+                    <a href="/mortgage-calculator" class="btn cus-btn-2"><b>Mortgage Calculator</b></a>
+                    <br><br>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById('stamp_submit').addEventListener('click', function(e) {
+    e.preventDefault();
+    var value = document.querySelector('input[name=value]').value;
+    var country = document.querySelector('input[name=country]:checked').value;
+    var additional = document.querySelector('input[name=additional]:checked').value;
+    document.getElementById('error-message').style.display = 'none';
+    fetch('/calculate-stamp-duty', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ value, country, additional })
+    })
+    .then(r => r.json())
+    .then(data => {
+        var higherRates = data.additional_rate_used ? 'Applicable' : 'Not Applicable';
+        var effectiveRate = ((data.sdlt_payable / value) * 100).toFixed(2);
+        document.getElementById('tax_payable').textContent = data.sdlt_payable.toFixed(2);
+        document.getElementById('effective_rate').textContent = effectiveRate;
+        document.getElementById('higher_rates').textContent = higherRates;
+    })
+    .catch(() => {
+        document.getElementById('error-message').style.display = 'block';
+    });
+});
+</script>
+
+<%- include('../includes/footer') %>

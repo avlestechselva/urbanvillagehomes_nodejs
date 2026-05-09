@@ -1,0 +1,196 @@
+<%- include('../includes/header') %>
+<link rel="stylesheet" href="/css/new_aboutus.css">
+<link rel="stylesheet" href="/css/page_header.css">
+<link rel="stylesheet" href="/css/newhome.css">
+
+<style>
+body { margin:0; font-family:Outfit,sans-serif; background-color:#fff; }
+h1,h2,h3 { font-family:"DM Serif Display",serif; }
+.custom-btn { background-color:#E00069!important; color:#fff; padding:10px 18px; border-radius:30px; border:none; font-weight:bold; text-align:center; display:inline-block; text-decoration:none; transition:background-color .3s ease; width:255px; font-size:20px; }
+.custom-btn:hover { background-color:#d41653!important; color:#fff; }
+.button-container { text-align:center; }
+.selling-section { display:flex; justify-content:space-between; align-items:center; background-color:#fff; border-radius:10px; padding:20px; margin:20px 0; }
+.selling-content h2 { color:#A22D6C; font-size:24px; margin-bottom:15px; }
+.selling-content p { font-size:16px; line-height:1.5; color:#333; margin-bottom:15px; }
+.selling-button-container { text-align:start; margin-top:20px; }
+.selling-btn { background-color:#949c0c; color:#fff; padding:10px 20px; border-radius:25px; border:none; font-weight:bold; text-align:center; text-decoration:none; display:inline-block; transition:background-color .3s; }
+.selling-btn:hover { background-color:#d41653; color:#fff; }
+.selling-image img { width:100%; border-radius:10px; box-shadow:0 4px 8px rgba(0,0,0,.1); }
+.property-section { display:flex; justify-content:space-between; align-items:center; background-color:#fff; border-radius:10px; margin:20px 0; }
+.property-image img { width:100%; border-radius:10px; box-shadow:0 4px 8px rgba(0,0,0,.1); }
+.property-content h2 { color:#A22D6C; font-size:32px!important; margin-bottom:15px; }
+.property-content p { font-size:16px; line-height:1.5; color:#333; margin-bottom:15px; }
+.consultation-section { display:flex; justify-content:space-between; align-items:center; background-color:#fff; border-radius:10px; padding:38px 30px 42px; border:1px solid #C6BEC4; margin:20px 0; }
+.consultation-content h2 { color:#A22D6C; font-size:24px; margin-bottom:15px; }
+.consultation-content p { font-size:16px; line-height:1.5; color:#000; margin-bottom:15px; }
+.consultation-content ul { list-style-type:none; padding-left:0; margin-bottom:20px; }
+.consultation-content ul li { font-size:16px; line-height:1.5; color:#000; margin-bottom:10px; padding-left:8px; font-weight:300; }
+.consultation-button-container { text-align:start; margin-top:35px; }
+.consultation-btn { background-color:#AFB700; color:#fff; padding:10px 20px; border-radius:25px; text-decoration:none; display:inline-block; }
+.consultation-btn:hover { background-color:#afb700c7; color:#fff; }
+/* Owl carousel simple replacement */
+.property-carousel { display:flex; overflow-x:auto; gap:20px; padding:20px 0; scrollbar-width:thin; }
+.property-carousel::-webkit-scrollbar { height:6px; }
+.property-carousel::-webkit-scrollbar-track { background:#f1f1f1; }
+.property-carousel::-webkit-scrollbar-thumb { background:#992785; border-radius:3px; }
+.post-slide { min-width:200px; background:#fff; border-radius:8px; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,.1); }
+.post-img { position:relative; height:150px; overflow:hidden; }
+.post-img img { width:100%; height:100%; object-fit:cover; }
+.post-img .over-layer { position:absolute; inset:0; background:rgba(0,0,0,.3); display:flex; align-items:center; justify-content:center; opacity:0; transition:opacity .2s; color:#fff; font-size:24px; }
+.post-slide:hover .over-layer { opacity:1; }
+.post-content { padding:12px; }
+.post-description { font-size:13px; color:#374151; }
+</style>
+
+<div class="page-title-div">Selling your property with Urban Village</div>
+<div class="page-subtitle-div pt-lg-3">Discover why others choose to partner with us</div>
+
+<div class="intro" style="padding-bottom:30px!important;">
+    <div class="section">
+        <div class="row-eq-height move_up_top">
+            <div class="col-lg-12 move_up_top-2">
+                <div class="intro_content">
+                    <div class="button-container pt-lg-5">
+                        <a target="_blank" href="/book-a-valuation" class="btn custom-btn">
+                            <b>Book a Free Valuation</b>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <% if (typeof properties !== 'undefined' && properties.length) { %>
+            <div class="container-fluid card-carousel mt-5">
+                <div class="row">
+                    <h2 class="m-auto">Properties we've sold</h2>
+                    <div class="col-md-12 mt-3">
+                        <div class="property-carousel">
+                            <% properties.forEach(function(property) { %>
+                            <div class="post-slide">
+                                <div class="post-img">
+                                    <img src="<%= property.image %>" alt="<%= property.displayAddress %>" onerror="this.src='/images/placeholder.svg'">
+                                    <a href="/property/<%= property.propertyID %>/<%= property.slug %>" class="over-layer"><i class="fa fa-link"></i></a>
+                                </div>
+                                <div class="post-content">
+                                    <p class="post-description mb-0">
+                                        <span class="post-date"><%= property.displayAddress ? property.displayAddress.substring(0, 25) + (property.displayAddress.length > 25 ? '...' : '') : '' %></span>
+                                    </p>
+                                </div>
+                            </div>
+                            <% }); %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <% } %>
+
+            <div class="container Why-sell-section">
+                <div class="selling-section row">
+                    <div class="selling-content col-12 col-lg-6">
+                        <h2>Why sell with us?</h2>
+                        <p>Making the decision to sell your property can often be stressful – especially when you have to navigate the London property market. But what if it didn't have to be?</p>
+                        <p>Our fresh, forward-thinking, customer-focused approach to property sales, paired with our vast amount of local and market knowledge, has helped us to achieve record prices in our core area, and an impressively low sale fall-through rate.</p>
+                        <p>Ready to get your property on the market?</p>
+                        <div class="selling-button-container">
+                            <a href="/book-a-valuation" class="selling-btn">Book a valuation</a>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 p-0 px-lg-4">
+                        <div class="selling-image">
+                            <img src="/images/kitchen.jpg" alt="Kitchen Image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <section class="our-story position-relative Village-achieve mt-lg-5">
+                <img src="/images/about-us/logo.png" alt="">
+                <div class="container">
+                    <h2 class="pt-0">Why Urban Village achieve the best results</h2>
+                    <div class="body-component">
+                        <p><b>We are dedicated to ensuring that the sale of your home is simple, profitable and as timely as possible, so that you secure a far better result. We thrive on repeat business and customer recommendations, so we really do the best we can for our customers.</b></p>
+                    </div>
+                </div>
+            </section>
+
+            <div class="container mt-lg-4">
+                <div class="property-section row">
+                    <div class="col-12 col-lg-6 p-0 p-lg-4">
+                        <div class="property-image">
+                            <img src="/images/bicycle.jpg" alt="Urban Village Bicycle Image">
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 p-0">
+                        <div class="property-content">
+                            <h2>Sell your property the right way</h2>
+                            <p>Every decision we make is founded on sound research and experience. We pinpoint emerging market trends, identify when the best time is to sell your home, and help you do so in the shortest timeframe for the best price.</p>
+                            <p>No two properties are the same – and neither are our clients. Whatever your needs and preferences, we're committed to actively selling your property, keeping in touch throughout, analysing performance and focusing on activity levels to achieve the best possible results.</p>
+                            <p>How? With a wide array of marketing tools that help us deliver the widest possible exposure for your property, paired with the local expertise and dedicated service of our sales team.</p>
+                            <p>With your property in our hands, you can rest assured our team is fully committed to getting the best possible result for you.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <section class="our-story position-relative mt-lg-5 property-valuation valuation">
+                <img src="/images/about-us/logo.png" alt="">
+                <div class="container">
+                    <h2 class="pt-0">Get a free property valuation</h2>
+                    <div class="body-component">
+                        <p>The London property market is hugely competitive, which means getting your pricing right and pitching to the right audience is key. Aim too high with your asking price, and your property can go stale by sitting too long on the portals. Aim too low, and you could talk yourself out of a considerable profit.</p>
+                        <p>Pricing your property is a balancing act, which is why getting an accurate, up-to-date, and research-based valuation is critical.</p>
+                        <p>Get in touch with our team to book your free valuation today.</p>
+                        <div class="button-container mt-4">
+                            <a target="_blank" href="/book-a-valuation" class="btn book-now justify-content-center align-items-center">
+                                <b>Book Now</b>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="container mt-5">
+                <div class="consultation-section row">
+                    <div class="col-12 col-lg-7">
+                        <div class="consultation-content">
+                            <h2>Free home staging consultation</h2>
+                            <p>Just as important as establishing your asking price is 'setting the stage' for your potential buyers. Home staging is all about improving your property's appeal by making it a welcoming, attractive home that any buyer can see themselves living in.</p>
+                            <p>Home staging also offers various benefits to you as the seller:</p>
+                            <ul>
+                                <ul class="d-flex mb-0"><img src="/images/about-us/logo.png" alt=""><li>Organising your home reduces stress</li></ul>
+                                <ul class="d-flex mb-0"><img src="/images/about-us/logo.png" alt=""><li>Selling unwanted items make you money</li></ul>
+                                <ul class="d-flex mb-0"><img src="/images/about-us/logo.png" alt=""><li>Increases the value of your home</li></ul>
+                                <ul class="d-flex mb-0"><img src="/images/about-us/logo.png" alt=""><li>Decluttering creates valuable space</li></ul>
+                            </ul>
+                            <div class="consultation-button-container">
+                                <a href="/free-home-staging-consultation" class="consultation-btn">Book your free consultation</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-5 text-center pt-5 pt-lg-0">
+                        <video width="100%" controls>
+                            <source src="/videos/landlord.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reviews-section container-fluid our-community Brilliant mt-5 choosing-Urban" style="background-color:#C6BEC433;">
+                <h2>Thank you for choosing Urban Village</h2>
+                <div class="reviews-container pt-2 pt-lg-4 row d-flex justify-content-center">
+                    <div class="col-6" style="display:contents;">
+                        <video width="80%" height="591" class="set-phone-height" controls>
+                            <source src="/videos/sellers.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                </div>
+            </div>
+
+            <%- include('../partials/property-market') %>
+            <%- include('../partials/companies') %>
+        </div>
+    </div>
+</div>
+
+<%- include('../includes/footer') %>

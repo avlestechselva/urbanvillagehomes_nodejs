@@ -1,0 +1,223 @@
+<%- include('../includes/header') %>
+<link rel="stylesheet" href="/css/new_aboutus.css">
+<link rel="stylesheet" href="/css/page_header.css">
+<link rel="stylesheet" href="/css/newhome.css">
+
+<style>
+body { margin:0; font-family:Outfit,sans-serif; background:#fff; }
+h1,h2,h3 { font-family:"DM Serif Display",serif; }
+.custom-btn { background-color:#AFB700; color:#fff; padding:10px 18px; border-radius:25px; border:none; font-weight:bold; text-align:center; display:inline-block; text-decoration:none; transition:background-color .3s; width:255px; font-size:20px; }
+.custom-btn:hover { background-color:#afb700c7; color:#fff; }
+.button-container { text-align:center; }
+.letting-content h2 { color:#A22D6C; font-size:24px; margin-bottom:15px; }
+.letting-content p { font-size:16px; line-height:1.5; color:#333; margin-bottom:15px; }
+.selling-button-container { text-align:center; margin-top:20px; }
+.selling-btn { background-color:#e11959; color:#fff; padding:10px 20px; border-radius:25px; border:none; font-weight:bold; text-decoration:none; display:inline-block; transition:background-color .3s; }
+.selling-btn:hover { background-color:#d41653; color:#fff; }
+.selling-image img { width:100%; border-radius:10px; }
+.support-section { text-align:center; margin:20px 0; }
+.support-section h2 { color:#992785; font-size:35px; margin-bottom:10px; font-weight:400!important; }
+.support-section p { font-size:16px; line-height:1.5; color:#333; margin-bottom:20px; margin-left:auto; margin-right:auto; }
+.service-box { border:2px solid #E00069; border-radius:20px; padding:44px 38px; margin:58px auto; text-align:left; box-shadow:0 4px 8px rgba(0,0,0,.1); }
+.service-two { border:2px solid #992785; border-radius:20px; padding:44px 38px; margin:44px auto; text-align:left; box-shadow:0 4px 8px rgba(0,0,0,.1); }
+.service-box h3 { color:#E00069; font:400 35px "DM Serif Display",serif; margin-bottom:15px; }
+.service-two h3 { color:#992785!important; font:400 35px "DM Serif Display",serif; margin-bottom:15px; }
+.service-box p,.service-two p { font-size:16px; line-height:1.5; color:#333; margin-bottom:15px; }
+.service-buttons { margin-top:20px; }
+.service-btn { background-color:#E00069; color:#fff; padding:10px 20px; border-radius:25px; border:none; font-weight:bold; text-decoration:none; display:inline-block; transition:background-color .3s; margin-right:10px; }
+.service-two .service-btn { background-color:#992785; }
+.service-btn:hover { background-color:#d41653; color:#fff; }
+.service-two .service-btn:hover { background-color:#992785d4; color:#fff; }
+.consultation-content h2 { color:#A22D6C; font-size:24px; margin-bottom:15px; }
+.consultation-content p { font-size:16px; line-height:1.5; color:#000; margin-bottom:15px; }
+.consultation-content ul { list-style-type:none; padding-left:0; margin-bottom:20px; }
+.consultation-content ul li { font-size:16px; line-height:1.5; color:#000; margin-bottom:10px; padding-left:8px; font-weight:300; }
+/* Simple property carousel */
+.property-carousel { display:flex; overflow-x:auto; gap:20px; padding:20px 0; scrollbar-width:thin; }
+.property-carousel::-webkit-scrollbar { height:6px; }
+.property-carousel::-webkit-scrollbar-thumb { background:#992785; border-radius:3px; }
+.post-slide { min-width:200px; background:#fff; border-radius:8px; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,.1); }
+.post-img { position:relative; height:150px; overflow:hidden; }
+.post-img img { width:100%; height:100%; object-fit:cover; }
+.post-img .over-layer { position:absolute; inset:0; background:rgba(0,0,0,.3); display:flex; align-items:center; justify-content:center; opacity:0; transition:opacity .2s; color:#fff; font-size:24px; text-decoration:none; }
+.post-slide:hover .over-layer { opacity:1; }
+.post-content { padding:12px; }
+.post-description { font-size:13px; color:#374151; }
+.Service-options { background:linear-gradient(135deg,#992785,#E00069); border-radius:12px; padding:20px 24px; margin:20px 0; cursor:pointer; }
+.Service-options p { color:#fff; margin:0; font-weight:600; }
+</style>
+
+<div class="container-fluid">
+    <div class="page-title-div">Letting with us</div>
+    <div class="page-subtitle-div pt-lg-3">Looking for good tenants? Discover why so many landlords choose to let with us.</div>
+</div>
+
+<div class="intro" style="padding-bottom:42px!important;">
+    <div class="section">
+        <div class="row-eq-height move_up_top">
+            <div class="col-lg-12 move_up_top-2">
+                <div class="intro_content">
+                    <div class="button-container mt-4 mt-lg-0 pt-lg-5">
+                        <a target="_blank" href="/book-a-valuation" class="btn custom-btn">
+                            <b>Book a Free Valuation</b>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <% if (typeof properties !== 'undefined' && properties.length) { %>
+            <div class="container-fluid card-carousel mt-5">
+                <div class="row">
+                    <h2 class="m-auto">Properties we've let</h2>
+                    <div class="col-md-12 mt-3">
+                        <div class="property-carousel">
+                            <% properties.forEach(function(property) { %>
+                            <div class="post-slide">
+                                <div class="post-img">
+                                    <img src="<%= property.image %>" alt="<%= property.displayAddress %>" onerror="this.src='/images/placeholder.svg'">
+                                    <a href="/property/<%= property.propertyID %>/<%= property.slug %>" class="over-layer"><i class="fa fa-link"></i></a>
+                                </div>
+                                <div class="post-content">
+                                    <p class="post-description mb-0">
+                                        <span><%= property.displayAddress ? property.displayAddress.substring(0, 25) + (property.displayAddress.length > 25 ? '...' : '') : '' %></span>
+                                    </p>
+                                </div>
+                            </div>
+                            <% }); %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <% } %>
+
+            <div class="container Why-sell-section Why-sell">
+                <div class="selling-section row">
+                    <div class="selling-content letting-content col-12 col-lg-8">
+                        <h2>Why let with Urban Village?</h2>
+                        <p>We're not your typical run-of-the-mill estate agency. As a genuinely independent, local agency, you can rest assured that your property is highly valued and looked after.</p>
+                        <p>We make an effort to get to know our landlords personally, as well as their properties, so we can provide a bespoke service tailored to you as an individual, not just as an addition to our portfolio. Essentially, we are a real estate agency run by real people that you can contact whenever you need to.</p>
+                        <p>With our extensive knowledge of the local rental market, unparalleled lettings experience and regularly updated database of suitable tenants, we can help you find the ideal match, making sensible and fast decisions on your behalf to best protect your property and tenancy.</p>
+                        <div class="selling-button-container">
+                            <a href="/book-a-valuation" class="selling-btn">Book a valuation</a>
+                        </div>
+                    </div>
+                    <div class="selling-image col-12 col-lg-4 p-0 p-lg-4">
+                        <img src="/images/garden.jpg" alt="Property Image" class="w-100">
+                    </div>
+                </div>
+            </div>
+
+            <section class="our-story position-relative letting-experience Village-achieve p-0">
+                <img src="/images/about-us/logo.png" alt="">
+                <div class="container mt-lg-5">
+                    <div class="consultation-section" style="border:1px solid #C6BEC4;border-radius:10px;padding:38px 30px;">
+                        <div class="row">
+                            <div class="col-12 col-lg-6 d-flex justify-content-lg-center pt-lg-3">
+                                <div class="accommodation home-accommodation">
+                                    <video width="100%" height="546" controls loop muted style="display:block;" poster="/images/about-us/logo_poster.jpg">
+                                        <source src="/videos/Landlords_UV.mp4" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                <div class="consultation-content">
+                                    <h2>A stress-free letting experience</h2>
+                                    <p>Choosing to let with Urban Village gives you access to a whole host of benefits and support as you navigate the lettings experience, including:</p>
+                                    <ul>
+                                        <ul class="d-flex"><img src="/images/about-us/logo.png" alt=""><li>Our 24/7 client care portal, giving you peace of mind and control throughout the tenancy</li></ul>
+                                        <ul class="d-flex"><img src="/images/about-us/logo.png" alt=""><li>Highly trusted contractor partners</li></ul>
+                                        <ul class="d-flex"><img src="/images/about-us/logo.png" alt=""><li>Pre-qualification and detailed referencing to find the best tenants</li></ul>
+                                        <ul class="d-flex"><img src="/images/about-us/logo.png" alt=""><li>A highly experienced, in-house property manager to ensure your property is well looked after</li></ul>
+                                        <ul class="d-flex"><img src="/images/about-us/logo.png" alt=""><li>Completely transparent, fair fees with no inflated prices on repairs or maintenance</li></ul>
+                                        <ul class="d-flex"><img src="/images/about-us/logo.png" alt=""><li>Our team visit, in person every six months rather than delegating to a third party, so we genuinely know the property!</li></ul>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="container">
+                <div class="support-section">
+                    <h2>Get the right support for your needs</h2>
+                    <p class="my-lg-5">Every landlord has varying levels of letting experience — so we let you take the driving seat in deciding what you need from us. Whether you want all-round property maintenance support, or just want a helping hand in sourcing the right tenants, we have your back.</p>
+
+                    <div class="service-box service-one">
+                        <h3>Premium Managed</h3>
+                        <p>From the moment your tenants move in, we look after everything — from rental collection to property maintenance.</p>
+                        <p>With our fully managed service, landlords get complete peace of mind that their tenants are looked after, their property is kept in good condition, and everything is taken care of, with an experienced property manager on hand and a network of trusted trade people.</p>
+                        <p><strong>15% including VAT for our standard 12-month tenancy. No automatic renewal fees charged, which is a unique benefit with Urban Village.</strong></p>
+                        <div class="service-buttons">
+                            <a href="/book-a-valuation" class="btn service-btn">Book a valuation</a>
+                        </div>
+                    </div>
+
+                    <div class="service-box service-two">
+                        <h3>Let-Only Service</h3>
+                        <p>Our team of letting experts will help you to market your property and find the perfect tenants — once the contracts are signed, you take the reins.</p>
+                        <p>You will be in total control of your own property maintenance, rental collection, and tenancy, from start to finish.</p>
+                        <p><strong>10% including VAT for our standard 12-month tenancy. No automatic renewal fees charged, which is a unique benefit with Urban Village.</strong></p>
+                        <div class="service-buttons">
+                            <a href="/book-a-valuation" class="btn service-btn">Book a valuation</a>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="/pdf/Landlord-fees-schedule-V3.4.pdf" style="text-decoration:none;" target="_blank">
+                    <div class="Service-options">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <p class="text-white">Service options and charges</p>
+                            <img src="/images/icons/white-chevron.png" alt="">
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="reviews-section container-fluid our-community Brilliant landlords mt-5">
+                <h2>We keep tenants and landlords fully informed</h2>
+                <div class="reviews-container pt-2 pt-lg-4 row d-flex justify-content-center">
+                    <div class="col-6" style="display:contents;">
+                        <video width="75%" height="546" controls loop muted style="display:block;margin:20px auto;" poster="/images/about-us/logo_poster.jpg">
+                            <source src="/videos/sellers2.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                </div>
+            </div>
+
+            <section class="our-story position-relative mt-5 valuation">
+                <img src="/images/about-us/logo.png" alt="">
+                <div class="container">
+                    <h2 class="pt-0">Get a free property valuation</h2>
+                    <div class="body-component">
+                        <p>The London property market is hugely competitive, which means getting your pricing right and pitching to the right audience is key. Aim too high with your asking price, and your property can go stale by sitting too long on the portals. Aim too low, and you could talk yourself out of a considerable profit.</p>
+                        <p>Pricing your property is a balancing act, which is why getting an accurate, up-to-date, and research-based valuation is critical.</p>
+                        <p>Get in touch with our team to book your free valuation today.</p>
+                        <div class="button-container mt-4">
+                            <a target="_blank" href="/book-a-valuation" class="btn custom-btn"><b>Book Now</b></a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="reviews-section container-fluid our-community Brilliant landlords mt-5">
+                <h2>Thank you for choosing Urban Village</h2>
+                <div class="reviews-container pt-2 pt-lg-4 row d-flex justify-content-center">
+                    <div class="col-6" style="display:contents;">
+                        <video width="75%" height="546" controls loop muted style="display:block;margin:20px auto;" poster="/images/about-us/logo_poster.jpg">
+                            <source src="/videos/Landlords_UV.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                </div>
+            </div>
+
+            <%- include('../partials/property-market') %>
+            <%- include('../partials/companies') %>
+        </div>
+    </div>
+</div>
+
+<%- include('../includes/footer') %>

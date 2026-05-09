@@ -1,0 +1,85 @@
+<%- include('../includes/header') %>
+
+<div aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/"><i class="fa fa-home"></i> Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Stockwell</li>
+    </ol>
+</div>
+
+<div class="intro">
+    <div class="container">
+        <div class="row row-eq-height move_up_top">
+            <div class="col-lg-6">
+                <div class="section_title_container">
+                    <div class="section_subtitle">Estate &amp; Letting Agents in</div>
+                    <div class="section_title"><h1>Stockwell</h1></div>
+                    <div class="header_title_border"></div>
+                </div>
+                <div class="intro_content">
+                    <div class="intro_text para-justify">
+                        <p>If it&#x2019;s good enough for the likes of Vincent Van Gogh, David Bowie, Roger Moore, Will Self and Joanna Lumley, it&#x2019;s good enough for us! Nestled in the borough of Lambeth in South West London, Stockwell has been home to a number of well-known faces. Its good transport links, fantastic local amenities and rich history make it a hugely popular area to live, and it&#x2019;s easy to see why.</p>
+                        <p>Whether you&#x2019;re on the hunt for a family home, a buy-to-let investment, or shared rental accommodation, we can help you find your dream Stockwell property that meets all your criteria.</p>
+                    </div>
+                    <div class="mt-3">
+                        <a href="/properties?location=stockwell&type=sale" class="btn btn-primary me-2">For Sale</a>
+                        <a href="/properties?location=stockwell&type=rent" class="btn btn-outline-primary">To Rent</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 intro_col">
+                <div class="intro_image">
+                    <img src="/images/stockwell.png" alt="Stockwell" class="img-responsive w-100" style="border-radius:8px;">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="services" style="background:#f8f8f8; padding:40px 0;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section_title_container text-center">
+                    <h2 class="main-title">Why we love Stockwell</h2>
+                    <div class="header_title_border" style="margin:0 auto;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-lg-12 para-justify">
+                <p>A diverse and vibrant area, Stockwell has been described as one of South London&#x2019;s up-and-coming neighbourhoods. It&#x2019;s home to a hot pot of highly rated restaurants, from Ethiopian to African, Peruvian and Mediterranean, as well as a number of celebrated cafes, bars, and pubs.</p>
+                <p>But if food isn&#x2019;t one of your top criteria, Stockwell has plenty more to offer. With easy access to both the Victoria and Northern lines, it&#x2019;s just a short journey from central London, and its close proximity to a range of high performing primary and secondary schools make it the perfect location for your next family home.</p>
+                <p>Slade Gardens and Larkhall Park are just a short walk away, leaving playgrounds, basketball and tennis courts and football pitches right on your doorstep.</p>
+                <p>Think Stockwell could be the place for you? Get in touch with our team to start your search.</p>
+                <div class="mt-3">
+                    <a href="/contact" class="btn btn-primary">Talk to our team</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="intro" style="background:#fff; padding:40px 0;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <h2>Get a free property valuation</h2>
+                <div class="header_title_border"></div>
+                <p class="mt-3">The London property market is hugely competitive, which means getting your pricing right and pitching to the right audience is key. Aim too high with your asking price, and your property can go stale by sitting too long on the portals. Aim too low, and you could talk yourself out of a considerable profit.</p>
+                <p>Pricing your property is a balancing act, which is why getting an accurate, up-to-date, and research-based valuation is critical.</p>
+                <p>Get in touch with our team to book your free valuation today.</p>
+                <a href="/book-a-valuation" class="btn btn-primary mt-2">Book Now</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/area-guides') %>
+
+<% if (typeof posts !== 'undefined' && posts && posts.length) { %>
+<%- include('../partials/property-market') %>
+<% } %>
+
+<%- include('../partials/companies') %>
+<%- include('../includes/footer') %>

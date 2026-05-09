@@ -1,0 +1,85 @@
+<%- include('../includes/header') %>
+
+<div aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/"><i class="fa fa-home"></i> Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Loughborough Junction</li>
+    </ol>
+</div>
+
+<div class="intro">
+    <div class="container">
+        <div class="row row-eq-height move_up_top">
+            <div class="col-lg-6">
+                <div class="section_title_container">
+                    <div class="section_subtitle">Estate &amp; Letting Agents in</div>
+                    <div class="section_title"><h1>Loughborough Junction</h1></div>
+                    <div class="header_title_border"></div>
+                </div>
+                <div class="intro_content">
+                    <div class="intro_text para-justify">
+                        <p>Loughborough Junction is no longer just a crossroads with a few shops and a train station. Today, it has become a vibrant area of its own, with artist studios, pop-up cafes, horse-riding stables and even a fresh produce farm right on its doorstep.</p>
+                        <p>With three of our team being local residents of the area, we know Loughborough Junction inside and out. Whether you are on the lookout for a family home, a buy-to-let investment or shared rental accommodation, we can help you find a property that meets all your criteria.</p>
+                    </div>
+                    <div class="mt-3">
+                        <a href="/properties?location=loughborough+junction&type=sale" class="btn btn-primary me-2">For Sale</a>
+                        <a href="/properties?location=loughborough+junction&type=rent" class="btn btn-outline-primary">To Rent</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 intro_col">
+                <div class="intro_image">
+                    <img src="/images/loughborough.png" alt="Loughborough Junction" class="img-responsive w-100" style="border-radius:8px;">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="services" style="background:#f8f8f8; padding:40px 0;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section_title_container text-center">
+                    <h2 class="main-title">Why we love Loughborough Junction</h2>
+                    <div class="header_title_border" style="margin:0 auto;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-lg-12 para-justify">
+                <p>There is something for everyone in Loughborough Junction. Looking for a warm and friendly community that buzzes with creativity? Want an abundance of outdoor spaces? Need good schools and family-friendly local amenities? Loughborough Junction has it all.</p>
+                <p>Just minutes from Loughborough Junction you will find the renowned Ruskin Park &#x2013; housing a children&#x2019;s play area, sports facilities, a beautiful flower garden and much-loved bandstand that becomes a firm favourite in the summer months.</p>
+                <p>Both Brixton and Camberwell are within easy walking distance, offering fantastic options for caf&#xe9; culture and foody nights out, and thanks to the area&#x2019;s excellent transport links, you can find yourself on the steps of the Tate Modern in just 10 minutes.</p>
+                <p>Between its village community atmosphere and proximity to central London, the area is hugely desirable for both tenants and buyers alike.</p>
+                <div class="mt-3">
+                    <a href="/contact" class="btn btn-primary">Talk to our team</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="intro" style="background:#fff; padding:40px 0;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <h2>Get a free property valuation</h2>
+                <div class="header_title_border"></div>
+                <p class="mt-3">The London property market is hugely competitive, which means getting your pricing right and pitching to the right audience is key. Aim too high with your asking price, and your property can go stale by sitting too long on the portals. Aim too low, and you could talk yourself out of a considerable profit.</p>
+                <p>Pricing your property is a balancing act, which is why getting an accurate, up-to-date, and research-based valuation is critical.</p>
+                <p>Get in touch with our team to book your free valuation today.</p>
+                <a href="/book-a-valuation" class="btn btn-primary mt-2">Book a Free Valuation</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/area-guides') %>
+
+<% if (typeof posts !== 'undefined' && posts && posts.length) { %>
+<%- include('../partials/property-market') %>
+<% } %>
+
+<%- include('../partials/companies') %>
+<%- include('../includes/footer') %>

@@ -1,0 +1,18 @@
+<% if (typeof posts !== 'undefined' && posts && posts.length) { %>
+<div class="property-market-section container">
+    <h2>What's happening in the property market?</h2>
+    <div class="property-market-container pt-4">
+        <% posts.forEach(function(post) { %>
+        <div class="property-card">
+            <a href="/blog/view/<%= post.slug %>">
+                <img src="<%= post.image %>" alt="<%= post.title %>" class="profile-image" onerror="this.src='/images/placeholder.svg'">
+            </a>
+            <div class="property-card-content">
+                <span class="category"><%= post.category ? post.category.name : '' %> <span class="read-time">| 5 MINS READ</span></span>
+                <h3><%= post.title %></h3>
+            </div>
+        </div>
+        <% }); %>
+    </div>
+</div>
+<% } %>
