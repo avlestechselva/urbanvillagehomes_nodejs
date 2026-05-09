@@ -8,19 +8,6 @@ const http    = require('http');
 const sax     = require('sax');
 const Property = require('../models/Property');
 const Resource = require('../models/Resource');
-const cloudinary = require('../config/cloudinary');
-
-function uploadToCloudinary(url, folder) {
-    return new Promise((resolve, reject) => {
-        cloudinary.uploader.upload(url, {
-            folder,
-            resource_type: 'auto',
-        }, (error, result) => {
-            if (error) return reject(error);
-            resolve(result.secure_url);
-        });
-    });
-}
 
 async function processMediaType(propertyID, items, type, urlKey, subDir, now) {
     for (let k = 0; k < items.length; k++) {
@@ -34,35 +21,22 @@ async function processMediaType(propertyID, items, type, urlKey, subDir, now) {
             const dbMod  = new Date(existing.modified);
             const apiMod = new Date(item.modified);
             if (apiMod <= dbMod) continue; // not changed
-
-            // Updated — delete old from Cloudinary, re-upload
             await Resource.deleteOne({ _id: existing._id });
-            if (existing.cloudinaryPublicId) {
-                await cloudinary.uploader.destroy(existing.cloudinaryPublicId, { resource_type: 'auto' }).catch(() => {});
-            }
         }
 
-        // Upload to Cloudinary
         try {
-            const folder = `urbanvillagehomes/properties/${propertyID}/${subDir}`;
-            console.log(`[Jupix] Uploading ${type} for ${propertyID}: ${fileUrl}`);
-            const cloudinaryUrl = await uploadToCloudinary(fileUrl, folder);
-            const publicId = `${folder}/${fileUrl.split('/').pop().split('?')[0].split('.')[0]}`;
-            console.log(`[Jupix] Uploaded to Cloudinary: ${cloudinaryUrl}`);
-
             await Resource.create({
                 propertyID,
-                modified:           item.modified,
-                url:                fileUrl,
+                modified:   item.modified,
+                url:        fileUrl,
                 type,
-                path:               cloudinaryUrl,
-                cloudinaryPublicId: publicId,
-                sort_order:         k + 1,
-                createdAt:          now,
-                updatedAt:          now,
+                path:       fileUrl, // use Jupix URL directly
+                sort_order: k + 1,
+                createdAt:  now,
+                updatedAt:  now,
             });
         } catch (err) {
-            console.error(`[Jupix] Error uploading ${type} for ${propertyID}: ${err.message}`, err);
+            console.error(`[Jupix] Error saving ${type} for ${propertyID}: ${err.message}`);
         }
     }
 }
