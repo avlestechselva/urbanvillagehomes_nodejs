@@ -4,10 +4,8 @@ const path         = require('path');
 const session      = require('express-session');
 const MongoStore   = require('connect-mongo');
 const flash        = require('connect-flash');
-const { CronJob }  = require('cron');
 const connectDB    = require('./src/config/database');
 const webRoutes    = require('./src/routes/web');
-const jupixJob     = require('./src/jobs/jupixRetrieve');
 
 const app = express();
 
@@ -61,12 +59,6 @@ app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).render('errors/500');
 });
-
-// Jupix cron — every 3 hours (same as original: 0 */3 * * *)
-const jupixCron = new CronJob('0 */3 * * *', () => {
-    console.log('[Cron] Running Jupix retrieve...');
-    jupixJob.run();
-}, null, true);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
