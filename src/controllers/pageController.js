@@ -33,7 +33,7 @@ async function enrichProperty(p) {
 
     // Rent frequency
     if (prop.rentFrequency) {
-        const rf = await RentFrequency.findOne({ id: prop.rentFrequency });
+        const rf = await RentFrequency.findOne({ id: Number(prop.rentFrequency) });
         if (rf) prop.rentFrequency = rf.frequency_type;
     }
 
@@ -148,7 +148,7 @@ exports.getSingleProperty = async (req, res) => {
     try {
         const { property_id } = req.params;
 
-        const propertyRaw = await Property.findOne({ status: 1, propertyID: property_id });
+        const propertyRaw = await Property.findOne({ status: 1, propertyID: isNaN(property_id) ? property_id : Number(property_id) });
         if (!propertyRaw) return res.status(404).render('errors/404');
 
         const property = propertyRaw.toObject();
