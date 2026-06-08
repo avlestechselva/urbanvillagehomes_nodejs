@@ -28,7 +28,7 @@ async function enrichProperty(p) {
     if (ps) prop.propertyStyle = ps.style_name;
 
     // Availability lookup
-    const pa = await PropertyAvailability.findOne({ group_id: prop.availability, department: prop.department });
+    const pa = await PropertyAvailability.findOne({ group_id: Number(prop.availability), department: prop.department });
     if (pa) prop.availability = pa.name;
 
     // Rent frequency
@@ -42,7 +42,8 @@ async function enrichProperty(p) {
 
 function buildPropertyQuery(req) {
     const withdrawn = [6, 7];
-    const query = { status: 1, availability: { $nin: withdrawn.map(String) } };
+    // availability can be stored as number or string, exclude both forms
+    const query = { status: 1, availability: { $nin: [...withdrawn, ...withdrawn.map(String)] } };
 
     // Search
     const search = (req.query.search || '').replace(/\+/g, ' ').trim();
@@ -191,7 +192,7 @@ exports.getSingleProperty = async (req, res) => {
         if (pt) property.propertyType = pt.type;
         const ps = await ResidentialPropertyStyle.findOne({ style_id: property.propertyStyle });
         if (ps) property.propertyStyle = ps.style_name;
-        const pa = await PropertyAvailability.findOne({ group_id: property.availability, department: property.department });
+        const pa = await PropertyAvailability.findOne({ group_id: Number(property.availability), department: property.department });
         if (pa) property.availability = pa.name;
         if (property.rentFrequency) {
             const rf = await RentFrequency.findOne({ id: property.rentFrequency });
@@ -210,9 +211,10 @@ exports.getSingleProperty = async (req, res) => {
     }
 };
 
-exports.getSinglePropertyJupix = async (req, res) => {
-    req.params.property_id = req.query.profileID;
-    return exports.getSingleProperty(req, res);
+exports.getSinglePropertyJupix = (req, res) => {
+    const propertyId = req.query.profileID;
+    if (!propertyId) return res.status(404).render('errors/404');
+    return res.redirect(301, `/property/${propertyId}/${propertyId}`);
 };
 
 // Simple page renderers

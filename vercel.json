@@ -8,7 +8,7 @@
   ],
   "routes": [
     {
-      "src": "/more_details.php",
+      "src": "/more_details.php(.*)",
       "dest": "app.js"
     },
     {
