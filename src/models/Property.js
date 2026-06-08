@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const PropertySchema = new mongoose.Schema({
-    propertyID:               { type: String, unique: true, index: true },
+    propertyID:               { type: mongoose.Schema.Types.Mixed, unique: true, index: true },
     branchID:                 String,
     clientName:               String,
     branchName:               String,
