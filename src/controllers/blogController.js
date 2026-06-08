@@ -1,16 +1,27 @@
 const Post     = require('../models/Post');
 const Category = require('../models/Category');
 
+const STORAGE_BASE = 'https://www.urbanvillagehomes.com/storage';
+
+function resolvePostImage(post) {
+    const p = post.toObject ? post.toObject() : { ...post };
+    if (p.image && !p.image.startsWith('http')) {
+        p.image = `${STORAGE_BASE}/${p.image}`;
+    }
+    return p;
+}
+
 exports.showAll = async (req, res) => {
     try {
         const page    = Number(req.query.page) || 1;
         const perPage = 12;
         const total   = await Post.countDocuments({ status: 'PUBLISHED' });
-        const posts   = await Post.find({ status: 'PUBLISHED' })
+        const postsRaw = await Post.find({ status: 'PUBLISHED' })
             .sort({ createdAt: -1 })
             .skip((page - 1) * perPage)
             .limit(perPage)
             .populate('category');
+        const posts = postsRaw.map(resolvePostImage);
 
         const categories = await Category.find({ order: { $lt: 999 } }).sort({ createdAt: -1 });
 
@@ -35,11 +46,12 @@ exports.showCategory = async (req, res) => {
         const page    = Number(req.query.page) || 1;
         const perPage = 5;
         const total   = await Post.countDocuments({ status: 'PUBLISHED', category: category._id });
-        const posts   = await Post.find({ status: 'PUBLISHED', category: category._id })
+        const postsRaw = await Post.find({ status: 'PUBLISHED', category: category._id })
             .sort({ createdAt: -1 })
             .skip((page - 1) * perPage)
             .limit(perPage)
             .populate('category');
+        const posts = postsRaw.map(resolvePostImage);
 
         const categories = await Category.find({ order: { $lt: 999 } }).sort({ createdAt: -1 });
 
@@ -57,9 +69,10 @@ exports.showCategory = async (req, res) => {
 
 exports.showSingle = async (req, res) => {
     try {
-        const post = await Post.findOne({ status: 'PUBLISHED', slug: req.params.slug })
+        const postRaw = await Post.findOne({ status: 'PUBLISHED', slug: req.params.slug })
             .populate('category');
-        if (!post) return res.status(404).render('errors/404');
+        if (!postRaw) return res.status(404).render('errors/404');
+        const post = resolvePostImage(postRaw);
 
         const categories = await Category.find({ order: { $lt: 999 } }).sort({ createdAt: -1 });
 
