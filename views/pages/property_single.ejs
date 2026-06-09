@@ -184,7 +184,7 @@ body { font-family:'Inter',-apple-system,sans-serif; color:var(--text-primary); 
         <h3 class="section-title">Documents &amp; Resources</h3>
         <div class="resources-grid">
             <% if (property.epcGraphs && property.epcGraphs.length) { property.epcGraphs.forEach(function(epc) { %>
-            <a href="/view-resource/<%= epc %>" target="_blank" class="resource-card">
+            <a href="<%= epc %>" target="_blank" class="resource-card">
                 <div class="resource-header">
                     <div class="resource-icon"><i class="fa fa-bar-chart"></i></div>
                     <div>
@@ -195,7 +195,7 @@ body { font-family:'Inter',-apple-system,sans-serif; color:var(--text-primary); 
             </a>
             <% }); } %>
             <% if (property.floorplans && property.floorplans.length) { property.floorplans.forEach(function(fp) { %>
-            <a href="/view-resource/<%= fp %>" target="_blank" class="resource-card">
+            <a href="<%= fp %>" target="_blank" class="resource-card">
                 <div class="resource-header">
                     <div class="resource-icon"><i class="fa fa-newspaper-o"></i></div>
                     <div>
@@ -206,7 +206,7 @@ body { font-family:'Inter',-apple-system,sans-serif; color:var(--text-primary); 
             </a>
             <% }); } %>
             <% if (property.brochures && property.brochures.length) { property.brochures.forEach(function(br, k) { %>
-            <a href="/view-resource/<%= br %>" target="_blank" class="resource-card">
+            <a href="<%= br %>" target="_blank" class="resource-card">
                 <div class="resource-header">
                     <div class="resource-icon"><i class="fa fa-book"></i></div>
                     <div>

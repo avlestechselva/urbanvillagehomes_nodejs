@@ -170,10 +170,10 @@ exports.getSingleProperty = async (req, res) => {
         const resources = await Resource.find({ propertyID: property.propertyID }).sort({ sort_order: 1 });
         const images = [], floorplans = [], epcGraphs = [], brochures = [];
         for (const r of resources) {
-            if (r.type === 'image') images.push(r.path);
-            else if (r.type === 'floorplan') floorplans.push(Buffer.from(r.path).toString('base64'));
-            else if (r.type === 'epcGraph') epcGraphs.push(Buffer.from(r.path).toString('base64'));
-            else if (r.type === 'brochure') brochures.push(Buffer.from(r.path).toString('base64'));
+            if (r.type === 'image')     images.push(r.path);
+            else if (r.type === 'floorplan') floorplans.push(r.path);
+            else if (r.type === 'epcGraph')  epcGraphs.push(r.path);
+            else if (r.type === 'brochure')  brochures.push(r.path);
         }
 
         // Raw images from JSON field as fallback
