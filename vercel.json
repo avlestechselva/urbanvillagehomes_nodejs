@@ -1,19 +1,33 @@
 {
   "version": 2,
   "builds": [
-    {
-      "src": "app.js",
-      "use": "@vercel/node"
-    }
+    { "src": "public/**/*", "use": "@vercel/static" },
+    { "src": "app.js", "use": "@vercel/node" }
   ],
   "routes": [
+    { "src": "/css/(.*)",     "dest": "/public/css/$1" },
+    { "src": "/js/(.*)",      "dest": "/public/js/$1" },
+    { "src": "/images/(.*)",  "dest": "/public/images/$1" },
+    { "src": "/plugins/(.*)", "dest": "/public/plugins/$1" },
+    { "src": "/more_details.php(.*)", "dest": "app.js" },
+    { "src": "/(.*)", "dest": "app.js" }
+  ],
+  "headers": [
     {
-      "src": "/more_details.php(.*)",
-      "dest": "app.js"
+      "source": "/css/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
     },
     {
-      "src": "/(.*)",
-      "dest": "app.js"
+      "source": "/js/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+    },
+    {
+      "source": "/images/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=86400" }]
+    },
+    {
+      "source": "/plugins/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
     }
   ]
 }

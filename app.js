@@ -46,6 +46,36 @@ app.use((req, res, next) => {
     next();
 });
 
+// Cache-Control middleware — tells Vercel CDN to cache HTML responses
+// so repeat visits serve from edge cache, not the function
+app.use((req, res, next) => {
+    if (req.method !== 'GET') return next();
+    const path = req.path;
+    // Never cache form submissions, retrieve endpoint, or dynamic POST routes
+    if (path.startsWith('/retrieve') || path.startsWith('/send-') || path.startsWith('/property-valuation-submit')) {
+        res.setHeader('Cache-Control', 'no-store');
+    // Property listings & single pages: cache 3 hours (matches Jupix cron interval)
+    } else if (path.startsWith('/property') || path.startsWith('/listings') || path.startsWith('/properties_view')) {
+        res.setHeader('Cache-Control', 'public, s-maxage=10800, stale-while-revalidate=3600');
+    // Blog: cache 1 hour
+    } else if (path.startsWith('/blog') || path.startsWith('/market-updates') || path.startsWith('/life-magazines')) {
+        res.setHeader('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=600');
+    // Static/rarely-changing pages: cache 1 day
+    } else if (['/about', '/who-we-are', '/meet-the-team', '/sellers', '/landlords',
+                '/contact', '/areas', '/herne-hill', '/brixton', '/peckham',
+                '/dulwich', '/loughborough-junction', '/camberwell', '/denmark-hill',
+                '/stockwell', '/waterloo', '/terms-and-condition', '/privacy-policy',
+                '/cookie-policy', '/complaints-procedure', '/vacancies',
+                '/full-scale-charges', '/ebook', '/mortgage-calculator',
+                '/stamp-duty-calculator'].includes(path)) {
+        res.setHeader('Cache-Control', 'public, s-maxage=86400, stale-while-revalidate=3600');
+    // Homepage: cache 1 hour
+    } else if (path === '/') {
+        res.setHeader('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=600');
+    }
+    next();
+});
+
 // Routes
 app.use('/', webRoutes);
 
