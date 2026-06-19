@@ -16,13 +16,12 @@
     <link rel="stylesheet" href="/css/extra/style.css">
     <link rel="stylesheet" href="/css/jquery.cookiebar.css">
     <link rel="stylesheet" type="text/css" href="/css/customs.css?t=5">
-    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Outfit:wght@300&display=swap" rel="stylesheet">
     <% if (typeof css_files !== 'undefined') { css_files.forEach(function(f) { %>
         <link rel="stylesheet" type="text/css" href="/css/<%= f %>.css">
     <% }); } %>
     <link rel="stylesheet" type="text/css" href="/css/responsive.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- font-awesome served locally above — cdnjs copy removed to save a request -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 
     <!-- Google Tag Manager -->
