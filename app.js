@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express      = require('express');
+const compression  = require('compression');
 const path         = require('path');
 const session      = require('express-session');
 const MongoStore   = require('connect-mongo');
@@ -8,6 +9,9 @@ const connectDB    = require('./src/config/database');
 const webRoutes    = require('./src/routes/web');
 
 const app = express();
+
+// Gzip compression — reduces HTML/JSON/CSS response sizes by ~60-80%
+app.use(compression());
 
 // Connect MongoDB
 connectDB();
