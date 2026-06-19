@@ -79,6 +79,8 @@ async function processProperty(data, now) {
     await processMediaType(propertyID, floorplans, 'floorplan','floorplan','floorplans', now);
     await processMediaType(propertyID, epcGraphs,  'epcGraph', 'epcGraph', 'epcGraphs',  now);
     await processMediaType(propertyID, brochures,  'brochure', 'brochure', 'brochures',  now);
+
+    return { images: images.length, floorplans: floorplans.length, brochures: brochures.length };
 }
 
 function fetchAndParseXML(url) {
@@ -151,42 +153,52 @@ function fetchAndParseXML(url) {
     });
 }
 
-async function run() {
+async function run(onProgress) {
     const url = process.env.JUPIX_URL;
     if (!url) {
         console.error('[Jupix] JUPIX_URL not set');
-        return;
+        return { error: 'JUPIX_URL not set' };
     }
 
     const now = new Date();
-    console.log(`[Jupix] Starting retrieve at ${now.toISOString()}`);
+    const log = (msg) => { console.log(msg); if (onProgress) onProgress(msg); };
+
+    log(`Starting retrieve at ${now.toISOString()}`);
+
+    const stats = { fetched: 0, updated: 0, images: 0, floorplans: 0, brochures: 0, errors: 0, deleted: 0 };
 
     try {
         const properties = await fetchAndParseXML(url);
-        console.log(`[Jupix] Fetched ${properties.length} properties`);
-        if (properties[0]) {
-            console.log('[Jupix] Sample property keys:', Object.keys(properties[0]));
-            console.log('[Jupix] Sample images:', JSON.stringify(properties[0].images?.slice(0,1)));
-        }
+        stats.fetched = properties.length;
+        log(`Fetched ${properties.length} properties from Jupix`);
 
         for (const propData of properties) {
             try {
-                await processProperty(propData, now);
+                const result = await processProperty(propData, now);
+                stats.updated++;
+                stats.images     += result.images     || 0;
+                stats.floorplans += result.floorplans || 0;
+                stats.brochures  += result.brochures  || 0;
+                log(`[${stats.updated}/${stats.fetched}] ${propData.displayAddress || propData.propertyID}`);
             } catch (err) {
-                console.error(`[Jupix] Error processing property ${propData.propertyID}: ${err.message}`);
+                stats.errors++;
+                console.error(`[Jupix] Error processing ${propData.propertyID}: ${err.message}`);
             }
         }
 
         // Mark missing properties as deleted
         const activePropertyIDs = properties.map(p => p.propertyID).filter(Boolean);
-        await Property.updateMany(
+        const deleted = await Property.updateMany(
             { status: 1, propertyID: { $nin: activePropertyIDs } },
             { $set: { status: 0, deleted_at: now } }
         );
+        stats.deleted = deleted.modifiedCount;
 
-        console.log(`[Jupix] Retrieve complete at ${new Date().toISOString()}`);
+        log(`Retrieve complete at ${new Date().toISOString()}`);
+        return stats;
     } catch (err) {
         console.error('[Jupix] Fatal error:', err.message);
+        return { ...stats, error: err.message };
     }
 }
 
