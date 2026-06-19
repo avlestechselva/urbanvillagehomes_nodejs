@@ -18,7 +18,13 @@
 .listing_image { position:relative; overflow:hidden; height:250px; }
 .listing_image img { width:100%; height:100%; object-fit:cover; transition:transform .6s; }
 .listing:hover .listing_image img { transform:scale(1.08); }
-.listing_price { position:absolute; top:16px; left:50%; transform:translateX(-50%); background:var(--primary-gradient); color:#fff; padding:8px 16px; border-radius:20px; font-weight:600; font-size:14px; z-index:10; white-space:nowrap; }
+.listing_price { position:absolute !important; top:16px !important; bottom:auto !important; left:50% !important; transform:translateX(-50%) !important; background:var(--primary-gradient) !important; color:#fff !important; padding:8px 16px !important; border-radius:20px !important; font-weight:600 !important; font-size:14px !important; z-index:10 !important; white-space:nowrap !important; height:auto !important; width:auto !important; display:inline-block !important; }
+.property-status { position:absolute; top:16px; left:16px; padding:6px 12px; border-radius:16px; font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:.5px; z-index:10; backdrop-filter:blur(10px); }
+.property-status.for-sale { background:rgba(34,197,94,.9); color:#fff; border:1px solid rgba(34,197,94,.3); }
+.property-status.to-let { background:rgba(59,130,246,.9); color:#fff; border:1px solid rgba(59,130,246,.3); }
+.property-status.let-agreed { background:rgba(245,158,11,.9); color:#fff; border:1px solid rgba(245,158,11,.3); }
+.property-status.sold-stc { background:rgba(239,68,68,.9); color:#fff; border:1px solid rgba(239,68,68,.3); }
+.property-status.sold,.property-status.let { background:rgba(156,163,175,.9); color:#fff; border:1px solid rgba(156,163,175,.3); }
 .favorite-btn { position:absolute; top:16px; right:16px; width:40px; height:40px; background:rgba(255,255,255,.9); border:none; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:10; font-size:18px; transition:all .2s; }
 .favorite-btn:hover { background:var(--secondary-color); color:#fff; }
 .favorite-btn.active { background:var(--secondary-color); color:#fff; }
@@ -177,15 +183,18 @@
                             <img src="<%= property.image %>" alt="Urban Village Home - <%= property.displayAddress %>"
                                  loading="lazy" onerror="this.src='/images/placeholder.svg'">
                         </a>
-                        <div class="listing_price"><%= property.availability %></div>
+                        <% if (property.availability) { %>
+                        <div class="property-status <%= property.availability.toLowerCase().replace(/ /g, '-') %>"><%= property.availability %></div>
+                        <% } %>
+                        <div class="listing_price">£<% if (property.rent && property.rent > 0) { %><%= Number(property.rent).toLocaleString() %>/<%= property.rentFrequency || 'pcm' %><% } else { %><%= Number(property.price || 0).toLocaleString() %><% } %></div>
                         <button class="favorite-btn" onclick="toggleFavorite(this,'<%= property.propertyID %>')" aria-label="Favourite">&#9825;</button>
                     </div>
                     <div class="listing_content">
                         <div class="prop_location listing_location">
                             <div class="sold-cards">
                                 <p>
-                                    <b>£ <% if (property.rent && property.rent > 0) { %><%= Number(property.rent).toLocaleString() %>/<%= property.rentFrequency || 'pcm' %><% } else { %><%= Number(property.price || 0).toLocaleString() %><% } %></b>
-                                    <%= property.displayAddress ? property.displayAddress.substring(0, 25) + (property.displayAddress.length > 25 ? '...' : '') : '' %>
+                                    <b>£<% if (property.rent && property.rent > 0) { %><%= Number(property.rent).toLocaleString() %>/<%= property.rentFrequency || 'pcm' %><% } else { %><%= Number(property.price || 0).toLocaleString() %><% } %></b>
+                                    📍 <%= (((property.addressStreet || '') + (property.addressPostcode ? ', ' + property.addressPostcode : '')) || property.displayAddress || '').substring(0, 35) %><%= (((property.addressStreet || '') + (property.addressPostcode ? ', ' + property.addressPostcode : '')) || property.displayAddress || '').length > 35 ? '...' : '' %>
                                 </p>
                                 <div class="property-features-container">
                                     <div class="property-type"><%= property.propertyStyle || '' %></div>
