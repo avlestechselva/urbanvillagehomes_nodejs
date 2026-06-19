@@ -179,7 +179,8 @@ async function run(onProgress) {
                 stats.images     += result.images     || 0;
                 stats.floorplans += result.floorplans || 0;
                 stats.brochures  += result.brochures  || 0;
-                log(`[${stats.updated}/${stats.fetched}] ${propData.displayAddress || propData.propertyID}`);
+                const fullAddress = [propData.addressNumber, propData.addressStreet, propData.address3, propData.addressPostcode].filter(Boolean).join(' ');
+                log(`[${stats.updated}/${stats.fetched}] ${fullAddress || propData.displayAddress || propData.propertyID}`);
             } catch (err) {
                 stats.errors++;
                 console.error(`[Jupix] Error processing ${propData.propertyID}: ${err.message}`);
