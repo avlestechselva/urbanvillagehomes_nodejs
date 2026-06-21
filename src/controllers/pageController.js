@@ -122,13 +122,15 @@ exports.showProperties = async (req, res) => {
         const urlType = req.params.url_type || 'all';
         const query = buildPropertyQuery(req);
 
-        // Filter by url type if no explicit rent/buy query param is set
-        if (!req.query.rent && !req.query.buy) {
-            if (urlType === 'buyers') {
-                query.department = 'Sales';
-            } else if (urlType === 'tenants') {
-                query.department = 'Lettings';
-            }
+        // Filter by url type
+        if (urlType === 'buyers') {
+            query.department = 'Sales';
+            // Only active sales: For Sale (2), Under Offer (3) — exclude Sold STC (4), Sold (5), Withdrawn (7), On Hold (1)
+            query.availability = { $in: [2, 3, '2', '3'] };
+        } else if (urlType === 'tenants') {
+            query.department = 'Lettings';
+            // Only active lettings: To Let (2), References Pending (3), Let Agreed (4) — exclude Let (5), Withdrawn (6), On Hold (1)
+            query.availability = { $in: [2, 3, 4, '2', '3', '4'] };
         }
 
         const perPage = req.query.property_per_page ? Number(req.query.property_per_page) : 6;
