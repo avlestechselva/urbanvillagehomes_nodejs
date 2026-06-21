@@ -119,7 +119,18 @@ exports.showHome = async (req, res) => {
 
 exports.showProperties = async (req, res) => {
     try {
+        const urlType = req.params.url_type || 'all';
         const query = buildPropertyQuery(req);
+
+        // Filter by url type if no explicit rent/buy query param is set
+        if (!req.query.rent && !req.query.buy) {
+            if (urlType === 'buyers') {
+                query.department = 'Sales';
+            } else if (urlType === 'tenants') {
+                query.department = 'Lettings';
+            }
+        }
+
         const perPage = req.query.property_per_page ? Number(req.query.property_per_page) : 6;
         const page = req.query.page ? Number(req.query.page) : 1;
 
@@ -131,8 +142,6 @@ exports.showProperties = async (req, res) => {
 
         const properties = await Promise.all(propertiesRaw.map(enrichProperty));
         const pagination = { total, perPage, page, lastPage: Math.ceil(total / perPage) };
-
-        const urlType = req.params.url_type || 'all';
         res.render('pages/properties_view', {
             page_title: 'Properties',
             properties, pagination, query: req.query, urlType,
