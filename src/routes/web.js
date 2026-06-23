@@ -99,12 +99,14 @@ router.get('/retrieve', async (req, res) => {
         return res.status(401).send('Unauthorized');
     }
 
-    // SSE stream so browser shows live progress
-    res.setHeader('Content-Type', 'text/html; charset=utf-8');
-    res.setHeader('Transfer-Encoding', 'chunked');
-    res.setHeader('X-Content-Type-Options', 'nosniff');
+    const html = req.query.html === '1';
 
-    res.write(`<!DOCTYPE html><html><head><title>Jupix Retrieve</title>
+    if (html) {
+        // Full progress UI — only when opened in a browser manually
+        res.setHeader('Content-Type', 'text/html; charset=utf-8');
+        res.setHeader('Transfer-Encoding', 'chunked');
+        res.setHeader('X-Content-Type-Options', 'nosniff');
+        res.write(`<!DOCTYPE html><html><head><title>Jupix Retrieve</title>
 <style>body{font-family:monospace;background:#111;color:#0f0;padding:20px;font-size:14px;}
 .summary{background:#222;border:1px solid #0f0;padding:20px;margin-top:20px;border-radius:6px;}
 .summary h2{color:#ff0;margin:0 0 12px;}
@@ -113,38 +115,37 @@ router.get('/retrieve', async (req, res) => {
 .done{color:#ff0;font-size:18px;margin-top:20px;}
 .error{color:#f00;}
 </style></head><body>
-<h2 style="color:#0f0">🔄 Jupix Retrieve Running...</h2>
+<h2 style="color:#0f0">Jupix Retrieve Running...</h2>
 <pre id="log">`);
-
-    const send = (msg) => {
-        res.write(msg + '\n');
-    };
-
-    try {
-        const stats = await jupix.run(send);
-
-        if (stats.error) {
-            res.write(`</pre><p class="error">❌ Error: ${stats.error}</p>`);
-        } else {
-            res.write(`</pre>
-<div class="summary">
-  <h2>✅ Retrieve Complete</h2>
-  <div class="stat"><span>Properties fetched from Jupix</span><span>${stats.fetched}</span></div>
-  <div class="stat"><span>Properties updated in DB</span><span>${stats.updated}</span></div>
-  <div class="stat"><span>Images processed</span><span>${stats.images}</span></div>
-  <div class="stat"><span>Floorplans processed</span><span>${stats.floorplans}</span></div>
-  <div class="stat"><span>Brochures processed</span><span>${stats.brochures}</span></div>
-  <div class="stat"><span>Properties marked as deleted</span><span>${stats.deleted}</span></div>
+        try {
+            const stats = await jupix.run(msg => res.write(msg + '\n'));
+            if (stats.error) {
+                res.write(`</pre><p class="error">Error: ${stats.error}</p>`);
+            } else {
+                res.write(`</pre><div class="summary"><h2>Retrieve Complete</h2>
+  <div class="stat"><span>Fetched</span><span>${stats.fetched}</span></div>
+  <div class="stat"><span>Updated</span><span>${stats.updated}</span></div>
+  <div class="stat"><span>Images</span><span>${stats.images}</span></div>
+  <div class="stat"><span>Floorplans</span><span>${stats.floorplans}</span></div>
+  <div class="stat"><span>Brochures</span><span>${stats.brochures}</span></div>
+  <div class="stat"><span>Deleted</span><span>${stats.deleted}</span></div>
   <div class="stat"><span>Errors</span><span>${stats.errors}</span></div>
-</div>
-<p class="done">Done! <a href="/" style="color:#0af">Go to site →</a></p>`);
+</div><p class="done">Done! <a href="/" style="color:#0af">Go to site</a></p>`);
+            }
+        } catch (err) {
+            res.write(`</pre><p class="error">Fatal: ${err.message}</p>`);
         }
-    } catch (err) {
-        res.write(`</pre><p class="error">❌ Fatal: ${err.message}</p>`);
+        res.write('</body></html>');
+        res.end();
+    } else {
+        // Minimal JSON response for cron-job.org — no wasted data transfer
+        try {
+            const stats = await jupix.run(null);
+            res.json({ ok: true, ...stats });
+        } catch (err) {
+            res.status(500).json({ ok: false, error: err.message });
+        }
     }
-
-    res.write('</body></html>');
-    res.end();
 });
 
 module.exports = router;
