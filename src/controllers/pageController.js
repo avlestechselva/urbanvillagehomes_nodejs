@@ -5,39 +5,62 @@ const { PropertyType, PropertyAvailability, ResidentialPropertyStyle, RentFreque
 const nodemailer = require('nodemailer');
 const slugify = require('slugify');
 
-// Enrich a property with lookup data
+// In-memory lookup cache — loaded once, reused for all requests in this process
+let _lookupCache = null;
+async function getLookups() {
+    if (_lookupCache) return _lookupCache;
+    const [types, styles, availabilities, freqs] = await Promise.all([
+        PropertyType.find({}).lean(),
+        ResidentialPropertyStyle.find({}).lean(),
+        PropertyAvailability.find({}).lean(),
+        RentFrequency.find({}).lean(),
+    ]);
+    _lookupCache = { types, styles, availabilities, freqs };
+    return _lookupCache;
+}
+
+// Enrich a batch of properties using pre-loaded lookups — 4 DB queries total regardless of batch size
+async function enrichProperties(rawList) {
+    const lookups = await getLookups();
+
+    return rawList.map(p => {
+        const prop = p.toObject ? p.toObject() : { ...p };
+
+        // Slug
+        prop.slug = slugify(prop.displayAddress || prop.address2 || prop.propertyFeature1 || '', { lower: true, strict: true });
+
+        // First image
+        try {
+            const imgs = typeof prop.images === 'string' ? JSON.parse(prop.images) : prop.images;
+            prop.image = imgs && imgs[0] ? imgs[0].image : null;
+        } catch { prop.image = null; }
+
+        // Property type
+        const pt = lookups.types.find(t => String(t.group_id) === String(prop.propertyType) && t.department === prop.department);
+        if (pt) prop.propertyType = pt.type;
+
+        // Style
+        const ps = lookups.styles.find(s => String(s.style_id) === String(prop.propertyStyle));
+        if (ps) prop.propertyStyle = ps.style_name;
+
+        // Availability
+        const pa = lookups.availabilities.find(a => String(a.group_id) === String(prop.availability) && a.department === prop.department);
+        if (pa) prop.availability = pa.name;
+
+        // Rent frequency
+        if (prop.rentFrequency) {
+            const rf = lookups.freqs.find(f => String(f.id) === String(prop.rentFrequency));
+            if (rf) prop.rentFrequency = rf.frequency_type;
+        }
+
+        return prop;
+    });
+}
+
+// Keep single-property enrichment working for getSingleProperty
 async function enrichProperty(p) {
-    const prop = p.toObject ? p.toObject() : { ...p };
-
-    // Slug
-    const slugText = prop.displayAddress || prop.address2 || prop.propertyFeature1 || '';
-    prop.slug = slugify(slugText, { lower: true, strict: true });
-
-    // First image
-    try {
-        const imgs = typeof prop.images === 'string' ? JSON.parse(prop.images) : prop.images;
-        prop.image = imgs && imgs[0] ? imgs[0].image : null;
-    } catch { prop.image = null; }
-
-    // Property type lookup
-    const pt = await PropertyType.findOne({ group_id: prop.propertyType, department: prop.department });
-    if (pt) prop.propertyType = pt.type;
-
-    // Style lookup
-    const ps = await ResidentialPropertyStyle.findOne({ style_id: prop.propertyStyle });
-    if (ps) prop.propertyStyle = ps.style_name;
-
-    // Availability lookup
-    const pa = await PropertyAvailability.findOne({ group_id: Number(prop.availability), department: prop.department });
-    if (pa) prop.availability = pa.name;
-
-    // Rent frequency
-    if (prop.rentFrequency) {
-        const rf = await RentFrequency.findOne({ id: Number(prop.rentFrequency) });
-        if (rf) prop.rentFrequency = rf.frequency_type;
-    }
-
-    return prop;
+    const [enriched] = await enrichProperties([p]);
+    return enriched;
 }
 
 // Availability name → group_id mapping (from property_availabilities collection)
@@ -117,7 +140,7 @@ exports.showHome = async (req, res) => {
             .skip((page - 1) * perPage)
             .limit(perPage);
 
-        const properties = await Promise.all(propertiesRaw.map(enrichProperty));
+        const properties = await enrichProperties(propertiesRaw);
 
         const pagination = {
             total, perPage, page,
@@ -148,7 +171,7 @@ exports.showProperties = async (req, res) => {
             .skip((page - 1) * perPage)
             .limit(perPage);
 
-        const properties = await Promise.all(propertiesRaw.map(enrichProperty));
+        const properties = await enrichProperties(propertiesRaw);
         const pagination = { total, perPage, page, lastPage: Math.ceil(total / perPage) };
         res.render('pages/properties_view', {
             page_title: 'Properties',
