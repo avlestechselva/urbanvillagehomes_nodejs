@@ -40,10 +40,14 @@ async function enrichProperty(p) {
     return prop;
 }
 
-function buildPropertyQuery(req) {
-    const withdrawn = [6, 7];
-    // availability can be stored as number or string, exclude both forms
-    const query = { status: 1, availability: { $nin: [...withdrawn, ...withdrawn.map(String)] } };
+// Availability name → group_id mapping (from property_availabilities collection)
+const AVAILABILITY_CODES = {
+    Sales:    { 'On Hold': 1, 'For Sale': 2, 'Under Offer': 3, 'Sold STC': 4, 'Sold': 5, 'Withdrawn': 7 },
+    Lettings: { 'On Hold': 1, 'To Let': 2, 'References Pending': 3, 'Let Agreed': 4, 'Let': 5, 'Withdrawn': 6 },
+};
+
+function buildPropertyQuery(req, urlType) {
+    const query = { status: 1 };
 
     // Search
     const search = (req.query.search || '').replace(/\+/g, ' ').trim();
@@ -56,29 +60,42 @@ function buildPropertyQuery(req) {
         ];
     }
 
-    // Rent/buy filter
-    if (req.query.rent == 1 && req.query.buy != 1) {
-        query.rent = { $gt: 0 };
-    } else if (req.query.rent != 1 && req.query.buy == 1) {
-        query.price = { $gt: 0 };
-    }
-
-    // Price range
-    const min = req.query.min_amount ? Number(req.query.min_amount) : null;
-    const max = req.query.max_amount ? Number(req.query.max_amount) : null;
-    if (min !== null || max !== null) {
+    // Department + availability defaults based on page type
+    if (urlType === 'buyers') {
+        query.department = 'Sales';
+        query.availability = { $in: [2, 3, '2', '3'] }; // For Sale, Under Offer
+    } else if (urlType === 'tenants') {
+        query.department = 'Lettings';
+        query.availability = { $in: [2, 3, 4, '2', '3', '4'] }; // To Let, References Pending, Let Agreed
+    } else {
+        // General listing — exclude withdrawn
+        const withdrawn = [6, 7];
+        query.availability = { $nin: [...withdrawn, ...withdrawn.map(String)] };
+        // Rent/buy checkboxes only apply on general listing
         if (req.query.rent == 1 && req.query.buy != 1) {
-            if (min !== null) query.rent = { ...(query.rent || {}), $gt: min };
-            if (max !== null) query.rent = { ...(query.rent || {}), $lt: max };
+            query.department = 'Lettings';
         } else if (req.query.rent != 1 && req.query.buy == 1) {
-            if (min !== null) query.price = { ...(query.price || {}), $gt: min };
-            if (max !== null) query.price = { ...(query.price || {}), $lt: max };
+            query.department = 'Sales';
         }
     }
 
-    // Availability filter
+    // Availability dropdown — name→code lookup, overrides the default $in above
     if (req.query.availability) {
-        query['availability_name'] = req.query.availability;
+        const dept = urlType === 'buyers' ? 'Sales' : urlType === 'tenants' ? 'Lettings' : null;
+        const map = dept ? AVAILABILITY_CODES[dept] : { ...AVAILABILITY_CODES.Sales, ...AVAILABILITY_CODES.Lettings };
+        const code = map[req.query.availability];
+        if (code !== undefined) {
+            query.availability = { $in: [code, String(code)] };
+        }
+    }
+
+    // Price / rent range
+    const min = req.query.min_amount ? Number(req.query.min_amount) : null;
+    const max = req.query.max_amount ? Number(req.query.max_amount) : null;
+    if (min !== null || max !== null) {
+        const field = urlType === 'tenants' ? 'rent' : 'price';
+        if (min !== null) query[field] = { ...(query[field] || {}), $gte: min };
+        if (max !== null) query[field] = { ...(query[field] || {}), $lte: max };
     }
 
     return query;
@@ -90,7 +107,7 @@ exports.showHome = async (req, res) => {
             .sort({ createdAt: -1 })
             .limit(3);
 
-        const query = buildPropertyQuery(req);
+        const query = buildPropertyQuery(req, 'all');
         const perPage = req.query.property_per_page ? Number(req.query.property_per_page) : 6;
         const page = req.query.page ? Number(req.query.page) : 1;
 
@@ -120,18 +137,7 @@ exports.showHome = async (req, res) => {
 exports.showProperties = async (req, res) => {
     try {
         const urlType = req.params.url_type || 'all';
-        const query = buildPropertyQuery(req);
-
-        // Filter by url type
-        if (urlType === 'buyers') {
-            query.department = 'Sales';
-            // Only active sales: For Sale (2), Under Offer (3) — exclude Sold STC (4), Sold (5), Withdrawn (7), On Hold (1)
-            query.availability = { $in: [2, 3, '2', '3'] };
-        } else if (urlType === 'tenants') {
-            query.department = 'Lettings';
-            // Only active lettings: To Let (2), References Pending (3), Let Agreed (4) — exclude Let (5), Withdrawn (6), On Hold (1)
-            query.availability = { $in: [2, 3, 4, '2', '3', '4'] };
-        }
+        const query = buildPropertyQuery(req, urlType);
 
         const perPage = req.query.property_per_page ? Number(req.query.property_per_page) : 6;
         const page = req.query.page ? Number(req.query.page) : 1;
