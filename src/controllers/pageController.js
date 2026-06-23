@@ -104,11 +104,28 @@ function buildPropertyQuery(req, urlType) {
 
     // Availability dropdown — name→code lookup, overrides the default $in above
     if (req.query.availability) {
-        const dept = urlType === 'buyers' ? 'Sales' : urlType === 'tenants' ? 'Lettings' : null;
-        const map = dept ? AVAILABILITY_CODES[dept] : { ...AVAILABILITY_CODES.Sales, ...AVAILABILITY_CODES.Lettings };
-        const code = map[req.query.availability];
-        if (code !== undefined) {
-            query.availability = { $in: [code, String(code)] };
+        // Find which department this availability name belongs to
+        const salesCode    = AVAILABILITY_CODES.Sales[req.query.availability];
+        const lettingsCode = AVAILABILITY_CODES.Lettings[req.query.availability];
+
+        if (urlType === 'buyers' && salesCode !== undefined) {
+            query.availability = { $in: [salesCode, String(salesCode)] };
+        } else if (urlType === 'tenants' && lettingsCode !== undefined) {
+            query.availability = { $in: [lettingsCode, String(lettingsCode)] };
+        } else if (salesCode !== undefined && lettingsCode === undefined) {
+            // Sales-only term (e.g. "Sold", "Sold STC", "Under Offer") — lock to Sales
+            query.availability = { $in: [salesCode, String(salesCode)] };
+            query.department = 'Sales';
+        } else if (lettingsCode !== undefined && salesCode === undefined) {
+            // Lettings-only term (e.g. "To Let", "Let Agreed", "References Pending") — lock to Lettings
+            query.availability = { $in: [lettingsCode, String(lettingsCode)] };
+            query.department = 'Lettings';
+        } else if (salesCode !== undefined && lettingsCode !== undefined) {
+            // Same name exists in both (e.g. "On Hold", "Withdrawn") — filter both codes per dept
+            query.$or = [
+                { department: 'Sales',    availability: { $in: [salesCode,    String(salesCode)]    } },
+                { department: 'Lettings', availability: { $in: [lettingsCode, String(lettingsCode)] } },
+            ];
         }
     }
 
