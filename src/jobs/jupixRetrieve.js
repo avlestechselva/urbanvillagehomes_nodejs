@@ -172,19 +172,24 @@ async function run(onProgress) {
         stats.fetched = properties.length;
         log(`Fetched ${properties.length} properties from Jupix`);
 
-        for (const propData of properties) {
-            try {
-                const result = await processProperty(propData, now);
-                stats.updated++;
-                stats.images     += result.images     || 0;
-                stats.floorplans += result.floorplans || 0;
-                stats.brochures  += result.brochures  || 0;
-                const fullAddress = [propData.addressNumber, propData.addressStreet, propData.address3, propData.addressPostcode].filter(Boolean).join(' ');
-                log(`[${stats.updated}/${stats.fetched}] ${fullAddress || propData.displayAddress || propData.propertyID}`);
-            } catch (err) {
-                stats.errors++;
-                console.error(`[Jupix] Error processing ${propData.propertyID}: ${err.message}`);
-            }
+        // Process in parallel batches of 10 to stay within Vercel timeout
+        const BATCH = 10;
+        for (let i = 0; i < properties.length; i += BATCH) {
+            const batch = properties.slice(i, i + BATCH);
+            await Promise.all(batch.map(async (propData) => {
+                try {
+                    const result = await processProperty(propData, now);
+                    stats.updated++;
+                    stats.images     += result.images     || 0;
+                    stats.floorplans += result.floorplans || 0;
+                    stats.brochures  += result.brochures  || 0;
+                    const fullAddress = [propData.addressNumber, propData.addressStreet, propData.address3, propData.addressPostcode].filter(Boolean).join(' ');
+                    log(`[${stats.updated}/${stats.fetched}] ${fullAddress || propData.displayAddress || propData.propertyID}`);
+                } catch (err) {
+                    stats.errors++;
+                    console.error(`[Jupix] Error processing ${propData.propertyID}: ${err.message}`);
+                }
+            }));
         }
 
         // Mark missing properties as deleted
