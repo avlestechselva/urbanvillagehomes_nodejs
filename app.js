@@ -58,9 +58,12 @@ app.use((req, res, next) => {
     // Never cache form submissions, retrieve endpoint, or dynamic POST routes
     if (path.startsWith('/retrieve') || path.startsWith('/send-') || path.startsWith('/property-valuation-submit')) {
         res.setHeader('Cache-Control', 'no-store');
-    // Property listings & single pages: cache 3 hours (matches Jupix cron interval)
+    // Single property detail page: short cache — price/status changes must show quickly
+    } else if (/^\/property\/[^/]+\/[^/]+/.test(path)) {
+        res.setHeader('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=60');
+    // Property listing pages: cache 1 hour
     } else if (path.startsWith('/property') || path.startsWith('/listings') || path.startsWith('/properties_view')) {
-        res.setHeader('Cache-Control', 'public, s-maxage=10800, stale-while-revalidate=3600');
+        res.setHeader('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=600');
     // Blog: cache 1 hour
     } else if (path.startsWith('/blog') || path.startsWith('/market-updates') || path.startsWith('/life-magazines')) {
         res.setHeader('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=600');
