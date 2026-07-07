@@ -32,13 +32,13 @@ th{font-weight:600;color:#555;font-size:12px;text-transform:uppercase}
     <h1>Urban Village — Blog Admin</h1>
     <div style="display:flex;gap:20px;align-items:center">
         <a href="/">← View Site</a>
-        <a href="/admin/logout">Logout</a>
+        <a href="/uvh-back-office/logout">Logout</a>
     </div>
 </div>
 <div class="container">
     <div class="header-row">
         <h2 style="font-size:20px">Blog Posts (<%= posts.length %>)</h2>
-        <a href="/admin/posts/new" class="btn btn-primary">+ New Post</a>
+        <a href="/uvh-back-office/posts/new" class="btn btn-primary">+ New Post</a>
     </div>
     <table>
         <thead>
@@ -52,7 +52,7 @@ th{font-weight:600;color:#555;font-size:12px;text-transform:uppercase}
             <td><%= post.createdAt ? new Date(post.createdAt).toLocaleDateString('en-GB') : '' %></td>
             <td>
                 <div class="actions">
-                    <a href="/admin/posts/<%= post._id %>/edit" class="btn btn-sm btn-edit">Edit</a>
+                    <a href="/uvh-back-office/posts/<%= post._id %>/edit" class="btn btn-sm btn-edit">Edit</a>
                     <% if (post.slug && post.status === 'PUBLISHED') { %>
                     <a href="/blog/view/<%= post.slug %>" class="btn btn-sm btn-edit" target="_blank">View</a>
                     <% } %>

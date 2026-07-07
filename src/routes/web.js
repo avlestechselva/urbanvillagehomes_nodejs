@@ -96,15 +96,15 @@ router.get('/thankyouvaluation',  page.showThankyouValuation);
 // File viewer
 router.get('/view-resource/:file', page.viewResource);
 
-// Admin
-router.get('/admin',                   admin.loginPage);
-router.post('/admin',                  admin.loginPost, (req, res) => res.redirect('/admin/posts'));
-router.get('/admin/logout',            admin.logout);
-router.get('/admin/posts',             ...admin.dashboard);
-router.get('/admin/posts/new',         ...admin.newPost);
-router.post('/admin/posts/new',        upload.single('image'), ...admin.createPost);
-router.get('/admin/posts/:id/edit',    ...admin.editPost);
-router.post('/admin/posts/:id/edit',   upload.single('image'), ...admin.updatePost);
+// Back office
+router.get('/uvh-back-office',                   admin.loginPage);
+router.post('/uvh-back-office',                  admin.loginPost, (req, res) => res.redirect('/uvh-back-office/posts'));
+router.get('/uvh-back-office/logout',            admin.logout);
+router.get('/uvh-back-office/posts',             ...admin.dashboard);
+router.get('/uvh-back-office/posts/new',         ...admin.newPost);
+router.post('/uvh-back-office/posts/new',        upload.single('image'), ...admin.createPost);
+router.get('/uvh-back-office/posts/:id/edit',    ...admin.editPost);
+router.post('/uvh-back-office/posts/:id/edit',   upload.single('image'), ...admin.updatePost);
 
 // Jupix retrieve (external cron trigger — protected by secret)
 router.get('/retrieve', async (req, res) => {

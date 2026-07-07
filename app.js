@@ -56,7 +56,7 @@ app.use((req, res, next) => {
     if (req.method !== 'GET') return next();
     const path = req.path;
     // Never cache form submissions, retrieve endpoint, or dynamic POST routes
-    if (path.startsWith('/retrieve') || path.startsWith('/send-') || path.startsWith('/admin') || path.startsWith('/property-valuation-submit')) {
+    if (path.startsWith('/retrieve') || path.startsWith('/send-') || path.startsWith('/uvh-back-office') || path.startsWith('/property-valuation-submit')) {
         res.setHeader('Cache-Control', 'no-store');
     // Single property detail page: short cache — price/status changes must show quickly
     } else if (/^\/property\/[^/]+\/[^/]+/.test(path)) {

@@ -51,7 +51,7 @@ exports.createPost = [adminAuth, async (req, res) => {
             category: category || undefined,
         });
 
-        res.redirect('/admin/posts');
+        res.redirect('/uvh-back-office/posts');
     } catch (err) {
         const categories = await Category.find().sort({ name: 1 });
         res.render('admin/post_form', { post: null, categories, error: err.message });
@@ -95,7 +95,7 @@ exports.updatePost = [adminAuth, async (req, res) => {
         }
 
         await post.save();
-        res.redirect('/admin/posts');
+        res.redirect('/uvh-back-office/posts');
     } catch (err) {
         const categories = await Category.find().sort({ name: 1 });
         res.render('admin/post_form', { post: await Post.findById(req.params.id), categories, error: err.message });
