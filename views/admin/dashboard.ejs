@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Admin — Blog Posts</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:sans-serif;background:#f4f4f4;color:#333}
+.topbar{background:linear-gradient(135deg,#992785,#E00069);color:#fff;padding:14px 24px;display:flex;justify-content:space-between;align-items:center}
+.topbar h1{font-size:18px}
+.topbar a{color:#fff;text-decoration:none;font-size:13px;opacity:.85}
+.topbar a:hover{opacity:1}
+.container{max-width:1000px;margin:30px auto;padding:0 16px}
+.btn{display:inline-block;padding:8px 18px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;text-decoration:none}
+.btn-primary{background:linear-gradient(135deg,#992785,#E00069);color:#fff}
+.btn-sm{padding:5px 12px;font-size:12px}
+.btn-edit{background:#f0f0f0;color:#333;border:1px solid #ddd}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+thead{background:#f8f8f8}
+th,td{padding:12px 14px;text-align:left;font-size:14px;border-bottom:1px solid #eee}
+th{font-weight:600;color:#555;font-size:12px;text-transform:uppercase}
+.badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600}
+.badge-published{background:#d1fae5;color:#065f46}
+.badge-draft{background:#fef3c7;color:#92400e}
+.actions{display:flex;gap:8px}
+.header-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+</style>
+</head>
+<body>
+<div class="topbar">
+    <h1>Urban Village — Blog Admin</h1>
+    <div style="display:flex;gap:20px;align-items:center">
+        <a href="/">← View Site</a>
+        <a href="/admin/logout">Logout</a>
+    </div>
+</div>
+<div class="container">
+    <div class="header-row">
+        <h2 style="font-size:20px">Blog Posts (<%= posts.length %>)</h2>
+        <a href="/admin/posts/new" class="btn btn-primary">+ New Post</a>
+    </div>
+    <table>
+        <thead>
+            <tr><th>Title</th><th>Status</th><th>Date</th><th>Actions</th></tr>
+        </thead>
+        <tbody>
+        <% posts.forEach(post => { %>
+        <tr>
+            <td><strong><%= post.title ? post.title.substring(0,70) : '(no title)' %></strong></td>
+            <td><span class="badge badge-<%= (post.status || '').toLowerCase() %>"><%= post.status %></span></td>
+            <td><%= post.createdAt ? new Date(post.createdAt).toLocaleDateString('en-GB') : '' %></td>
+            <td>
+                <div class="actions">
+                    <a href="/admin/posts/<%= post._id %>/edit" class="btn btn-sm btn-edit">Edit</a>
+                    <% if (post.slug && post.status === 'PUBLISHED') { %>
+                    <a href="/blog/view/<%= post.slug %>" class="btn btn-sm btn-edit" target="_blank">View</a>
+                    <% } %>
+                </div>
+            </td>
+        </tr>
+        <% }); %>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

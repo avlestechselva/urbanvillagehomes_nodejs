@@ -1,8 +1,12 @@
 const express = require('express');
+const multer  = require('multer');
 const router  = express.Router();
 const page    = require('../controllers/pageController');
 const blog    = require('../controllers/blogController');
+const admin   = require('../controllers/adminController');
 const jupix   = require('../jobs/jupixRetrieve');
+
+const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 10 * 1024 * 1024 } });
 
 // Homepage
 router.get('/', page.showHome);
@@ -91,6 +95,16 @@ router.get('/thankyouvaluation',  page.showThankyouValuation);
 
 // File viewer
 router.get('/view-resource/:file', page.viewResource);
+
+// Admin
+router.get('/admin',                   admin.loginPage);
+router.post('/admin',                  admin.loginPost, (req, res) => res.redirect('/admin/posts'));
+router.get('/admin/logout',            admin.logout);
+router.get('/admin/posts',             ...admin.dashboard);
+router.get('/admin/posts/new',         ...admin.newPost);
+router.post('/admin/posts/new',        upload.single('image'), ...admin.createPost);
+router.get('/admin/posts/:id/edit',    ...admin.editPost);
+router.post('/admin/posts/:id/edit',   upload.single('image'), ...admin.updatePost);
 
 // Jupix retrieve (external cron trigger — protected by secret)
 router.get('/retrieve', async (req, res) => {
