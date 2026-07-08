@@ -1,0 +1,48 @@
+<%- include('_head', { pageTitle: 'Life Magazines' }) %>
+<%- include('_nav', { active: 'magazines' }) %>
+
+<div class="content-header">
+    <h2>Life Magazines (<%= magazines.length %>)</h2>
+    <a href="/uvh-back-office/magazines/new" class="btn btn-primary">+ New Magazine</a>
+</div>
+
+<table>
+    <thead>
+        <tr><th>Cover</th><th>Title</th><th>Status</th><th>Date</th><th>Actions</th></tr>
+    </thead>
+    <tbody>
+    <% magazines.forEach(mag => { %>
+    <tr>
+        <td>
+            <% if (mag.image) { %>
+            <img src="<%= mag.image %>" style="height:50px;border-radius:4px;border:1px solid #eee" alt="">
+            <% } else { %>
+            <span style="color:#ccc;font-size:12px">No image</span>
+            <% } %>
+        </td>
+        <td>
+            <strong><%= mag.title %></strong>
+            <% if (mag.pdf) { %><br><a href="<%= mag.pdf %>" target="_blank" style="font-size:12px;color:#992785">View PDF</a><% } %>
+        </td>
+        <td><span class="badge badge-<%= mag.status %>"><%= mag.status ? 'Active' : 'Inactive' %></span></td>
+        <td><%= mag.createdAt ? new Date(mag.createdAt).toLocaleDateString('en-GB') : '' %></td>
+        <td>
+            <div class="tbl-actions">
+                <a href="/uvh-back-office/magazines/<%= mag._id %>/edit" class="btn btn-sm btn-secondary">Edit</a>
+                <form method="POST" action="/uvh-back-office/magazines/<%= mag._id %>/delete" style="display:inline" onsubmit="return confirm('Delete this magazine?')">
+                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                </form>
+            </div>
+        </td>
+    </tr>
+    <% }); %>
+    <% if (!magazines.length) { %>
+    <tr><td colspan="5" style="text-align:center;color:#aaa;padding:30px">No magazines yet</td></tr>
+    <% } %>
+    </tbody>
+</table>
+
+</main>
+</div>
+</body>
+</html>

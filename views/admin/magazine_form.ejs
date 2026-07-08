@@ -1,0 +1,64 @@
+<%- include('_head', { pageTitle: magazine ? 'Edit Magazine' : 'New Magazine' }) %>
+<%- include('_nav', { active: 'magazines' }) %>
+
+<div class="content-header">
+    <h2><%= magazine ? 'Edit Magazine' : 'New Magazine' %></h2>
+    <a href="/uvh-back-office/magazines" class="btn btn-secondary">← Back</a>
+</div>
+
+<div class="card" style="max-width:640px">
+    <% if (error) { %><div class="alert-error"><%= error %></div><% } %>
+
+    <form method="POST" action="/uvh-back-office/magazines/<%= magazine ? magazine._id + '/edit' : 'new' %>" enctype="multipart/form-data">
+        <div class="row">
+            <div class="form-group">
+                <label for="title">Title *</label>
+                <input type="text" id="title" name="title" required value="<%= magazine ? magazine.title || '' : '' %>">
+            </div>
+            <div class="form-group">
+                <label for="status">Status</label>
+                <select id="status" name="status">
+                    <option value="ACTIVE"   <%= (!magazine || magazine.status)  ? 'selected' : '' %>>Active</option>
+                    <option value="INACTIVE" <%= (magazine && !magazine.status)  ? 'selected' : '' %>>Inactive</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea id="description" name="description" style="min-height:80px"><%= magazine ? magazine.description || '' : '' %></textarea>
+        </div>
+
+        <div class="row">
+            <div class="form-group">
+                <label for="image">Cover Image</label>
+                <input type="file" id="image" name="image" accept="image/*">
+                <% if (magazine && magazine.image) { %>
+                <div class="current-img">
+                    <img src="<%= magazine.image %>" alt="Current cover">
+                    <p style="font-size:12px;color:#888;margin-top:4px">Upload new to replace</p>
+                </div>
+                <% } %>
+            </div>
+            <div class="form-group">
+                <label for="pdf">PDF File</label>
+                <input type="file" id="pdf" name="pdf" accept="application/pdf">
+                <% if (magazine && magazine.pdf) { %>
+                <div class="current-file">
+                    Current: <a href="<%= magazine.pdf %>" target="_blank">View PDF</a> — upload new to replace
+                </div>
+                <% } %>
+            </div>
+        </div>
+
+        <div class="actions">
+            <button type="submit" class="btn btn-primary"><%= magazine ? 'Save Changes' : 'Create Magazine' %></button>
+            <a href="/uvh-back-office/magazines" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+
+</main>
+</div>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<%- include('_head', { pageTitle: 'Categories' }) %>
+<%- include('_nav', { active: 'categories' }) %>
+
+<div class="content-header">
+    <h2>Categories (<%= categories.length %>)</h2>
+    <a href="/uvh-back-office/categories/new" class="btn btn-primary">+ New Category</a>
+</div>
+
+<table>
+    <thead>
+        <tr><th>Name</th><th>Slug</th><th>Parent</th><th>Order</th><th>Actions</th></tr>
+    </thead>
+    <tbody>
+    <% categories.forEach(cat => { %>
+    <tr>
+        <td><strong><%= cat.name %></strong></td>
+        <td style="color:#888;font-size:13px"><%= cat.slug %></td>
+        <td><%= cat.parent ? cat.parent.name : '—' %></td>
+        <td><%= cat.order %></td>
+        <td>
+            <div class="tbl-actions">
+                <a href="/uvh-back-office/categories/<%= cat._id %>/edit" class="btn btn-sm btn-secondary">Edit</a>
+                <form method="POST" action="/uvh-back-office/categories/<%= cat._id %>/delete" style="display:inline" onsubmit="return confirm('Delete this category?')">
+                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                </form>
+            </div>
+        </td>
+    </tr>
+    <% }); %>
+    <% if (!categories.length) { %>
+    <tr><td colspan="5" style="text-align:center;color:#aaa;padding:30px">No categories yet</td></tr>
+    <% } %>
+    </tbody>
+</table>
+
+</main>
+</div>
+</body>
+</html>

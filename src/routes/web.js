@@ -6,7 +6,9 @@ const blog    = require('../controllers/blogController');
 const admin   = require('../controllers/adminController');
 const jupix   = require('../jobs/jupixRetrieve');
 
-const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 10 * 1024 * 1024 } });
+const upload        = multer({ storage: multer.memoryStorage(), limits: { fileSize: 10 * 1024 * 1024 } });
+const uploadMag     = multer({ storage: multer.memoryStorage(), limits: { fileSize: 20 * 1024 * 1024 } });
+const uploadAny     = multer({ storage: multer.memoryStorage(), limits: { fileSize: 10 * 1024 * 1024 } });
 
 // Homepage
 router.get('/', page.showHome);
@@ -96,15 +98,62 @@ router.get('/thankyouvaluation',  page.showThankyouValuation);
 // File viewer
 router.get('/view-resource/:file', page.viewResource);
 
-// Back office
-router.get('/uvh-back-office',                   admin.loginPage);
-router.post('/uvh-back-office',                  admin.loginPost, (req, res) => res.redirect('/uvh-back-office/posts'));
-router.get('/uvh-back-office/logout',            admin.logout);
-router.get('/uvh-back-office/posts',             ...admin.dashboard);
-router.get('/uvh-back-office/posts/new',         ...admin.newPost);
-router.post('/uvh-back-office/posts/new',        upload.single('image'), ...admin.createPost);
-router.get('/uvh-back-office/posts/:id/edit',    ...admin.editPost);
-router.post('/uvh-back-office/posts/:id/edit',   upload.single('image'), ...admin.updatePost);
+// Back office — auth
+router.get('/uvh-back-office',                              admin.loginPage);
+router.post('/uvh-back-office',                             admin.loginPost, (req, res) => res.redirect('/uvh-back-office/posts'));
+router.get('/uvh-back-office/logout',                       admin.logout);
+
+// Posts
+router.get('/uvh-back-office/posts',                        ...admin.dashboard);
+router.get('/uvh-back-office/posts/new',                    ...admin.newPost);
+router.post('/uvh-back-office/posts/new',                   upload.single('image'), ...admin.createPost);
+router.get('/uvh-back-office/posts/:id/edit',               ...admin.editPost);
+router.post('/uvh-back-office/posts/:id/edit',              upload.single('image'), ...admin.updatePost);
+router.post('/uvh-back-office/posts/:id/delete',            ...admin.deletePost);
+
+// Categories
+router.get('/uvh-back-office/categories',                   ...admin.categoriesList);
+router.get('/uvh-back-office/categories/new',               ...admin.newCategory);
+router.post('/uvh-back-office/categories/new',              ...admin.createCategory);
+router.get('/uvh-back-office/categories/:id/edit',          ...admin.editCategory);
+router.post('/uvh-back-office/categories/:id/edit',         ...admin.updateCategory);
+router.post('/uvh-back-office/categories/:id/delete',       ...admin.deleteCategory);
+
+// Pages
+router.get('/uvh-back-office/pages',                        ...admin.pagesList);
+router.get('/uvh-back-office/pages/new',                    ...admin.newPage);
+router.post('/uvh-back-office/pages/new',                   upload.single('image'), ...admin.createPage);
+router.get('/uvh-back-office/pages/:id/edit',               ...admin.editPage);
+router.post('/uvh-back-office/pages/:id/edit',              upload.single('image'), ...admin.updatePage);
+router.post('/uvh-back-office/pages/:id/delete',            ...admin.deletePage);
+
+// Life Magazines
+router.get('/uvh-back-office/magazines',                    ...admin.magazinesList);
+router.get('/uvh-back-office/magazines/new',                ...admin.newMagazine);
+router.post('/uvh-back-office/magazines/new',               uploadMag.fields([{name:'image',maxCount:1},{name:'pdf',maxCount:1}]), ...admin.createMagazine);
+router.get('/uvh-back-office/magazines/:id/edit',           ...admin.editMagazine);
+router.post('/uvh-back-office/magazines/:id/edit',          uploadMag.fields([{name:'image',maxCount:1},{name:'pdf',maxCount:1}]), ...admin.updateMagazine);
+router.post('/uvh-back-office/magazines/:id/delete',        ...admin.deleteMagazine);
+
+// Settings
+router.get('/uvh-back-office/settings',                     ...admin.settingsPage);
+router.post('/uvh-back-office/settings',                    uploadAny.any(), ...admin.updateSettings);
+
+// Menus
+router.get('/uvh-back-office/menus',                        ...admin.menusList);
+router.get('/uvh-back-office/menus/new',                    ...admin.newMenu);
+router.post('/uvh-back-office/menus/new',                   ...admin.createMenu);
+router.get('/uvh-back-office/menus/:id/edit',               ...admin.editMenu);
+router.post('/uvh-back-office/menus/:id/edit',              ...admin.updateMenu);
+router.post('/uvh-back-office/menus/:id/delete',            ...admin.deleteMenu);
+
+// Users
+router.get('/uvh-back-office/users',                        ...admin.usersList);
+router.get('/uvh-back-office/users/new',                    ...admin.newUser);
+router.post('/uvh-back-office/users/new',                   ...admin.createUser);
+router.get('/uvh-back-office/users/:id/edit',               ...admin.editUser);
+router.post('/uvh-back-office/users/:id/edit',              ...admin.updateUser);
+router.post('/uvh-back-office/users/:id/delete',            ...admin.deleteUser);
 
 // Jupix retrieve (external cron trigger — protected by secret)
 router.get('/retrieve', async (req, res) => {

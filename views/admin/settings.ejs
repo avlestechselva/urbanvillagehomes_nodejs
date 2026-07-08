@@ -1,0 +1,45 @@
+<%- include('_head', { pageTitle: 'Settings' }) %>
+<%- include('_nav', { active: 'settings' }) %>
+
+<div class="content-header">
+    <h2>Settings</h2>
+</div>
+
+<% if (saved) { %><div class="alert-success">Settings saved successfully.</div><% } %>
+<% if (error) { %><div class="alert-error"><%= error %></div><% } %>
+
+<form method="POST" action="/uvh-back-office/settings" enctype="multipart/form-data">
+<% const groups = Object.keys(grouped); %>
+<% groups.forEach(group => { %>
+<div class="card" style="margin-bottom:24px">
+    <h3 style="font-size:15px;font-weight:700;color:#992785;margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid #eee"><%= group %></h3>
+    <% grouped[group].forEach(setting => { %>
+    <div class="form-group">
+        <label for="<%= setting.key %>"><%= setting.label %></label>
+        <% if (setting.type === 'textarea') { %>
+        <textarea id="<%= setting.key %>" name="<%= setting.key %>"><%= setting.value || '' %></textarea>
+        <% } else if (setting.type === 'image') { %>
+        <input type="file" id="file_<%= setting.key %>" name="file_<%= setting.key %>" accept="image/*">
+        <% if (setting.value) { %>
+        <div class="current-img" style="margin-top:8px">
+            <img src="<%= setting.value %>" alt="<%= setting.label %>">
+            <p style="font-size:12px;color:#888;margin-top:4px">Current — upload new to replace</p>
+        </div>
+        <% } %>
+        <% } else { %>
+        <input type="text" id="<%= setting.key %>" name="<%= setting.key %>" value="<%= setting.value || '' %>">
+        <% } %>
+    </div>
+    <% }); %>
+</div>
+<% }); %>
+
+<div class="actions">
+    <button type="submit" class="btn btn-primary">Save Settings</button>
+</div>
+</form>
+
+</main>
+</div>
+</body>
+</html>

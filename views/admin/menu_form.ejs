@@ -1,0 +1,123 @@
+<%- include('_head', { pageTitle: menu ? 'Edit Menu' : 'New Menu' }) %>
+<%- include('_nav', { active: 'menus' }) %>
+
+<style>
+.menu-item{background:#fafafa;border:1px solid #eee;border-radius:8px;padding:16px;margin-bottom:12px}
+.menu-item .row{margin-bottom:0}
+.drag-handle{cursor:grab;color:#ccc;margin-right:8px;font-size:18px;user-select:none}
+.item-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+</style>
+
+<div class="content-header">
+    <h2><%= menu ? 'Edit Menu' : 'New Menu' %></h2>
+    <a href="/uvh-back-office/menus" class="btn btn-secondary">← Back</a>
+</div>
+
+<div class="card">
+    <% if (error) { %><div class="alert-error"><%= error %></div><% } %>
+
+    <form method="POST" action="/uvh-back-office/menus/<%= menu ? menu._id + '/edit' : 'new' %>" id="menuForm">
+        <div class="form-group" style="max-width:400px">
+            <label for="name">Menu Name *</label>
+            <input type="text" id="name" name="name" required value="<%= menu ? menu.name || '' : '' %>">
+        </div>
+
+        <h3 style="font-size:15px;font-weight:700;margin:24px 0 12px">Menu Items</h3>
+        <div id="items">
+        <% const existingItems = (menu && menu.items) ? menu.items : []; %>
+        <% existingItems.forEach((item, i) => { %>
+        <div class="menu-item">
+            <div class="item-header">
+                <span style="font-weight:600;font-size:13px;color:#555">Item <%= i + 1 %></span>
+                <button type="button" onclick="this.closest('.menu-item').remove()" class="btn btn-sm btn-danger">Remove</button>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <label>Label *</label>
+                    <input type="text" name="items[<%= i %>][label]" required value="<%= item.label || '' %>">
+                </div>
+                <div class="form-group">
+                    <label>URL *</label>
+                    <input type="text" name="items[<%= i %>][url]" required value="<%= item.url || '' %>">
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <label>Open in</label>
+                    <select name="items[<%= i %>][target]">
+                        <option value="_self"  <%= item.target !== '_blank' ? 'selected' : '' %>>Same tab</option>
+                        <option value="_blank" <%= item.target === '_blank' ? 'selected' : '' %>>New tab</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Order</label>
+                    <input type="number" name="items[<%= i %>][order]" value="<%= item.order || i %>" min="0">
+                </div>
+            </div>
+        </div>
+        <% }); %>
+        </div>
+
+        <button type="button" class="btn btn-secondary" onclick="addItem()" style="margin-bottom:24px">+ Add Item</button>
+
+        <div class="actions">
+            <button type="submit" class="btn btn-primary"><%= menu ? 'Save Changes' : 'Create Menu' %></button>
+            <a href="/uvh-back-office/menus" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+
+<script>
+let itemCount = <%= (menu && menu.items) ? menu.items.length : 0 %>;
+
+function addItem() {
+    const i = itemCount++;
+    const div = document.createElement('div');
+    div.className = 'menu-item';
+    div.innerHTML = `
+        <div class="item-header">
+            <span style="font-weight:600;font-size:13px;color:#555">New Item</span>
+            <button type="button" onclick="this.closest('.menu-item').remove()" class="btn btn-sm btn-danger">Remove</button>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <label>Label *</label>
+                <input type="text" name="items[${i}][label]" required placeholder="e.g. Home">
+            </div>
+            <div class="form-group">
+                <label>URL *</label>
+                <input type="text" name="items[${i}][url]" required placeholder="e.g. /about">
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <label>Open in</label>
+                <select name="items[${i}][target]">
+                    <option value="_self">Same tab</option>
+                    <option value="_blank">New tab</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Order</label>
+                <input type="number" name="items[${i}][order]" value="${i}" min="0">
+            </div>
+        </div>
+    `;
+    document.getElementById('items').appendChild(div);
+}
+
+// Reindex all items before submit so indices are sequential
+document.getElementById('menuForm').addEventListener('submit', function() {
+    const items = document.querySelectorAll('.menu-item');
+    items.forEach((item, i) => {
+        item.querySelectorAll('[name]').forEach(input => {
+            input.name = input.name.replace(/items\[\d+\]/, `items[${i}]`);
+        });
+    });
+});
+</script>
+
+</main>
+</div>
+</body>
+</html>

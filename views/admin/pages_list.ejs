@@ -1,0 +1,39 @@
+<%- include('_head', { pageTitle: 'Pages' }) %>
+<%- include('_nav', { active: 'pages' }) %>
+
+<div class="content-header">
+    <h2>Pages (<%= pages.length %>)</h2>
+    <a href="/uvh-back-office/pages/new" class="btn btn-primary">+ New Page</a>
+</div>
+
+<table>
+    <thead>
+        <tr><th>Title</th><th>Slug</th><th>Status</th><th>Date</th><th>Actions</th></tr>
+    </thead>
+    <tbody>
+    <% pages.forEach(page => { %>
+    <tr>
+        <td><strong><%= page.title %></strong></td>
+        <td style="color:#888;font-size:13px"><%= page.slug %></td>
+        <td><span class="badge badge-<%= (page.status || '').toLowerCase() %>"><%= page.status %></span></td>
+        <td><%= page.createdAt ? new Date(page.createdAt).toLocaleDateString('en-GB') : '' %></td>
+        <td>
+            <div class="tbl-actions">
+                <a href="/uvh-back-office/pages/<%= page._id %>/edit" class="btn btn-sm btn-secondary">Edit</a>
+                <form method="POST" action="/uvh-back-office/pages/<%= page._id %>/delete" style="display:inline" onsubmit="return confirm('Delete this page?')">
+                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                </form>
+            </div>
+        </td>
+    </tr>
+    <% }); %>
+    <% if (!pages.length) { %>
+    <tr><td colspan="5" style="text-align:center;color:#aaa;padding:30px">No pages yet</td></tr>
+    <% } %>
+    </tbody>
+</table>
+
+</main>
+</div>
+</body>
+</html>

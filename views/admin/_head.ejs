@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title><%= pageTitle %> — Urban Village Admin</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:sans-serif;background:#f4f4f4;color:#333;display:flex;flex-direction:column;min-height:100vh}
+.topbar{background:linear-gradient(135deg,#992785,#E00069);color:#fff;padding:12px 24px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
+.topbar h1{font-size:17px;font-weight:700}
+.topbar a{color:rgba(255,255,255,.85);text-decoration:none;font-size:13px}
+.topbar a:hover{color:#fff}
+.topbar-links{display:flex;gap:20px;align-items:center}
+.layout{display:flex;flex:1}
+.sidebar{width:210px;background:#fff;border-right:1px solid #eee;padding:16px 0;flex-shrink:0;min-height:calc(100vh - 45px)}
+.sidebar a{display:block;padding:9px 20px;font-size:14px;color:#555;text-decoration:none;transition:background .15s,color .15s}
+.sidebar a:hover,.sidebar a.active{background:#f8f0fb;color:#992785;font-weight:600}
+.nav-section{font-size:11px;font-weight:700;color:#bbb;text-transform:uppercase;padding:14px 20px 4px;letter-spacing:.5px}
+.content{flex:1;padding:28px;overflow:auto}
+.content-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
+.content-header h2{font-size:20px;color:#333}
+.card{background:#fff;border-radius:10px;padding:28px;box-shadow:0 2px 8px rgba(0,0,0,.07)}
+.form-group{margin-bottom:18px}
+label{display:block;font-size:13px;font-weight:600;color:#555;margin-bottom:6px}
+input[type=text],input[type=email],input[type=password],input[type=number],input[type=file],select,textarea{width:100%;padding:9px 13px;border:1px solid #ddd;border-radius:7px;font-size:14px;font-family:inherit}
+textarea{min-height:120px;resize:vertical}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+.check-row{display:flex;align-items:center;gap:8px}
+.check-row input{width:auto}
+.btn{display:inline-block;padding:9px 22px;border-radius:7px;font-size:14px;font-weight:600;cursor:pointer;border:none;text-decoration:none;transition:opacity .2s}
+.btn-primary{background:linear-gradient(135deg,#992785,#E00069);color:#fff}
+.btn-primary:hover{opacity:.9}
+.btn-secondary{background:#f0f0f0;color:#333}
+.btn-secondary:hover{background:#e5e5e5}
+.btn-danger{background:#fee2e2;color:#991b1b;border:1px solid #fecaca}
+.btn-danger:hover{background:#fecaca}
+.btn-sm{padding:5px 12px;font-size:12px}
+.actions{display:flex;gap:10px;margin-top:24px}
+.alert-error{background:#fee;border:1px solid #fcc;color:#c00;padding:10px 14px;border-radius:7px;font-size:13px;margin-bottom:18px}
+.alert-success{background:#d1fae5;border:1px solid #6ee7b7;color:#065f46;padding:10px 14px;border-radius:7px;font-size:13px;margin-bottom:18px}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.07)}
+thead{background:#f9f9f9}
+th,td{padding:11px 14px;text-align:left;font-size:14px;border-bottom:1px solid #eee}
+th{font-weight:600;color:#555;font-size:12px;text-transform:uppercase;letter-spacing:.3px}
+tr:last-child td{border-bottom:none}
+.badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600}
+.badge-published,.badge-active,.badge-1{background:#d1fae5;color:#065f46}
+.badge-draft,.badge-inactive,.badge-0{background:#fef3c7;color:#92400e}
+.badge-pending{background:#dbeafe;color:#1e40af}
+.badge-admin{background:#ede9fe;color:#5b21b6}
+.badge-user{background:#f3f4f6;color:#374151}
+.tbl-actions{display:flex;gap:8px}
+.current-img{margin-top:8px}
+.current-img img{max-height:100px;border-radius:6px;border:1px solid #ddd}
+.current-file{margin-top:6px;font-size:12px;color:#888}
+.current-file a{color:#992785}
+</style>
+</head>

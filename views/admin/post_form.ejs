@@ -1,43 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title><%= post ? 'Edit Post' : 'New Post' %> — Admin</title>
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:sans-serif;background:#f4f4f4;color:#333}
-.topbar{background:linear-gradient(135deg,#992785,#E00069);color:#fff;padding:14px 24px;display:flex;justify-content:space-between;align-items:center}
-.topbar h1{font-size:18px}
-.topbar a{color:#fff;text-decoration:none;font-size:13px;opacity:.85}
-.container{max-width:860px;margin:30px auto;padding:0 16px}
-.card{background:#fff;border-radius:12px;padding:30px;box-shadow:0 2px 8px rgba(0,0,0,.08)}
-h2{font-size:20px;margin-bottom:24px;color:#992785}
-.form-group{margin-bottom:18px}
-label{display:block;font-size:13px;font-weight:600;color:#555;margin-bottom:6px}
-input[type=text],input[type=file],select,textarea{width:100%;padding:10px 14px;border:1px solid #ddd;border-radius:8px;font-size:14px;font-family:inherit}
-textarea{min-height:300px;resize:vertical}
-.row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.check-row{display:flex;align-items:center;gap:8px}
-.check-row input{width:auto}
-.btn{display:inline-block;padding:10px 24px;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;border:none;text-decoration:none}
-.btn-primary{background:linear-gradient(135deg,#992785,#E00069);color:#fff}
-.btn-secondary{background:#f0f0f0;color:#333}
-.actions{display:flex;gap:12px;margin-top:24px}
-.error{background:#fee;border:1px solid #fcc;color:#c00;padding:10px 14px;border-radius:8px;font-size:13px;margin-bottom:20px}
-.current-img{margin-top:8px}
-.current-img img{max-height:120px;border-radius:6px;border:1px solid #ddd}
-</style>
-</head>
-<body>
-<div class="topbar">
-    <h1>Urban Village — Blog Admin</h1>
-    <a href="/uvh-back-office/posts">← Back to Posts</a>
-</div>
-<div class="container">
-<div class="card">
+<%- include('_head', { pageTitle: post ? 'Edit Post' : 'New Post' }) %>
+<%- include('_nav', { active: 'posts' }) %>
+
+<div class="content-header">
     <h2><%= post ? 'Edit Post' : 'New Post' %></h2>
-    <% if (error) { %><div class="error"><%= error %></div><% } %>
+    <a href="/uvh-back-office/posts" class="btn btn-secondary">← Back</a>
+</div>
+
+<div class="card">
+    <% if (error) { %><div class="alert-error"><%= error %></div><% } %>
 
     <form method="POST" action="/uvh-back-office/posts/<%= post ? post._id + '/edit' : 'new' %>" enctype="multipart/form-data">
         <div class="form-group">
@@ -82,7 +52,7 @@ textarea{min-height:300px;resize:vertical}
 
         <div class="form-group">
             <label for="body">Body (HTML)</label>
-            <textarea id="body" name="body"><%= post ? post.body || '' : '' %></textarea>
+            <textarea id="body" name="body" style="min-height:320px"><%= post ? post.body || '' : '' %></textarea>
         </div>
 
         <div class="row">
@@ -114,6 +84,8 @@ textarea{min-height:300px;resize:vertical}
         </div>
     </form>
 </div>
+
+</main>
 </div>
 </body>
 </html>

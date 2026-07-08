@@ -1,0 +1,38 @@
+<%- include('_head', { pageTitle: 'Menus' }) %>
+<%- include('_nav', { active: 'menus' }) %>
+
+<div class="content-header">
+    <h2>Menus (<%= menus.length %>)</h2>
+    <a href="/uvh-back-office/menus/new" class="btn btn-primary">+ New Menu</a>
+</div>
+
+<table>
+    <thead>
+        <tr><th>Name</th><th>Slug</th><th>Items</th><th>Actions</th></tr>
+    </thead>
+    <tbody>
+    <% menus.forEach(menu => { %>
+    <tr>
+        <td><strong><%= menu.name %></strong></td>
+        <td style="color:#888;font-size:13px"><%= menu.slug %></td>
+        <td><%= menu.items ? menu.items.length : 0 %> items</td>
+        <td>
+            <div class="tbl-actions">
+                <a href="/uvh-back-office/menus/<%= menu._id %>/edit" class="btn btn-sm btn-secondary">Edit</a>
+                <form method="POST" action="/uvh-back-office/menus/<%= menu._id %>/delete" style="display:inline" onsubmit="return confirm('Delete this menu?')">
+                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                </form>
+            </div>
+        </td>
+    </tr>
+    <% }); %>
+    <% if (!menus.length) { %>
+    <tr><td colspan="4" style="text-align:center;color:#aaa;padding:30px">No menus yet</td></tr>
+    <% } %>
+    </tbody>
+</table>
+
+</main>
+</div>
+</body>
+</html>
