@@ -116,17 +116,15 @@
 
 <script src="/js/jquery-3.3.1.min.js" defer></script>
 <script src="/css/bootstrap-4.1.2/popper.js" defer></script>
-<script src="/plugins/OwlCarousel2-2.3.4/owl.carousel.js" defer></script>
 <script src="/plugins/easing/easing.js" defer></script>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=<%= process.env.GOOGLE_MAPS_KEY || '' %>" defer></script>
 <script src="/js/custom.js" defer></script>
 <script src="/js/jquery.cookiebar.js" defer></script>
 <script type="text/javascript">
-    $(document).ready(function() {
-        $.cookieBar({ message: "We use cookies to track usage and preferences.", acceptText: "I Understand", policyButton: true, policyText: "About Cookies", policyURL: '/cookie-policy', effect: 'slide' });
-        var owl = $('#about-us-carousel').owlCarousel({ loop:true, margin:10, nav:false, autoplay:true, autoplayHoverPause:true, responsive:{ 0:{items:1}, 600:{items:1}, 1000:{items:5} } });
-        $('.custom-next').click(function(){ owl.trigger('next.owl.carousel'); });
-        $('.custom-prev').click(function(){ owl.trigger('prev.owl.carousel',[300]); });
+    window.addEventListener('DOMContentLoaded', function() {
+        if (typeof jQuery !== 'undefined' && typeof jQuery.fn.cookieBar !== 'undefined') {
+            $.cookieBar({ message: "We use cookies to track usage and preferences.", acceptText: "I Understand", policyButton: true, policyText: "About Cookies", policyURL: '/cookie-policy', effect: 'slide' });
+        }
     });
 </script>
 <script src="/js/extra/plugins.js" defer></script>
