@@ -1,6 +1,7 @@
 const Property = require('../models/Property');
 const Resource  = require('../models/Resource');
 const Post      = require('../models/Post');
+const Category  = require('../models/Category');
 const { PropertyType, PropertyAvailability, ResidentialPropertyStyle, RentFrequency } = require('../models/Lookups');
 const nodemailer = require('nodemailer');
 const slugify = require('slugify');
@@ -321,17 +322,44 @@ exports.showVacancies      = simplePage('vacancies', 'Vacancies');
 exports.showFullCharges    = simplePage('full_scale_charges', 'Full Scale Charges');
 exports.showMortgageCalc   = simplePage('mortgage_calculator', 'Mortgage Calculator');
 exports.showStampDutyCalc  = simplePage('stamp_duty_calculator', 'Stamp Duty Calculator');
-const AREA_OPTS = { css_files: ['new_aboutus'] };
-exports.showAreas          = simplePage('areas', 'Areas We Cover', AREA_OPTS);
-exports.showHerneHill      = simplePage('herne_hill', 'Herne Hill', AREA_OPTS);
-exports.showBrixton        = simplePage('brixton', 'Brixton', AREA_OPTS);
-exports.showPeckham        = simplePage('peckham', 'Peckham', AREA_OPTS);
-exports.showDulwich        = simplePage('dulwich', 'Dulwich', AREA_OPTS);
-exports.showLoughborough   = simplePage('loughborough_junction', 'Loughborough Junction', AREA_OPTS);
-exports.showCamberwell     = simplePage('camberwell', 'Camberwell', AREA_OPTS);
-exports.showDenmarkHill    = simplePage('denmark_hill', 'Denmark Hill', AREA_OPTS);
-exports.showStockwell      = simplePage('stockwell', 'Stockwell', AREA_OPTS);
-exports.showWaterloo       = simplePage('waterloo', 'Waterloo', AREA_OPTS);
+const areaPage = (view, title, location) => async (req, res) => {
+    try {
+        const locationRe = new RegExp(location, 'i');
+
+        // Find categories whose name contains the location keyword
+        const cats = await Category.find({ name: locationRe }).lean();
+        const catIds = cats.map(c => c._id);
+
+        // Search by category OR title containing the location name
+        const query = {
+            status: 'PUBLISHED',
+            $or: [
+                ...(catIds.length ? [{ category: { $in: catIds } }] : []),
+                { title: locationRe },
+            ],
+        };
+
+        let posts = await Post.find(query)
+            .sort({ createdAt: -1 }).limit(2).populate('category').lean();
+
+        // Fallback to most recent if still no results
+        if (!posts.length) {
+            posts = await Post.find({ status: 'PUBLISHED' })
+                .sort({ createdAt: -1 }).limit(2).populate('category').lean();
+        }
+        res.render(`pages/${view}`, { page_title: title, posts });
+    } catch (err) { console.error(err); res.status(500).render('errors/500'); }
+};
+exports.showAreas          = simplePage('areas', 'Areas We Cover');
+exports.showHerneHill      = areaPage('herne_hill', 'Herne Hill', 'Herne Hill');
+exports.showBrixton        = areaPage('brixton', 'Brixton', 'Brixton');
+exports.showPeckham        = areaPage('peckham', 'Peckham', 'Peckham');
+exports.showDulwich        = areaPage('dulwich', 'Dulwich', 'Dulwich');
+exports.showLoughborough   = areaPage('loughborough_junction', 'Loughborough Junction', 'Loughborough');
+exports.showCamberwell     = areaPage('camberwell', 'Camberwell', 'Camberwell');
+exports.showDenmarkHill    = areaPage('denmark_hill', 'Denmark Hill', 'Denmark Hill');
+exports.showStockwell      = areaPage('stockwell', 'Stockwell', 'Stockwell');
+exports.showWaterloo       = areaPage('waterloo', 'Waterloo', 'Waterloo');
 exports.showBookValuation  = simplePage('book_a_valuation', 'Book a Valuation');
 exports.showValuationRequest = simplePage('valuation_request', 'Valuation Request');
 exports.showHomeStaging    = simplePage('free_home_staging_consultation', 'Free Home Staging Consultation');

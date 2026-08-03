@@ -1,47 +1,89 @@
 <%- include('../includes/header') %>
 <link rel="stylesheet" href="/css/new_aboutus.css">
-<link rel="stylesheet" href="/css/page_header.css">
-<link rel="stylesheet" href="/css/newhome.css">
 
-<section class="page-header">
-    <div class="container">
-        <h1>Blog</h1>
-    </div>
-</section>
+<div aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/"><i class="fa fa-home"></i> Home</a></li>
+        <% if (typeof tag !== 'undefined' && tag) { %>
+            <li class="breadcrumb-item"><a href="/blog">Blog</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><%= tag.replace(/-/g,' ').replace(/\b\w/g,c=>c.toUpperCase()) %></li>
+        <% } else { %>
+            <li class="breadcrumb-item active" aria-current="page">Blog</li>
+        <% } %>
+    </ol>
+</div>
 
-<div class="container mt-5">
+<div class="container">
     <div class="row">
-        <div class="col-lg-8">
-            <% posts.forEach(function(post) { %>
-            <div class="blog-card mb-4">
-                <% if (post.image) { %><img src="<%= post.image %>" class="img-fluid mb-3" alt="<%= post.title %>"><% } %>
-                <h2><a href="/blog/view/<%= post.slug %>"><%= post.title %></a></h2>
-                <p class="text-muted"><%= post.createdAt ? new Date(post.createdAt).toDateString() : '' %></p>
-                <p><%= post.excerpt || '' %></p>
-                <a href="/blog/view/<%= post.slug %>" class="btn btn-primary">Read More</a>
+        <div class="col-12">
+            <div class="section_title_container">
+                <h1 class="main-title">Urban Village Blog</h1>
+                <p class="empty-pr">&nbsp;</p>
+                <div class="header_title_border"></div>
+                <br/><br/>
             </div>
-            <% }); %>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Posts grid -->
+        <div class="col-md-9">
+            <% if (!posts || posts.length < 1) { %>
+                <h5>No Results Found</h5>
+            <% } else { %>
+                <div class="row">
+                    <% posts.forEach(function(post) { %>
+                    <div class="col-sm-12 col-md-4 mb-4">
+                        <a href="/blog/view/<%= post.slug %>">
+                            <div class="card">
+                                <img class="card-img-top" src="<%= post.image || '/images/placeholder.svg' %>" alt="UVH Blog - <%= post.title %>" onerror="this.src='/images/placeholder.svg'">
+                                <div class="card-body">
+                                    <h4 class="card-title"><%= post.title %></h4>
+                                    <p class="card-subtitle mb-2 text-muted">
+                                        <%= post.createdAt ? new Date(post.createdAt).toLocaleDateString('en-GB', {day:'2-digit',month:'short',year:'numeric'}) : '' %>
+                                        <% if (post.category) { %> | in <a href="/blog/<%= post.category.slug %>"><%= post.category.name %></a><% } %>
+                                    </p>
+                                    <p class="card-text"><%= post.excerpt ? post.excerpt.substring(0, 250) + (post.excerpt.length > 250 ? '...' : '') : '' %></p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <% }); %>
+                </div>
+            <% } %>
 
             <!-- Pagination -->
             <% if (pagination && pagination.lastPage > 1) { %>
-            <nav>
+            <div class="page_nav">
                 <ul class="pagination">
-                    <% for(var i = 1; i <= pagination.lastPage; i++) { %>
+                    <% for (var i = 1; i <= pagination.lastPage; i++) { %>
                     <li class="page-item <%= pagination.page == i ? 'active' : '' %>">
                         <a class="page-link" href="?page=<%= i %>"><%= i %></a>
                     </li>
                     <% } %>
                 </ul>
-            </nav>
+            </div>
             <% } %>
         </div>
-        <div class="col-lg-4">
-            <h4>Categories</h4>
-            <ul class="list-unstyled">
-                <% if (typeof categories !== 'undefined') { categories.forEach(function(cat) { %>
-                <li><a href="/blog/<%= cat.slug %>"><%= cat.name %></a></li>
-                <% }); } %>
-            </ul>
+
+        <!-- Sidebar -->
+        <div class="col-md-3">
+            <div class="sidebar">
+                <div class="extra d-flex flex-column align-items-start justify-content-start">
+                    <div class="extra_button"><a class="color-white">Categories</a></div>
+                    <div class="sidebar_list">
+                        <ul>
+                            <% if (typeof categories !== 'undefined') { categories.forEach(function(cat) { %>
+                            <li><a href="/blog/<%= cat.slug %>">&nbsp;&nbsp;<i class="fa fa-long-arrow-right"></i> <%= cat.name %></a></li>
+                            <% }); } %>
+                        </ul>
+                    </div>
+                </div>
+                <div class="extra d-flex flex-column align-items-start justify-content-start">
+                    <div class="background_image" style="background: url('/images/advertis.jpg'); background-size: cover; background-repeat: no-repeat; margin-top:45px; height: 650px; width:100%;"></div>
+                    <div class="extra_button"><a href="/property/buyers">Need a Property?</a></div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

@@ -1,4 +1,5 @@
 <%- include('../includes/header') %>
+<%- include('../partials/area-styles') %>
 
 <div aria-label="breadcrumb">
     <ol class="breadcrumb">
@@ -6,7 +7,7 @@
         <li class="breadcrumb-item active" aria-current="page">Brixton</li>
     </ol>
 </div>
-
+</div>
 <div class="intro">
     <div class="container">
         <div class="row row-eq-height move_up_top">
@@ -23,8 +24,8 @@
                         <p>Think Brixton could be the place for you? We can help you find your dream property &#x2013; whether you&#x2019;re on the hunt for a family home, a buy-to-let investment, or shared rental accommodation.</p>
                     </div>
                     <div class="mt-3">
-                        <a href="/property/buyers" class="btn btn-primary mr-2">For Sale</a>
-                        <a href="/property/tenants" class="btn btn-outline-primary">To Rent</a>
+                        <a href="/property/buyers" class="area-btn">Properties for sale</a>
+                        <a href="/property/tenants" class="area-btn">Properties for rent</a>
                     </div>
                 </div>
             </div>
@@ -37,43 +38,28 @@
     </div>
 </div>
 
-<div class="services" style="background:#f8f8f8; padding:40px 0;">
+<div class="area-love-section"><div class="area-love-inner">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="section_title_container text-center">
-                    <h2 class="main-title">Why we love Brixton</h2>
-                    <div class="header_title_border" style="margin:0 auto;"></div>
-                </div>
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-4 mb-lg-0">
+                <img src="/images/brixton-min.png" alt="Brixton" class="area-love-img">
             </div>
-        </div>
-        <div class="row mt-4">
-            <div class="col-lg-12 para-justify">
-                <p>What&#x2019;s not to love about the electric, vibrant area of Brixton? Renowned for its diverse culture, bustling market place, independent boutique shops and excellent transport links, there isn&#x2019;t much that Brixton fails to offer.</p>
-                <p>Brixton is just a short train journey into central London, with links via the Victoria Line, mainline rail services and numerous bus routes.</p>
-                <p>For both landlords and homeowners, Brixton has always been a reliable marketplace, with a stable stream of tenants and buyers keen to zone in on the action.</p>
-                <div class="mt-3">
-                    <a href="/contact" class="btn btn-primary">Talk to our team</a>
+            <div class="col-lg-6">
+                <div class="area-love-card">
+                    <h2>Why we love Brixton</h2>
+                    <p>What&#x2019;s not to love about the electric, vibrant area of Brixton? Renowned for its diverse culture, bustling market place, independent boutique shops and excellent transport links, there isn&#x2019;t much that Brixton fails to offer.</p>
+                    <p>Brixton is just a short train journey into central London, with links via the Victoria Line, mainline rail services and numerous bus routes.</p>
+                    <p>For both landlords and homeowners, Brixton has always been a reliable marketplace, with a stable stream of tenants and buyers keen to zone in on the action.</p>
+                    <a href="/contact" class="area-btn-filled">Talk to our team</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<div class="intro" style="background:#fff; padding:40px 0;">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8">
-                <h2>Get a free property valuation</h2>
-                <div class="header_title_border"></div>
-                <p class="mt-3">The London property market is hugely competitive, which means getting your pricing right and pitching to the right audience is key. Aim too high with your asking price, and your property can go stale by sitting too long on the portals. Aim too low, and you could talk yourself out of a considerable profit.</p>
-                <p>Pricing your property is a balancing act, which is why getting an accurate, up-to-date, and research-based valuation is critical.</p>
-                <p>Get in touch with our team to book your free valuation today.</p>
-                <a href="/book-a-valuation" class="btn btn-primary mt-2">Book a Free Valuation</a>
-            </div>
-        </div>
-    </div>
 </div>
+
+<%- include('../partials/area-valuation') %>
 
 <%- include('../partials/area-guides') %>
 

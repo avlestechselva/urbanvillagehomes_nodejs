@@ -1,0 +1,265 @@
+<style>
+/* Intro text */
+.intro p, .services p, .intro_text p { color: #333 !important; }
+h2.main-title { font-size: 28px !important; color: #333; }
+
+/* Hero heading */
+.section_subtitle {
+    font-family: 'DM Serif Display', serif;
+    font-size: 32px;
+    font-weight: 400;
+    color: #992785;
+    text-transform: none;
+    letter-spacing: 0;
+    margin-bottom: 4px;
+}
+.section_title h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 58px;
+    font-weight: 700;
+    color: #992785;
+    line-height: 1.1;
+    margin: 0 0 16px;
+}
+
+/* Hide the yellow divider on area pages */
+.section_title_container .header_title_border { display: none; }
+
+/* Pill buttons */
+.area-btn {
+    display: inline-block;
+    padding: 10px 28px;
+    border-radius: 50px;
+    border: 1.5px solid #ddd;
+    background: #f5f5f5;
+    color: #992785 !important;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background .2s, border-color .2s;
+    margin-right: 12px;
+}
+.area-btn:hover {
+    background: #992785;
+    color: #fff !important;
+    border-color: #992785;
+    text-decoration: none;
+}
+
+/* Valuation CTA section */
+.our-story {
+    background: #190D2F 0% 0% no-repeat padding-box;
+    opacity: 1;
+    padding: 60px !important;
+    text-align: center;
+}
+.our-story .body-component {
+    margin: 20px;
+    position: relative;
+    z-index: 1;
+}
+.our-story h2 {
+    text-align: center;
+    font: normal normal normal 35px/1.2 'DM Serif Display', serif !important;
+    letter-spacing: 0.84px;
+    color: #AFB700;
+    opacity: 1;
+    position: relative;
+    z-index: 1;
+}
+.our-story p {
+    text-align: center;
+    font: 18px 'Outfit', sans-serif !important;
+    letter-spacing: 0;
+    color: #FFFFFF !important;
+}
+.our-story img {
+    position: absolute;
+    top: -37px;
+    left: 47%;
+    height: 80px;
+}
+.valuation {
+    background-image: url('/images/about-us/devider_imagers.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+}
+.valuation::before {
+    content: '';
+    background: rgba(0,0,0,0.5);
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+.valuation p {
+    text-align: center;
+    letter-spacing: 0;
+    color: #FFFFFF !important;
+    opacity: 1;
+    padding: 0 30%;
+}
+.valuation .book-now {
+    display: inline-flex;
+    width: 193px !important;
+    height: 37px !important;
+    text-align: center;
+    font: normal normal 600 19px 'Outfit', sans-serif;
+    background: #AFB700;
+    color: #fff !important;
+    border-radius: 28px;
+    opacity: 0.8;
+    text-decoration: none;
+    justify-content: center;
+    align-items: center;
+}
+.valuation .book-now:hover { background-color: #afb700c7; }
+@media (max-width: 768px) {
+    .our-story { padding: 60px 20px !important; }
+    .our-story img { top: -28px; left: 43%; height: 54px; }
+    .our-story h2 { font-size: 24px !important; }
+    .our-story p { font-size: 14px !important; }
+    .our-story .body-component { margin: -8px; }
+    .valuation { background-attachment: local; }
+    .valuation p { padding: 0 4%; }
+    .valuation .book-now { width: 170px !important; height: 28px !important; font-size: 15px; }
+}
+
+/* Fix top spacing */
+.move_up_top { margin-top: 0 !important; padding-top: 30px; }
+
+/* Property market section */
+.property-market-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 20px;
+    text-align: center;
+}
+.property-market-section h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: #992785;
+    margin-bottom: 32px;
+}
+.property-market-container {
+    display: flex;
+    gap: 28px;
+}
+.property-card {
+    flex: 1;
+    text-align: left;
+}
+.property-card-img-wrap {
+    display: block;
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+}
+.property-card img.profile-image {
+    width: 100%;
+    height: 290px;
+    object-fit: cover;
+    display: block;
+}
+.property-card-overlay {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    max-width: 75%;
+    background: rgba(175, 183, 0, 0.92);
+    padding: 14px 20px;
+}
+.property-card-overlay span {
+    color: #fff;
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1.3;
+    display: block;
+}
+.property-card-content {
+    padding: 14px 4px 0;
+}
+.property-card .category {
+    font-size: 13px;
+    color: #555;
+    display: block;
+    margin-bottom: 6px;
+}
+.property-card .read-time { color: #e00069; font-weight: 600; }
+.property-card h3 {
+    font-size: 16px !important;
+    font-weight: 700;
+    color: #111;
+    margin: 0;
+    line-height: 1.4;
+}
+.property-card h3 a { color: inherit; }
+.property-card h3 a:hover { color: #992785; }
+@media (max-width: 767px) {
+    .property-market-container { flex-direction: column; }
+    .property-card-overlay { max-width: 90%; }
+}
+
+/* Why we love section */
+.area-love-section {
+    background: #fff;
+    padding: 40px 20px;
+}
+.area-love-inner {
+    background: #16072e;
+    border-radius: 20px;
+    padding: 50px 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.area-love-img {
+    width: 100%;
+    height: 100%;
+    min-height: 320px;
+    max-height: 480px;
+    object-fit: cover;
+    border-radius: 12px;
+    display: block;
+}
+.area-love-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 40px;
+    height: 100%;
+}
+.area-love-card h2 {
+    font-family: 'DM Serif Display', serif !important;
+    font-size: 32px !important;
+    font-weight: 700 !important;
+    color: #992785 !important;
+    margin-bottom: 20px;
+}
+.area-love-card p {
+    color: #333 !important;
+    font-size: 15px;
+    line-height: 1.7;
+    margin-bottom: 14px;
+}
+.area-btn-filled {
+    display: inline-block;
+    padding: 12px 32px;
+    border-radius: 50px;
+    background: #e00069;
+    color: #fff !important;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    margin-top: 8px;
+    transition: background .2s;
+}
+.area-btn-filled:hover {
+    background: #b8005a;
+    color: #fff !important;
+    text-decoration: none;
+}
+</style>
