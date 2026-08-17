@@ -9,6 +9,10 @@
     { "src": "/js/(.*)",      "dest": "/public/js/$1" },
     { "src": "/images/(.*)",  "dest": "/public/images/$1" },
     { "src": "/plugins/(.*)", "dest": "/public/plugins/$1" },
+    { "src": "/robots.txt",         "dest": "/public/robots.txt" },
+    { "src": "/llms.txt",           "dest": "/public/llms.txt" },
+    { "src": "/sitemap.xml",        "dest": "app.js" },
+    { "src": "/sitemap_index.xml",  "dest": "app.js" },
     { "src": "/more_details.php(.*)", "dest": "app.js" },
     { "src": "/(.*)", "dest": "app.js" }
   ],
