@@ -1,0 +1,11 @@
+User-agent: *
+Disallow: /uvh-back-office/
+Disallow: /retrieve
+Disallow: /send-contact-request
+Disallow: /send-valuation-request
+Disallow: /send-home-staging-consultation-request
+Disallow: /send-class-list-request
+Disallow: /property-valuation-submit
+Disallow: /calculate-stamp-duty
+
+Sitemap: https://www.urbanvillagehomes.com/sitemap.xml

@@ -5,10 +5,86 @@ const page    = require('../controllers/pageController');
 const blog    = require('../controllers/blogController');
 const admin   = require('../controllers/adminController');
 const jupix   = require('../jobs/jupixRetrieve');
+const Post    = require('../models/Post');
 
 const upload        = multer({ storage: multer.memoryStorage(), limits: { fileSize: 10 * 1024 * 1024 } });
 const uploadMag     = multer({ storage: multer.memoryStorage(), limits: { fileSize: 20 * 1024 * 1024 } });
 const uploadAny     = multer({ storage: multer.memoryStorage(), limits: { fileSize: 10 * 1024 * 1024 } });
+
+// Sitemap
+router.get('/sitemap.xml', async (req, res) => {
+    const base = 'https://www.urbanvillagehomes.com';
+    const today = new Date().toISOString().split('T')[0];
+
+    const staticUrls = [
+        { loc: '/',                          priority: '1.0', changefreq: 'daily' },
+        { loc: '/property/buyers',           priority: '0.9', changefreq: 'daily' },
+        { loc: '/property/tenants',          priority: '0.9', changefreq: 'daily' },
+        { loc: '/book-a-valuation',          priority: '0.9', changefreq: 'monthly' },
+        { loc: '/new-aboutus',               priority: '0.8', changefreq: 'monthly' },
+        { loc: '/meet-the-team',             priority: '0.7', changefreq: 'monthly' },
+        { loc: '/sellers',                   priority: '0.8', changefreq: 'monthly' },
+        { loc: '/landlords',                 priority: '0.8', changefreq: 'monthly' },
+        { loc: '/contact',                   priority: '0.7', changefreq: 'monthly' },
+        { loc: '/blog',                      priority: '0.8', changefreq: 'weekly' },
+        { loc: '/areas',                     priority: '0.7', changefreq: 'monthly' },
+        { loc: '/camberwell',                priority: '0.8', changefreq: 'monthly' },
+        { loc: '/brixton',                   priority: '0.8', changefreq: 'monthly' },
+        { loc: '/herne-hill',                priority: '0.8', changefreq: 'monthly' },
+        { loc: '/denmark-hill',              priority: '0.8', changefreq: 'monthly' },
+        { loc: '/dulwich',                   priority: '0.8', changefreq: 'monthly' },
+        { loc: '/peckham',                   priority: '0.8', changefreq: 'monthly' },
+        { loc: '/stockwell',                 priority: '0.8', changefreq: 'monthly' },
+        { loc: '/waterloo',                  priority: '0.8', changefreq: 'monthly' },
+        { loc: '/loughborough-junction',     priority: '0.8', changefreq: 'monthly' },
+        { loc: '/free-home-staging-consultation', priority: '0.6', changefreq: 'monthly' },
+        { loc: '/mortgage-calculator',       priority: '0.6', changefreq: 'monthly' },
+        { loc: '/stamp-duty-calculator',     priority: '0.6', changefreq: 'monthly' },
+        { loc: '/market-updates',            priority: '0.7', changefreq: 'weekly' },
+        { loc: '/privacy-policy',            priority: '0.3', changefreq: 'yearly' },
+        { loc: '/terms-and-condition',       priority: '0.3', changefreq: 'yearly' },
+        { loc: '/cookie-policy',             priority: '0.3', changefreq: 'yearly' },
+        { loc: '/complaints-procedure',      priority: '0.3', changefreq: 'yearly' },
+        { loc: '/full-scale-charges',        priority: '0.4', changefreq: 'yearly' },
+        { loc: '/vacancies',                 priority: '0.4', changefreq: 'monthly' },
+    ];
+
+    const posts = await Post.find({ status: 'PUBLISHED' }).select('slug updatedAt').lean();
+
+    const urlTags = [
+        ...staticUrls.map(u => `
+  <url>
+    <loc>${base}${u.loc}</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>${u.changefreq}</changefreq>
+    <priority>${u.priority}</priority>
+  </url>`),
+        ...posts.map(p => `
+  <url>
+    <loc>${base}/blog/view/${p.slug}</loc>
+    <lastmod>${p.updatedAt ? new Date(p.updatedAt).toISOString().split('T')[0] : today}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>`),
+    ].join('');
+
+    res.setHeader('Content-Type', 'application/xml');
+    res.send(`<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${urlTags}
+</urlset>`);
+});
+
+// Sitemap index (alias)
+router.get('/sitemap_index.xml', (req, res) => {
+    res.setHeader('Content-Type', 'application/xml');
+    res.send(`<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <sitemap>
+    <loc>https://www.urbanvillagehomes.com/sitemap.xml</loc>
+    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
+  </sitemap>
+</sitemapindex>`);
+});
 
 // Homepage
 router.get('/', page.showHome);
