@@ -75,7 +75,11 @@ async function processProperty(data, now) {
     const epcGraphs  = Array.isArray(data.epcGraphs)  ? data.epcGraphs  : [];
     const brochures  = Array.isArray(data.brochures)  ? data.brochures  : [];
 
-    // Deduplicate by URL before processing
+    // Wipe existing resources for this property and re-insert fresh — prevents
+    // duplicates caused by multiple <images> blocks in the Jupix XML feed
+    await Resource.deleteMany({ propertyID });
+
+    // Deduplicate by URL before inserting
     const uniqueImages     = images.filter((v,i,a) => a.findIndex(x => x.image === v.image) === i);
     const uniqueFloorplans = floorplans.filter((v,i,a) => a.findIndex(x => x.floorplan === v.floorplan) === i);
     const uniqueEpcGraphs  = epcGraphs.filter((v,i,a) => a.findIndex(x => x.epcGraph === v.epcGraph) === i);
