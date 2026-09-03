@@ -240,10 +240,11 @@ exports.getSingleProperty = async (req, res) => {
             property.images = rawImgs ? rawImgs.map(i => i.image) : [];
         } catch { property.images = []; }
 
-        if (images.length) property.images = images;
-        property.floorplans = floorplans;
-        property.epcGraphs  = epcGraphs;
-        property.brochures  = brochures;
+        // Deduplicate images preserving order
+        if (images.length) property.images = [...new Set(images)];
+        property.floorplans = [...new Set(floorplans)];
+        property.epcGraphs  = [...new Set(epcGraphs)];
+        property.brochures  = [...new Set(brochures)];
 
         // Lookups
         const pt = await PropertyType.findOne({ group_id: property.propertyType, department: property.department });

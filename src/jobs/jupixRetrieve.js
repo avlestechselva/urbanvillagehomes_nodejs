@@ -75,10 +75,16 @@ async function processProperty(data, now) {
     const epcGraphs  = Array.isArray(data.epcGraphs)  ? data.epcGraphs  : [];
     const brochures  = Array.isArray(data.brochures)  ? data.brochures  : [];
 
-    await processMediaType(propertyID, images,     'image',    'image',    'images',     now);
-    await processMediaType(propertyID, floorplans, 'floorplan','floorplan','floorplans', now);
-    await processMediaType(propertyID, epcGraphs,  'epcGraph', 'epcGraph', 'epcGraphs',  now);
-    await processMediaType(propertyID, brochures,  'brochure', 'brochure', 'brochures',  now);
+    // Deduplicate by URL before processing
+    const uniqueImages     = images.filter((v,i,a) => a.findIndex(x => x.image === v.image) === i);
+    const uniqueFloorplans = floorplans.filter((v,i,a) => a.findIndex(x => x.floorplan === v.floorplan) === i);
+    const uniqueEpcGraphs  = epcGraphs.filter((v,i,a) => a.findIndex(x => x.epcGraph === v.epcGraph) === i);
+    const uniqueBrochures  = brochures.filter((v,i,a) => a.findIndex(x => x.brochure === v.brochure) === i);
+
+    await processMediaType(propertyID, uniqueImages,     'image',    'image',    'images',     now);
+    await processMediaType(propertyID, uniqueFloorplans, 'floorplan','floorplan','floorplans', now);
+    await processMediaType(propertyID, uniqueEpcGraphs,  'epcGraph', 'epcGraph', 'epcGraphs',  now);
+    await processMediaType(propertyID, uniqueBrochures,  'brochure', 'brochure', 'brochures',  now);
 
     return { images: images.length, floorplans: floorplans.length, brochures: brochures.length };
 }
