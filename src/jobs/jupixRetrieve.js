@@ -9,11 +9,34 @@ const sax     = require('sax');
 const Property = require('../models/Property');
 const Resource = require('../models/Resource');
 
+function isValidImageUrl(fileUrl) {
+    return new Promise((resolve) => {
+        const proto = fileUrl.startsWith('https') ? https : http;
+        const req = proto.request(fileUrl, { method: 'HEAD', timeout: 5000 }, (res) => {
+            const ct = (res.headers['content-type'] || '').toLowerCase();
+            // Reject SVGs (Jupix placeholder) and anything that isn't an image
+            resolve(ct.startsWith('image/') && !ct.includes('svg'));
+        });
+        req.on('error', () => resolve(false));
+        req.on('timeout', () => { req.destroy(); resolve(false); });
+        req.end();
+    });
+}
+
 async function processMediaType(propertyID, items, type, urlKey, subDir, now) {
     for (let k = 0; k < items.length; k++) {
         const item = items[k];
         const fileUrl = item[urlKey];
         if (!fileUrl) continue;
+
+        // Skip placeholder images (Jupix returns SVG pin for deleted images)
+        if (type === 'image') {
+            const valid = await isValidImageUrl(fileUrl);
+            if (!valid) {
+                console.log(`[Jupix] Skipping invalid image for ${propertyID}: ${fileUrl}`);
+                continue;
+            }
+        }
 
         const existing = await Resource.findOne({ propertyID, url: fileUrl, type });
 
