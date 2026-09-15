@@ -251,6 +251,19 @@
     </div>
 </div>
 
+<% if (typeof urlType !== 'undefined' && urlType === 'tenants') { %>
+<div class="container mb-5">
+    <a href="/pdf/Tenant-fees-Assured-Shorthold-Tenancies-V3.4.pdf" style="text-decoration:none;" target="_blank">
+        <div style="background:linear-gradient(135deg,#992785,#E00069);border-radius:12px;padding:20px 24px;margin:20px 0;cursor:pointer;">
+            <div class="d-flex justify-content-between align-items-center">
+                <p style="color:#fff;margin:0;font-weight:600;">Tenant fees and charges</p>
+                <img src="/images/icons/white-chevron.png" alt="">
+            </div>
+        </div>
+    </a>
+</div>
+<% } %>
+
 <script>
 function toggleFavorite(btn, propertyId) {
     btn.classList.toggle('active');
