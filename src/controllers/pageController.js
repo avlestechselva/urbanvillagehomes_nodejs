@@ -87,7 +87,7 @@ function buildPropertyQuery(req, urlType) {
     // Department + availability defaults based on page type
     if (urlType === 'buyers') {
         query.department = 'Sales';
-        query.availability = { $in: [2, 3, '2', '3'] }; // For Sale, Under Offer
+        query.availability = { $in: [2, 3, 4, 5, '2', '3', '4', '5'] }; // For Sale, Under Offer, Sold STC, Sold
     } else if (urlType === 'tenants') {
         query.department = 'Lettings';
         query.availability = { $in: [2, 3, 4, '2', '3', '4'] }; // To Let, References Pending, Let Agreed
